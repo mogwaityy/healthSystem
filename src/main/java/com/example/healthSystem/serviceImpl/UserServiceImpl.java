@@ -30,4 +30,9 @@ public class UserServiceImpl implements IUserService {
 
         return false;
     }
+
+    @Override
+    public Boolean testSql() {
+        return patientMapper.selectList(null).size() > 0;
+    }
 }

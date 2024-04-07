@@ -27,5 +27,11 @@ public class UserController {
         return ApiResponse.error(400, "Register failed");
     }
 
+    @ResponseBody
+    @RequestMapping("/testSql")
+    public ApiResponse<String> testSql() {
+        userService.testSql();
+        return ApiResponse.success("Test success");
+    }
 
 }

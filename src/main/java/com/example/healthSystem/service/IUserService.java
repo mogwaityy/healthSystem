@@ -8,4 +8,5 @@ import java.util.List;
 public interface IUserService {
 
     Boolean patientRegister(Patient patient);
+    Boolean testSql();
 }
