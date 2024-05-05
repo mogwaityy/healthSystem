@@ -6,27 +6,23 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 @Data
-@TableName(value = "patient")
-public class Patient {
-    @TableId(value = "patient_id")
-    private String patient_id;
+@TableName("doctor")
+public class Doctor {
+    @TableId("doctor_id")
+    private String doctorId;
 
-    @TableField
+    @TableField("name")
     private String name;
 
-    @TableField
-    private String birth;
+    @TableField("specialty")
+    private String specialty;
 
-    @TableField
-    private String address;
+    @TableField("introduction")
+    private String introduction;
 
-    @TableField
+    @TableField("email")
     private String email;
 
-    @TableField
+    @TableField("password")
     private String password;
-
-    @TableField
-    private Integer gender;
-
 }

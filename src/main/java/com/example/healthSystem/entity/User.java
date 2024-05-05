@@ -7,19 +7,17 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 @Data
-@TableName(value = "user")
 public class User {
-    @TableId(value = "id",type = IdType.AUTO)
     private int id;
-    @TableField(value = "name")
-    private String name;
-    @TableField(value = "password")
+    private String email;
     private String password;
+    private String role;
 
-    public User(int id, String name, String password) {
+    public User(int id, String name, String password,String role) {
         this.id = id;
-        this.name = name;
+        this.email = name;
         this.password = password;
+        this.role=role;
     }
 
 }

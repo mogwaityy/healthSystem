@@ -8,9 +8,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 @Mapper
-public interface PatientMapper extends BaseMapper<Patient> {
+public interface AdminMapper extends BaseMapper<Patient> {
     //User getInfo(String name, String password);
-
     @Select("SELECT * FROM admin WHERE email = #{email} AND password = #{password}")
     User findUserByEmailAndPassword(@Param("email") String Email, @Param("password") String password);
 
