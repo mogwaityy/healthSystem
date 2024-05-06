@@ -2,10 +2,10 @@
 
 spring:
   mail:
-    host: smtp.qq.com
+    host: smtp.163.com
     port: 465
-    username: 2972813209@qq.com
-    password: 12233
+    username: myeclinic@163.com
+    password: QSUNWKPUSXYEMAOY
     protocol: smtp
     default-encoding: UTF-8
     properties:

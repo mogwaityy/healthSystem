@@ -4,13 +4,15 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
 @TableName("appointment")
 public class Appointment {
     @TableId("appointment_id")
-    private Long appointmentId;
+    private Double appointmentId;
 
     @TableField("patient_id")
     private String patientId;
@@ -19,7 +21,7 @@ public class Appointment {
     private String doctorId;
 
     @TableField("date")
-    private Date date;
+    private LocalDateTime date;
 
     @TableField("description")
     private String description;

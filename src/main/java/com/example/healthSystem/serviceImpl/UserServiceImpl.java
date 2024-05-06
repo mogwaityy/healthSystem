@@ -139,14 +139,31 @@ public class UserServiceImpl implements IUserService {
         updateWrapper.set("status", status); // 设置更新的字段
         patientMapper.update(null, updateWrapper);
         Patient patient=patientMapper.selectById(patientId);
-//        if (status==1)sendSimpleMessage(patient.getEmail(),"Register Success","Success");
-//        if (status==2)sendSimpleMessage(patient.getEmail(),"Regsiter failed","failed");
+        if (status==1)sendSimpleMessage(patient.getEmail(),"Register Success","Success");
+        if (status==2)sendSimpleMessage(patient.getEmail(),"Regsiter failed","failed");
         return ApiResponse.success(null);
+    }
+
+    @Override
+    public ApiResponse<List<Doctor>> getAllDoctor() {
+        return ApiResponse.success(doctorMapper.selectList(null));
+    }
+
+    @Override
+    public ApiResponse<String> addDoctor(Doctor doctor) {
+        String doctorId=CommonFunction.generateId();
+        doctor.setDoctorId(doctorId);
+        doctorMapper.insert(doctor);
+        UserRole userRole=new UserRole();
+        userRole.setRole("doctor");
+        userRole.setId(doctorId);
+        userRoleMapper.insert(userRole);
+        return ApiResponse.success("添加医生成功");
     }
 
     public void sendSimpleMessage(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("2972813209@qq.com");
+        message.setFrom("myeclinic@163.com");
         message.setTo(to);
         message.setSubject(subject);
         message.setText(text);

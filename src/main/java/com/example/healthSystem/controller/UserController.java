@@ -62,6 +62,20 @@ public class UserController {
     }
 
 
+    @SaIgnore
+    @ResponseBody
+    @RequestMapping("/getAllDoctor")
+    public ApiResponse<List<Doctor>> getAllDoctor() {
+        return userService.getAllDoctor();
+    }
+
+    @SaIgnore
+    @ResponseBody
+    @RequestMapping("/addDoctor")
+    public ApiResponse<String> addDoctor(@RequestBody Doctor doctor) {
+        return userService.addDoctor(doctor);
+    }
+
 
 //    @SaIgnore
 //    @RequestMapping("/adminlogin")

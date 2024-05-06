@@ -3,10 +3,7 @@ package com.example.healthSystem.controller;
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.healthSystem.common.ApiResponse;
-import com.example.healthSystem.entity.Appointment;
-import com.example.healthSystem.entity.MedicinePrescription;
-import com.example.healthSystem.entity.MyPageDTO;
-import com.example.healthSystem.entity.Prescription;
+import com.example.healthSystem.entity.*;
 import com.example.healthSystem.service.IAppointmentService;
 import com.example.healthSystem.service.IPrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +33,19 @@ public class AppointmentController {
     @RequestMapping("/bookAppointment")
     public ApiResponse<String> bookAppointment(@RequestBody Appointment appointment) {
         return appointmentService.bookAppointment(appointment);
+    }
+
+    //病人预约看病
+    @ResponseBody
+    @RequestMapping("/updateDoctorSchedule")
+    public ApiResponse<String> updateDoctorSchedule(@RequestBody DoctorSchedule doctorSchedule) {
+        return appointmentService.updateDoctorSchedule(doctorSchedule);
+    }
+
+    @ResponseBody
+    @RequestMapping("/getDoctorSchedule")
+    public ApiResponse<List<DoctorSchedule>> getDoctorSchedule(@RequestBody String doctorId) {
+        return appointmentService.getDoctorSchedule(doctorId);
     }
 
 
