@@ -39,7 +39,8 @@ public class UserServiceImpl implements IUserService {
     private JavaMailSender mailSender;
 
     @Override
-    public ApiResponse<String> patientRegister(Patient patient) {
+    public ApiResponse<String> patientRegister(PatientRegisterDTO patientRegisterDTO) {
+        Patient patient=patientRegisterDTO.getPatient();
         if (StringUtils.hasText(patient.getEmail())&&StringUtils.hasText(patient.getName()) && StringUtils.hasText(patient.getPassword())) {
             if (patientMapper.existsByEmail(patient.getEmail())){
                 return ApiResponse.error(400,"邮箱已被注册");
@@ -53,6 +54,11 @@ public class UserServiceImpl implements IUserService {
             userRole.setId(id);
             userRole.setRole("patient");
             userRoleMapper.insert(userRole);
+            //插入到medicalHistory表
+            MedicalHistory medicalHistory=new MedicalHistory();
+            medicalHistory.setPatientId(patient.getPatient_id());
+            medicalHistory.setDescription(patientRegisterDTO.getMedicalHistory());
+            medicalHistoryMapper.insert(medicalHistory);
             return ApiResponse.success("register success");
         }
 

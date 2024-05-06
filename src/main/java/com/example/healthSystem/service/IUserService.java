@@ -3,6 +3,7 @@ package com.example.healthSystem.service;
 import com.example.healthSystem.common.ApiResponse;
 import com.example.healthSystem.entity.Patient;
 import com.example.healthSystem.entity.PatientInfo;
+import com.example.healthSystem.entity.PatientRegisterDTO;
 import com.example.healthSystem.entity.User;
 import com.google.protobuf.Api;
 
@@ -10,7 +11,7 @@ import java.util.List;
 
 public interface IUserService {
 
-    ApiResponse<String> patientRegister(Patient patient);
+    ApiResponse<String> patientRegister(PatientRegisterDTO patientRegisterDTO);
     Boolean testSql();
 
     ApiResponse<String> login(User user);

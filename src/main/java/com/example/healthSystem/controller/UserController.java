@@ -5,10 +5,7 @@ import cn.dev33.satoken.annotation.SaCheckRole;
 import cn.dev33.satoken.annotation.SaIgnore;
 import cn.dev33.satoken.stp.StpUtil;
 import com.example.healthSystem.common.ApiResponse;
-import com.example.healthSystem.entity.Patient;
-import com.example.healthSystem.entity.PatientInfo;
-import com.example.healthSystem.entity.ReviewRegisterDTO;
-import com.example.healthSystem.entity.User;
+import com.example.healthSystem.entity.*;
 import com.example.healthSystem.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,8 +26,8 @@ public class UserController {
     @SaIgnore
     @ResponseBody
     @RequestMapping("/patientRegister")
-    public ApiResponse<String> patientRegister(@RequestBody Patient patient) {
-        return userService.patientRegister(patient);
+    public ApiResponse<String> patientRegister(@RequestBody PatientRegisterDTO patientRegisterDTO) {
+        return userService.patientRegister(patientRegisterDTO);
     }
 
     @ResponseBody
