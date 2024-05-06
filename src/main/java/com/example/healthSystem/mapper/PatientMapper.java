@@ -25,4 +25,6 @@ public interface PatientMapper extends BaseMapper<Patient> {
 
     @Select("SELECT * FROM patient WHERE id = #{id}")
     Patient findPatientById(@Param("id") String id);
+
+
 }
