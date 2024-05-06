@@ -1,8 +1,10 @@
 package com.example.healthSystem.serviceImpl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.healthSystem.common.ApiResponse;
 import com.example.healthSystem.common.CommonFunction;
 import com.example.healthSystem.entity.MedicinePrescription;
+import com.example.healthSystem.entity.PatientPrescription;
 import com.example.healthSystem.entity.Prescription;
 import com.example.healthSystem.mapper.MedicalHistoryMapper;
 import com.example.healthSystem.mapper.MedicinePrescriptionMapper;
@@ -36,5 +38,16 @@ public class PrescriptionServiceImpl implements IPrescriptionService {
             medicinePrescriptionMapper.insert(medicinpre);
         }
         return ApiResponse.success("处方添加成功");
+    }
+
+    @Override
+    public ApiResponse<PatientPrescription> getPrescription(String prescriptionId) {
+        PatientPrescription patientPrescription=new PatientPrescription();
+        patientPrescription.setPrescription(prescriptionMapper.selectById(prescriptionId));
+        QueryWrapper<MedicinePrescription> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("prescription_id",prescriptionId);
+        List<MedicinePrescription> medicinePrescriptions=medicinePrescriptionMapper.selectList(queryWrapper);
+        patientPrescription.setMedicinePrescriptions(medicinePrescriptions);
+        return ApiResponse.success(patientPrescription);
     }
 }

@@ -3,6 +3,7 @@ package com.example.healthSystem.controller;
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.example.healthSystem.common.ApiResponse;
 import com.example.healthSystem.entity.MedicinePrescription;
+import com.example.healthSystem.entity.PatientPrescription;
 import com.example.healthSystem.entity.Prescription;
 import com.example.healthSystem.service.IOptionalService;
 import com.example.healthSystem.service.IPrescriptionService;
@@ -25,6 +26,12 @@ public class PrescriptionController {
     @RequestMapping("/addPrescription")
     public ApiResponse<String> addPrescription(@RequestBody Prescription prescription, @RequestBody List<MedicinePrescription> medicinePrescriptions) {
         return prescriptionService.addPrescription(prescription,medicinePrescriptions);
+    }
+
+    @ResponseBody
+    @RequestMapping("/getPrescription")
+    public ApiResponse<PatientPrescription> getPrescription(@RequestBody String prescriptionId) {
+        return prescriptionService.getPrescription(prescriptionId);
     }
 
 
