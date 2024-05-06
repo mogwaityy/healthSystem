@@ -23,4 +23,10 @@ public class TestResult {
 
     @TableField("test_result")
     private String testResult;
+
+    @TableField("test_type")
+    private String testType;
+
+    @TableField("normal_range")
+    private String normalRange;
 }

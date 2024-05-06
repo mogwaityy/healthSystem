@@ -1,17 +1,17 @@
 package com.example.healthSystem.serviceImpl;
 
 import cn.dev33.satoken.stp.StpUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.healthSystem.common.ApiResponse;
-import com.example.healthSystem.entity.Patient;
-import com.example.healthSystem.entity.User;
-import com.example.healthSystem.mapper.AdminMapper;
-import com.example.healthSystem.mapper.DoctorMapper;
-import com.example.healthSystem.mapper.PatientMapper;
+import com.example.healthSystem.entity.*;
+import com.example.healthSystem.mapper.*;
 import com.example.healthSystem.service.IUserService;
 import org.springframework.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.healthSystem.common.CommonFunction;
+
+import java.util.List;
 
 
 @Service
@@ -26,17 +26,34 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private AdminMapper adminMapper;
 
+    @Autowired
+    private UserRoleMapper userRoleMapper;
+
+    @Autowired
+    private MedicalHistoryMapper medicalHistoryMapper;
+
+
+
 
     @Override
-    public Boolean patientRegister(Patient patient) {
-        if (StringUtils.hasText(patient.getName()) && StringUtils.hasText(patient.getPassword())) {
-            patient.setPatient_id("patient" + CommonFunction.generateId());
+    public ApiResponse<String> patientRegister(Patient patient) {
+        if (StringUtils.hasText(patient.getEmail())&&StringUtils.hasText(patient.getName()) && StringUtils.hasText(patient.getPassword())) {
+            if (patientMapper.existsByEmail(patient.getEmail())){
+                return ApiResponse.error(400,"邮箱已被注册");
+            }
+            String id="patient" + CommonFunction.generateId();
+            patient.setPatient_id(id);
             patient.setPassword(CommonFunction.encodePassword(patient.getPassword()));
             patientMapper.insert(patient);
-            return true;
+            //插入到用户角色对应表中
+            UserRole userRole = new UserRole();
+            userRole.setId(id);
+            userRole.setRole("patient");
+            userRoleMapper.insert(userRole);
+            return ApiResponse.success("register success");
         }
 
-        return false;
+        return ApiResponse.error(400,"");
     }
 
     @Override
@@ -50,31 +67,28 @@ public class UserServiceImpl implements IUserService {
         if (user == null || !StringUtils.hasText(user.getEmail()) || !StringUtils.hasText(user.getPassword()) || !StringUtils.hasText(user.getRole())) {
             return ApiResponse.error(400, "Missing or incorrect user information");
         }
+        //加密密码
+        user.setPassword(CommonFunction.encodePassword(user.getPassword()));
 
-        User foundUser = null;
+        String userId = null;
         switch (user.getRole().toLowerCase()) {
             case "admin":
-                foundUser = adminMapper.findUserByEmailAndPassword(user.getEmail(), user.getPassword());
-                //Boolean emailIsExist=adminMapper.
+                userId = adminMapper.findUserByEmailAndPassword(user.getEmail(), user.getPassword());
                 break;
             case "doctor":
-                foundUser = doctorMapper.findUserByEmailAndPassword(user.getEmail(), user.getPassword());
+                userId = doctorMapper.findUserByEmailAndPassword(user.getEmail(), user.getPassword());
                 break;
             case "patient":
-                foundUser = patientMapper.findUserByEmailAndPassword(user.getEmail(), user.getPassword());
+                userId = patientMapper.findUserByEmailAndPassword(user.getEmail(), user.getPassword());
                 break;
             default:
                 return ApiResponse.error(404, "Role not found");
         }
-//        Boolean emailIsExist=
-//        if (user.getEmail())
 
-        if (foundUser != null) {
+
+        if (userId != null) {
             // 用户登录成功
-            StpUtil.login(foundUser.getId());
-            // 设置用户角色
-            // 将角色保存在会话中
-            StpUtil.getSession().set("role", foundUser.getRole());
+            StpUtil.login(userId);
             // 返回带有Token的成功响应
             String token = StpUtil.getTokenValue();
             return ApiResponse.success("Login successful, token: " + token);
@@ -83,20 +97,31 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public ApiResponse<String> adminLogin(User user) {
+        return null;
+    }
+
+    @Override
     public ApiResponse<String> logout() {
         StpUtil.logout(); // 用户注销
         return ApiResponse.success("Logout successful");
     }
 
-//    public User getCurrentUser() {
-//        // 获取当前登录用户ID
-//        Object userId = StpUtil.getLoginId();
-//        Class<String> role = StpUtil.getSession().get("role", String.class);
-//
-//
-//        // 根据用户ID查询用户信息
-//        User user = userRepository.findById(userId);
-//
-//        return user;
-//    }
+    //获取病人信息及药物史
+    @Override
+    public ApiResponse<PatientInfo> getPatientInfo(String patientId) {
+        QueryWrapper<Patient> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("patient_id",patientId);
+        List<Patient> patients=patientMapper.selectList(queryWrapper);
+        PatientInfo patientInfo=new PatientInfo();
+        if (patients.size()==0)return ApiResponse.error(400,"patientId error!");
+        patientInfo.setPatient(patients.get(0));
+        QueryWrapper<MedicalHistory> historyQueryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("patient_id",patientId);
+        List<MedicalHistory> medicalHistories=medicalHistoryMapper.selectList(historyQueryWrapper);
+        patientInfo.setMedicalHistories(medicalHistories);
+        return ApiResponse.success(patientInfo);
+    }
+
+
 }

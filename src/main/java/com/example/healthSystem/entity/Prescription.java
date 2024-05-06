@@ -14,8 +14,8 @@ public class Prescription {
     @TableField("appointment_id")
     private Long appointmentId;
 
-    @TableField("medication")
-    private String medication;
+    @TableField("diagnose")
+    private String diagnose;
 
     @TableField("instruction")
     private String instruction;

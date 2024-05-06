@@ -6,6 +6,7 @@ import cn.dev33.satoken.annotation.SaIgnore;
 import cn.dev33.satoken.stp.StpUtil;
 import com.example.healthSystem.common.ApiResponse;
 import com.example.healthSystem.entity.Patient;
+import com.example.healthSystem.entity.PatientInfo;
 import com.example.healthSystem.entity.User;
 import com.example.healthSystem.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +29,12 @@ public class UserController {
     @ResponseBody
     @RequestMapping("/patientRegister")
     public ApiResponse<String> patientRegister(@RequestBody Patient patient) {
-        if (userService.patientRegister(patient)) {
-            return ApiResponse.success("register success");
-        }
-        return ApiResponse.error(400, "Register failed");
+        return userService.patientRegister(patient);
     }
 
     @ResponseBody
     @RequestMapping("/testSql")
-    @SaCheckLogin
-    @SaCheckRole("admin")
+    @SaCheckRole("doctor")
     public ApiResponse<String> testSql() {
        // System.out.println(StpUtil.isLogin());
         userService.testSql();
@@ -47,10 +44,27 @@ public class UserController {
 
 
     @SaIgnore
-    @RequestMapping("/patientLogin")
+    @RequestMapping("/login")
     @ResponseBody
     public ApiResponse<String> login(@RequestBody User user){
         return userService.login(user);
     }
+
+    @ResponseBody
+    @RequestMapping("/getPatientInfo")
+    public ApiResponse<PatientInfo> getPatientInfo(@RequestBody String patientId) {
+        return userService.getPatientInfo(patientId);
+    }
+
+
+
+
+//    @SaIgnore
+//    @RequestMapping("/adminlogin")
+//    @ResponseBody
+//    public ApiResponse<String> adminlogin(@RequestBody User user){
+//        return userService.adminLogin(user);
+//    }
+
 
 }

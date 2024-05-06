@@ -29,4 +29,10 @@ public class Patient {
     @TableField
     private Integer gender;
 
+    @TableField
+    private String  mobile;
+
+    @TableField
+    private Integer status;
+
 }
