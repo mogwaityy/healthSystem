@@ -2,10 +2,13 @@ package com.example.healthSystem.serviceImpl;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.healthSystem.common.ApiResponse;
 import com.example.healthSystem.entity.*;
 import com.example.healthSystem.mapper.*;
 import com.example.healthSystem.service.IUserService;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,8 +35,8 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private MedicalHistoryMapper medicalHistoryMapper;
 
-
-
+    @Autowired
+    private JavaMailSender mailSender;
 
     @Override
     public ApiResponse<String> patientRegister(Patient patient) {
@@ -123,5 +126,25 @@ public class UserServiceImpl implements IUserService {
         return ApiResponse.success(patientInfo);
     }
 
+    @Override
+    public ApiResponse<String> reviewRegister(String patientId,Integer status) {
+        UpdateWrapper<Patient> updateWrapper=new UpdateWrapper<>();
+        updateWrapper.eq("patient_id", patientId); // 设置更新条件
+        updateWrapper.set("status", status); // 设置更新的字段
+        patientMapper.update(null, updateWrapper);
+        Patient patient=patientMapper.selectById(patientId);
+//        if (status==1)sendSimpleMessage(patient.getEmail(),"Register Success","Success");
+//        if (status==2)sendSimpleMessage(patient.getEmail(),"Regsiter failed","failed");
+        return ApiResponse.success(null);
+    }
+
+    public void sendSimpleMessage(String to, String subject, String text) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("2972813209@qq.com");
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(text);
+        mailSender.send(message);
+    }
 
 }

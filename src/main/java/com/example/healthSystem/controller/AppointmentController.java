@@ -4,6 +4,7 @@ import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.healthSystem.common.ApiResponse;
 import com.example.healthSystem.entity.MedicinePrescription;
+import com.example.healthSystem.entity.MyPageDTO;
 import com.example.healthSystem.entity.Prescription;
 import com.example.healthSystem.service.IAppointmentService;
 import com.example.healthSystem.service.IPrescriptionService;
@@ -24,8 +25,8 @@ public class AppointmentController {
 
     @ResponseBody
     @RequestMapping("/getPatientPage")
-    public ApiResponse<Page> getPatientPage(@RequestBody int pageNum, @RequestBody int pageSize) {
-        return appointmentService.getPatientPage(pageNum,pageSize);
+    public ApiResponse<Page> getPatientPage(@RequestBody MyPageDTO myPageDTO) {
+        return appointmentService.getPatientPage(myPageDTO.getPageNum(), myPageDTO.getPageSize());
     }
 
 

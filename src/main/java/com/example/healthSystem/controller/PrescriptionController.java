@@ -25,8 +25,8 @@ public class PrescriptionController {
 
     @ResponseBody
     @RequestMapping("/addPrescription")
-    public ApiResponse<String> addPrescription(@RequestBody Prescription prescription, @RequestBody List<MedicinePrescription> medicinePrescriptions) {
-        return prescriptionService.addPrescription(prescription,medicinePrescriptions);
+    public ApiResponse<String> addPrescription(@RequestBody PatientPrescription patientPrescription) {
+        return prescriptionService.addPrescription(patientPrescription.getPrescription(),patientPrescription.getMedicinePrescriptions());
     }
 
     @ResponseBody

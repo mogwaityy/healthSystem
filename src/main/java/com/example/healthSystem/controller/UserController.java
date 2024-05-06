@@ -7,6 +7,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.example.healthSystem.common.ApiResponse;
 import com.example.healthSystem.entity.Patient;
 import com.example.healthSystem.entity.PatientInfo;
+import com.example.healthSystem.entity.ReviewRegisterDTO;
 import com.example.healthSystem.entity.User;
 import com.example.healthSystem.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,12 @@ public class UserController {
         return userService.getPatientInfo(patientId);
     }
 
+    //通过注册申请+发送邮件
+    @ResponseBody
+    @RequestMapping("/reviewRegister")
+    public ApiResponse<String> reviewRegister(@RequestBody ReviewRegisterDTO reviewRegisterDTO) {
+        return userService.reviewRegister(reviewRegisterDTO.getPatientId(), reviewRegisterDTO.getStatus());
+    }
 
 
 
