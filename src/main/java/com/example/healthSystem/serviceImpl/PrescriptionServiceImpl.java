@@ -6,9 +6,11 @@ import com.example.healthSystem.common.CommonFunction;
 import com.example.healthSystem.entity.MedicinePrescription;
 import com.example.healthSystem.entity.PatientPrescription;
 import com.example.healthSystem.entity.Prescription;
+import com.example.healthSystem.entity.TestResult;
 import com.example.healthSystem.mapper.MedicalHistoryMapper;
 import com.example.healthSystem.mapper.MedicinePrescriptionMapper;
 import com.example.healthSystem.mapper.PrescriptionMapper;
+import com.example.healthSystem.mapper.TestResultMapper;
 import com.example.healthSystem.service.IPrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,9 @@ public class PrescriptionServiceImpl implements IPrescriptionService {
 
     @Autowired
     MedicalHistoryMapper medicalHistoryMapper;
+
+    @Autowired
+    TestResultMapper testResultMapper;
 
     @Override
     public ApiResponse<String> addPrescription(Prescription prescription, List<MedicinePrescription> medicinePrescriptions) {
@@ -49,5 +54,12 @@ public class PrescriptionServiceImpl implements IPrescriptionService {
         List<MedicinePrescription> medicinePrescriptions=medicinePrescriptionMapper.selectList(queryWrapper);
         patientPrescription.setMedicinePrescriptions(medicinePrescriptions);
         return ApiResponse.success(patientPrescription);
+    }
+
+    @Override
+    public ApiResponse<List<TestResult>> getTestResultByPatient(String patientId) {
+        QueryWrapper<TestResult> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("patient_id",patientId);
+        return ApiResponse.success(testResultMapper.selectList(queryWrapper));
     }
 }

@@ -5,6 +5,7 @@ import com.example.healthSystem.common.ApiResponse;
 import com.example.healthSystem.entity.MedicinePrescription;
 import com.example.healthSystem.entity.PatientPrescription;
 import com.example.healthSystem.entity.Prescription;
+import com.example.healthSystem.entity.TestResult;
 import com.example.healthSystem.service.IOptionalService;
 import com.example.healthSystem.service.IPrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,13 @@ public class PrescriptionController {
     @RequestMapping("/getPrescription")
     public ApiResponse<PatientPrescription> getPrescription(@RequestBody String prescriptionId) {
         return prescriptionService.getPrescription(prescriptionId);
+    }
+
+    //获取病人的所有检验结果
+    @ResponseBody
+    @RequestMapping("/getTestResultByPatient")
+    public ApiResponse<List<TestResult>> getTestResultByPatient(@RequestBody String patientId) {
+        return prescriptionService.getTestResultByPatient(patientId);
     }
 
 
