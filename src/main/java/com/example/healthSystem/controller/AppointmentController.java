@@ -17,14 +17,6 @@ import java.util.List;
 @Controller
 public class AppointmentController {
 
-    @Autowired
-    IPrescriptionService prescriptionService;
-
-    @ResponseBody
-    @RequestMapping("/addPrescription")
-    public ApiResponse<String> addPrescription(@RequestBody Prescription prescription, @RequestBody List<MedicinePrescription> medicinePrescriptions) {
-        return prescriptionService.addPrescription(prescription,medicinePrescriptions);
-    }
 
 
 
