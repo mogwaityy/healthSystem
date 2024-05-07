@@ -21,7 +21,7 @@ public class PrescriptionController {
     @Autowired
     IPrescriptionService prescriptionService;
 
-    //TODO:医生给出处方，医生id自己获得，更新appointment状态为已完成
+    //医生给出处方，医生id自己获得，更新appointment状态为已完成
     @ResponseBody
     @RequestMapping("/addPrescription")
     public ApiResponse<String> addPrescription(@RequestBody PatientPrescription patientPrescription) {

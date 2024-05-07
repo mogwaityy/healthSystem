@@ -52,7 +52,7 @@ public class PrescriptionServiceImpl implements IPrescriptionService {
             medicinpre.setPrescriptionId(id);
             medicinePrescriptionMapper.insert(medicinpre);
         }
-        //修改appointment状态为已完成-3
+        //修改appointment状态为已完成-2
         UpdateWrapper<Appointment> updateWrapper=new UpdateWrapper<>();
         updateWrapper.eq("appointment_id",prescription.getPrescriptionId());
         updateWrapper.set("status",2);

@@ -50,7 +50,18 @@ public class AppointmentServiceImpl implements IAppointmentService {
 
     @Override
     public ApiResponse<String> bookAppointment(Appointment appointment) {
-        if (appointmentMapper.insert(appointment)>0) return ApiResponse.success(null);
+        if (appointment!=null){
+            if (appointment.getPatientId()!=null){
+                String patientId=appointment.getPatientId();
+                Patient patient=patientMapper.selectById(patientId);
+                if (patient!=null){
+                    //注册未通过或注册被拒绝不能预约
+                    if (patient.getStatus()==0||patient.getStatus()==2)return ApiResponse.error(400,"You can't book a appointment. Please Check your register status.");
+                }
+            }
+        }
+
+        if (appointmentMapper.insert(appointment)>0) return ApiResponse.success("appointment success");
         return ApiResponse.error(400,"appointment failed");
     }
 

@@ -39,7 +39,11 @@ public class UserController {
         return ApiResponse.success("Test success");
     }
 
-
+    @ResponseBody
+    @RequestMapping("/getCurrentUser")
+    public ApiResponse<String> getCurrentUser(){
+        return ApiResponse.success((String)StpUtil.getLoginId());
+    }
 
     @SaIgnore
     @RequestMapping("/login")
@@ -62,27 +66,31 @@ public class UserController {
     }
 
 
-    @SaIgnore
     @ResponseBody
     @RequestMapping("/getAllDoctor")
     public ApiResponse<List<Doctor>> getAllDoctor() {
         return userService.getAllDoctor();
     }
 
-    @SaIgnore
+    @ResponseBody
+    @RequestMapping("/getDoctorBySpecialty")
+    public ApiResponse<List<Doctor>> getDoctorBySpecialty(@RequestBody String specialty) {
+        return userService.getDoctorBySpecialty(specialty);
+    }
+
+    //管理员添加医生
     @ResponseBody
     @RequestMapping("/addDoctor")
     public ApiResponse<String> addDoctor(@RequestBody Doctor doctor) {
         return userService.addDoctor(doctor);
     }
 
-
-//    @SaIgnore
-//    @RequestMapping("/adminlogin")
-//    @ResponseBody
-//    public ApiResponse<String> adminlogin(@RequestBody User user){
-//        return userService.adminLogin(user);
-//    }
+    @SaIgnore
+    @ResponseBody
+    @RequestMapping("/addListDoctor")
+    public ApiResponse<String> addListDoctor(@RequestBody List<Doctor> doctors) {
+        return userService.addListDoctor(doctors);
+    }
 
 
 }

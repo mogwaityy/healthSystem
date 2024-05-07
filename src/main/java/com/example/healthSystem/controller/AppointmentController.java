@@ -23,7 +23,7 @@ public class AppointmentController {
     @Autowired
     IAppointmentService appointmentService;
 
-    //分页获取所有病人记录
+    //admin分页获取所有病人记录
     @ResponseBody
     @RequestMapping("/getPatientPage")
     public ApiResponse<Page> getPatientPage() {

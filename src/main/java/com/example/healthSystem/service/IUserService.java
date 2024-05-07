@@ -24,4 +24,8 @@ public interface IUserService {
     ApiResponse<List<Doctor>> getAllDoctor();
 
     ApiResponse<String> addDoctor(Doctor doctor);
+
+    ApiResponse<String> addListDoctor(List<Doctor> doctors);
+
+    ApiResponse<List<Doctor>> getDoctorBySpecialty(String specialty);
 }
