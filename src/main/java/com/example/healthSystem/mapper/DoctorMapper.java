@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.Select;
 public interface DoctorMapper extends BaseMapper<Doctor> {
     //User getInfo(String name, String password);
 
-    @Select("SELECT doctor_id FROM admin WHERE email = #{email} AND password = #{password}")
+    @Select("SELECT doctor_id FROM doctor WHERE email = #{email} AND password = #{password}")
     String findUserByEmailAndPassword(@Param("email") String Email, @Param("password") String password);
 
     default boolean existsByEmail(String email) {

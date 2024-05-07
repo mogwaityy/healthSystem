@@ -55,6 +55,8 @@ public class CommonFunction {
         return System.currentTimeMillis();
     }
 
+
+
     public static SimpleMailMessage sendSimpleMessage(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("myeclinic@163.com");

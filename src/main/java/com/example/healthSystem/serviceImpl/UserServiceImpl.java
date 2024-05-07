@@ -46,7 +46,7 @@ public class UserServiceImpl implements IUserService {
                 return ApiResponse.error(400,"邮箱已被注册");
             }
             String id="patient" + CommonFunction.generateId();
-            patient.setPatient_id(id);
+            patient.setPatientId(id);
             patient.setPassword(CommonFunction.encodePassword(patient.getPassword()));
             patientMapper.insert(patient);
             //插入到用户角色对应表中
@@ -56,7 +56,7 @@ public class UserServiceImpl implements IUserService {
             userRoleMapper.insert(userRole);
             //插入到medicalHistory表
             MedicalHistory medicalHistory=new MedicalHistory();
-            medicalHistory.setPatientId(patient.getPatient_id());
+            medicalHistory.setPatientId(patient.getPatientId());
             medicalHistory.setDescription(patientRegisterDTO.getMedicalHistory());
             medicalHistoryMapper.insert(medicalHistory);
             return ApiResponse.success("register success");
@@ -102,7 +102,7 @@ public class UserServiceImpl implements IUserService {
             String token = StpUtil.getTokenValue();
             return ApiResponse.success("Login successful, token: " + token);
         }
-        return ApiResponse.error(404, "User not found");
+        return ApiResponse.error(404, "Email or password wrong!");
     }
 
     @Override
@@ -126,7 +126,7 @@ public class UserServiceImpl implements IUserService {
         if (patients.size()==0)return ApiResponse.error(400,"patientId error!");
         patientInfo.setPatient(patients.get(0));
         QueryWrapper<MedicalHistory> historyQueryWrapper=new QueryWrapper<>();
-        queryWrapper.eq("patient_id",patientId);
+        historyQueryWrapper.eq("patient_id",patientId);
         List<MedicalHistory> medicalHistories=medicalHistoryMapper.selectList(historyQueryWrapper);
         patientInfo.setMedicalHistories(medicalHistories);
         return ApiResponse.success(patientInfo);

@@ -1,6 +1,7 @@
 package com.example.healthSystem.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
+import cn.dev33.satoken.annotation.SaCheckRole;
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.healthSystem.common.ApiResponse;
@@ -25,20 +26,23 @@ public class AppointmentController {
     //分页获取所有病人记录
     @ResponseBody
     @RequestMapping("/getPatientPage")
-    public ApiResponse<Page> getPatientPage(@RequestBody MyPageDTO myPageDTO) {
-        return appointmentService.getPatientPage(myPageDTO.getPageNum(), myPageDTO.getPageSize());
+    public ApiResponse<Page> getPatientPage() {
+        return appointmentService.getPatientPage(1, 1000000);
     }
 
     //病人预约看病
     @ResponseBody
     @RequestMapping("/bookAppointment")
+    @SaCheckRole("patient")
     public ApiResponse<String> bookAppointment(@RequestBody Appointment appointment) {
+        appointment.setPatientId((String) StpUtil.getLoginId());
         return appointmentService.bookAppointment(appointment);
     }
 
     //病人获取自己的appointment
     @ResponseBody
     @RequestMapping("/getAppointment")
+    @SaCheckRole("patient")
     public ApiResponse<List<AppointmentDTO>> getAppointment() {
         String patientId= (String) StpUtil.getLoginId();
         return appointmentService.getAppointment(patientId,null);
@@ -52,6 +56,7 @@ public class AppointmentController {
 
     //医生获取他的appointment
     @ResponseBody
+    @SaCheckRole("doctor")
     @RequestMapping("/getDoctorAppointment")
     public ApiResponse<List<DoctorAppointmentDTO>> getAppointmentByStatus() {
         String doctorId= (String) StpUtil.getLoginId();

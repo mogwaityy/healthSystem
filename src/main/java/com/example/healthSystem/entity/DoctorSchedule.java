@@ -29,6 +29,6 @@ public class DoctorSchedule {
     private String patientId;
 
     @TableField("appoinment_id")
-    private Double appointmentId;
+    private Long appointmentId;
 
 }

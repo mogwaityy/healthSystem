@@ -9,7 +9,7 @@ import lombok.Data;
 @TableName(value = "patient")
 public class Patient {
     @TableId(value = "patient_id")
-    private String patient_id;
+    private String patientId;
 
     @TableField
     private String name;

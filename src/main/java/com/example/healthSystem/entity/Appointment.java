@@ -12,7 +12,7 @@ import java.util.Date;
 @TableName("appointment")
 public class Appointment {
     @TableId("appointment_id")
-    private Double appointmentId;
+    private Long appointmentId;
 
     @TableField("patient_id")
     private String patientId;

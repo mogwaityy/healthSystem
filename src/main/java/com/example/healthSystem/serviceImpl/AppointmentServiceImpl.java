@@ -57,6 +57,9 @@ public class AppointmentServiceImpl implements IAppointmentService {
     @Override
     public ApiResponse<String> updateDoctorSchedule(DoctorSchedule doctorSchedule) {
         //更改时间表
+        if (doctorSchedule.getScheduleId()==null){
+            doctorScheduleMapper.insert(doctorSchedule);
+        }
         doctorScheduleMapper.updateById(doctorSchedule);
         //更改病人的预约状态
         Appointment appointment=new Appointment();
@@ -86,8 +89,12 @@ public class AppointmentServiceImpl implements IAppointmentService {
     @Override
     public ApiResponse<List<AppointmentDTO>> getAppointment(String patientId,Integer status) {
         QueryWrapper<Appointment> queryWrapper=new QueryWrapper<>();
-        queryWrapper.eq("patient_id",patientId);
-        queryWrapper.eq("status",status);
+        if(patientId!=null) {
+            queryWrapper.eq("patient_id", patientId);
+        }
+        if (status!=null) {
+            queryWrapper.eq("status", status);
+        }
         QueryWrapper<Patient> patientQueryWrapper=new QueryWrapper<>();
         QueryWrapper<Doctor> doctorQueryWrapper=new QueryWrapper<>();
         List<AppointmentDTO> appointmentDTOS=new ArrayList<>();
