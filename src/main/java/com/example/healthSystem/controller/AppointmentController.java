@@ -80,6 +80,13 @@ public class AppointmentController {
         return appointmentService.rejectAppointment(appointmentId);
     }
 
+    //给出替补方案，即更改appointment日期，发送邮件
+    @ResponseBody
+    @RequestMapping("/alternativeAppointment")
+    public ApiResponse<String> alternativeAppointment(@RequestBody AlternativeAppointmentDTO alternativeAppointmentDTO) {
+        return appointmentService.alternativeAppointment(alternativeAppointmentDTO);
+    }
+
 
     //管理员获取医生的时间表
     @ResponseBody

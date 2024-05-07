@@ -41,7 +41,7 @@ public class PrescriptionController {
         return prescriptionService.getMyPrescription(patientId);
     }
 
-    //获取病人的所有检验结果
+    //doctor点击一个病人详情获取病人的所有检验结果
     @ResponseBody
     @RequestMapping("/getTestResultByPatient")
     public ApiResponse<List<TestResult>> getTestResultByPatient(@RequestBody String patientId) {
@@ -55,12 +55,12 @@ public class PrescriptionController {
         String patientId= (String) StpUtil.getLoginId();
         return prescriptionService.getTestResultByPatient(patientId);
     }
-    //医生获取病人体检结果
-    @ResponseBody
-    @RequestMapping("/getPatientTestResult")
-    public ApiResponse<List<TestResult>> getPatientTestResult(@RequestBody String patientId) {
-        return prescriptionService.getTestResultByPatient(patientId);
-    }
+//    //医生获取病人体检结果
+//    @ResponseBody
+//    @RequestMapping("/getPatientTestResult")
+//    public ApiResponse<List<TestResult>> getPatientTestResult(@RequestBody String patientId) {
+//        return prescriptionService.getTestResultByPatient(patientId);
+//    }
     //获取自己的信息
     @ResponseBody
     @RequestMapping("/getMyInfo")

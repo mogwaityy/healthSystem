@@ -179,5 +179,29 @@ public class AppointmentServiceImpl implements IAppointmentService {
         return ApiResponse.success("reject failed, there is no patient!");
     }
 
+    @Override
+    public ApiResponse<String> alternativeAppointment(AlternativeAppointmentDTO alternativeAppointmentDTO) {
+        Long appointmentId=alternativeAppointmentDTO.getAppointmentId();
+        LocalDateTime newTime=alternativeAppointmentDTO.getNewTime();
+        UpdateWrapper<Appointment> updateWrapper=new UpdateWrapper<>();
+        updateWrapper.eq("appointment_id",appointmentId);
+        updateWrapper.set("status",4);
+        updateWrapper.set("date",newTime);
+        appointmentMapper.update(null,updateWrapper);
+        Appointment appointment=appointmentMapper.selectById(appointmentId);
+        String patientId=appointment.getPatientId();
+        Patient patient=patientMapper.selectById(patientId);
+        //发送邮件
+        if (patient!=null){
+            SimpleMailMessage mailMessage=CommonFunction.sendSimpleMessage(patient.getEmail(),"Your appointment status update",
+                    "Sorry, your appointment failed. We suggest you choose a new time:"+newTime+
+                            ". If you consent this time, you can reply us to this email.");
+            mailSender.send(mailMessage);
+            return ApiResponse.success("reject success");
+        }
+        return ApiResponse.success("alternative failed, there is no patient!");
+    }
+
+
 
 }

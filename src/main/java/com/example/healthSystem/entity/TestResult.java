@@ -10,7 +10,7 @@ import java.util.Date;
 @TableName("test_result")
 public class TestResult {
     @TableId("test_result_id")
-    private Long testResultId;
+    private Integer testResultId;
 
     @TableField("patient_id")
     private String patientId;
