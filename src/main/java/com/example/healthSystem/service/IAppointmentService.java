@@ -20,4 +20,6 @@ public interface IAppointmentService {
     public ApiResponse<List<DoctorAppointmentDTO>> getDoctorAppointment(String doctorId,Integer status);
 
     public ApiResponse<String> rejectAppointment(String appointmentId);
+
+    public ApiResponse<String> alternativeAppointment(AlternativeAppointmentDTO alternativeAppointmentDTO);
 }

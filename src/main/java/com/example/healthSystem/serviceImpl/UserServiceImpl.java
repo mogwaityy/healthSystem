@@ -157,7 +157,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public ApiResponse<String> addDoctor(Doctor doctor) {
-        String doctorId=CommonFunction.generateId();
+        String doctorId="doctor"+CommonFunction.generateId();
         doctor.setDoctorId(doctorId);
         doctorMapper.insert(doctor);
         UserRole userRole=new UserRole();
@@ -167,6 +167,28 @@ public class UserServiceImpl implements IUserService {
         return ApiResponse.success("添加医生成功");
     }
 
+    @Override
+    public ApiResponse<String> addListDoctor(List<Doctor> doctors) {
+        for (Doctor doctor:doctors
+             ) {
+            String doctorId="doctor"+CommonFunction.generateId();
+            doctor.setDoctorId(doctorId);
+            doctorMapper.insert(doctor);
+            UserRole userRole=new UserRole();
+            userRole.setRole("doctor");
+            userRole.setId(doctorId);
+            userRoleMapper.insert(userRole);
+        }
+        return ApiResponse.success("添加医生成功");
+    }
+
+    @Override
+    public ApiResponse<List<Doctor>> getDoctorBySpecialty(String specialty) {
+        QueryWrapper<Doctor> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("specialty",specialty);
+        List<Doctor> doctors=doctorMapper.selectList(queryWrapper);
+        return ApiResponse.success(doctors);
+    }
 
 
 }

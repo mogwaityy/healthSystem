@@ -23,7 +23,7 @@ public class AppointmentController {
     @Autowired
     IAppointmentService appointmentService;
 
-    //分页获取所有病人记录
+    //admin分页获取所有病人记录
     @ResponseBody
     @RequestMapping("/getPatientPage")
     public ApiResponse<Page> getPatientPage() {
@@ -78,6 +78,13 @@ public class AppointmentController {
     @RequestMapping("/rejectAppointment")
     public ApiResponse<String> rejectAppointment(@RequestBody String appointmentId) {
         return appointmentService.rejectAppointment(appointmentId);
+    }
+
+    //给出替补方案，即更改appointment日期，发送邮件
+    @ResponseBody
+    @RequestMapping("/alternativeAppointment")
+    public ApiResponse<String> alternativeAppointment(@RequestBody AlternativeAppointmentDTO alternativeAppointmentDTO) {
+        return appointmentService.alternativeAppointment(alternativeAppointmentDTO);
     }
 
 
