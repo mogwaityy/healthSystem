@@ -1,20 +1,23 @@
 {
   "files": {
-    "main.css": "/static/css/main.1c09b9ae.css",
-    "main.js": "/static/js/main.1c9cbb34.js",
+    "main.css": "/static/css/main.9adfada3.css",
+    "main.js": "/static/js/main.e4dfb097.js",
     "static/js/453.d855a71b.chunk.js": "/static/js/453.d855a71b.chunk.js",
+    "static/media/img.png": "/static/media/img.84fbfad5e994e6c53d43.png",
     "static/media/cover.png": "/static/media/cover.7d2e67cb56a85167333b.png",
+    "static/media/img_1.png": "/static/media/img_1.8adec0a83b1c3ac07267.png",
     "static/media/check.jpg": "/static/media/check.66b80a415fc86ceef635.jpg",
     "static/media/makeAppointment.jpg": "/static/media/makeAppointment.ccb95bba3aabd01a3d75.jpg",
     "static/media/consult.jpg": "/static/media/consult.c7003ddb8a5c30f55cd2.jpg",
+    "static/media/bookAppointment.jpg": "/static/media/bookAppointment.f2148d9637e5049fdedd.jpg",
     "static/media/medicalRecord.jpg": "/static/media/medicalRecord.cfcf06c0c593ac4ef043.jpg",
     "index.html": "/index.html",
-    "main.1c09b9ae.css.map": "/static/css/main.1c09b9ae.css.map",
-    "main.1c9cbb34.js.map": "/static/js/main.1c9cbb34.js.map",
+    "main.9adfada3.css.map": "/static/css/main.9adfada3.css.map",
+    "main.e4dfb097.js.map": "/static/js/main.e4dfb097.js.map",
     "453.d855a71b.chunk.js.map": "/static/js/453.d855a71b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1c09b9ae.css",
-    "static/js/main.1c9cbb34.js"
+    "static/css/main.9adfada3.css",
+    "static/js/main.e4dfb097.js"
   ]
 }

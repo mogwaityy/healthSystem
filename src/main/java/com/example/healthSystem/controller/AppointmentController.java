@@ -96,8 +96,4 @@ public class AppointmentController {
         return appointmentService.getDoctorSchedule(doctorId);
     }
 
-
-
-
-
 }
