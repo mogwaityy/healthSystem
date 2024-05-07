@@ -153,7 +153,7 @@ public class AppointmentServiceImpl implements IAppointmentService {
     public ApiResponse<String> rejectAppointment(String appointmentId) {
         UpdateWrapper<Appointment> updateWrapper=new UpdateWrapper<>();
         updateWrapper.eq("appointment_id",appointmentId);
-        updateWrapper.set("status",2);
+        updateWrapper.set("status",3);
         appointmentMapper.update(null,updateWrapper);
         Appointment appointment=appointmentMapper.selectById(appointmentId);
         String patientId=appointment.getPatientId();

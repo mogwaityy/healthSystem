@@ -55,7 +55,7 @@ public class PrescriptionServiceImpl implements IPrescriptionService {
         //修改appointment状态为已完成-3
         UpdateWrapper<Appointment> updateWrapper=new UpdateWrapper<>();
         updateWrapper.eq("appointment_id",prescription.getPrescriptionId());
-        updateWrapper.set("status",3);
+        updateWrapper.set("status",2);
         appointmentMapper.update(updateWrapper);;
         return ApiResponse.success("处方添加成功");
     }
