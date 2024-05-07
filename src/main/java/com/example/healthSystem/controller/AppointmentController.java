@@ -1,6 +1,7 @@
 package com.example.healthSystem.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
+import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.healthSystem.common.ApiResponse;
 import com.example.healthSystem.entity.*;
@@ -35,18 +36,62 @@ public class AppointmentController {
         return appointmentService.bookAppointment(appointment);
     }
 
-    //病人预约看病
+    //病人获取自己的appointment
+    @ResponseBody
+    @RequestMapping("/getAppointment")
+    public ApiResponse<List<AppointmentDTO>> getAppointment() {
+        String patientId= (String) StpUtil.getLoginId();
+        return appointmentService.getAppointment(patientId,null);
+    }
+    //admin根据状态获取appointment，0-未分配，1-分配医生，2-拒绝,3-已完成
+    @ResponseBody
+    @RequestMapping("/getAppointmentByStatus")
+    public ApiResponse<List<AppointmentDTO>> getAppointmentByStatus(@RequestBody Integer status) {
+        return appointmentService.getAppointment(null,status);
+    }
+
+    //医生获取他的appointment
+    @ResponseBody
+    @RequestMapping("/getDoctorAppointment")
+    public ApiResponse<List<DoctorAppointmentDTO>> getAppointmentByStatus() {
+        String doctorId= (String) StpUtil.getLoginId();
+        //已被分配好医生但没处理
+        Integer status=1;
+        return appointmentService.getDoctorAppointment(doctorId,status);
+    }
+
+
+    //病人预约看病，admin审核appointment后安排医生
     @ResponseBody
     @RequestMapping("/updateDoctorSchedule")
     public ApiResponse<String> updateDoctorSchedule(@RequestBody DoctorSchedule doctorSchedule) {
         return appointmentService.updateDoctorSchedule(doctorSchedule);
     }
 
+    //admin拒绝appointment
+    @ResponseBody
+    @RequestMapping("/rejectAppointment")
+    public ApiResponse<String> rejectAppointment(@RequestBody String appointmentId) {
+        return appointmentService.rejectAppointment(appointmentId);
+    }
+
+
+    //管理员获取医生的时间表
     @ResponseBody
     @RequestMapping("/getDoctorSchedule")
     public ApiResponse<List<DoctorSchedule>> getDoctorSchedule(@RequestBody String doctorId) {
         return appointmentService.getDoctorSchedule(doctorId);
     }
+
+    //医生获取他自己的时间表
+    @ResponseBody
+    @RequestMapping("/getMyDoctorSchedule")
+    public ApiResponse<List<DoctorSchedule>> getMyDoctorSchedule() {
+        String doctorId= (String) StpUtil.getLoginId();
+        return appointmentService.getDoctorSchedule(doctorId);
+    }
+
+
 
 
 

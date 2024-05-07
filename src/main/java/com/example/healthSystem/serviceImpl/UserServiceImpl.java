@@ -139,8 +139,14 @@ public class UserServiceImpl implements IUserService {
         updateWrapper.set("status", status); // 设置更新的字段
         patientMapper.update(null, updateWrapper);
         Patient patient=patientMapper.selectById(patientId);
-        if (status==1)sendSimpleMessage(patient.getEmail(),"Register Success","Success");
-        if (status==2)sendSimpleMessage(patient.getEmail(),"Regsiter failed","failed");
+        if (status==1){
+            SimpleMailMessage message=CommonFunction.sendSimpleMessage(patient.getEmail(),"Register Success","Success");
+            mailSender.send(message);
+        }
+        if (status==2){
+            SimpleMailMessage message=CommonFunction.sendSimpleMessage(patient.getEmail(),"Regsiter failed","failed");
+            mailSender.send(message);
+        }
         return ApiResponse.success(null);
     }
 
@@ -161,13 +167,6 @@ public class UserServiceImpl implements IUserService {
         return ApiResponse.success("添加医生成功");
     }
 
-    public void sendSimpleMessage(String to, String subject, String text) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("myeclinic@163.com");
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(text);
-        mailSender.send(message);
-    }
+
 
 }

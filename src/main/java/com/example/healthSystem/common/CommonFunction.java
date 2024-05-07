@@ -8,6 +8,7 @@ import com.example.healthSystem.mapper.AdminMapper;
 import com.example.healthSystem.mapper.DoctorMapper;
 import com.example.healthSystem.mapper.PatientMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 
 import java.util.Base64;
 
@@ -52,6 +53,15 @@ public class CommonFunction {
 
     public static synchronized Long generateLongId() {
         return System.currentTimeMillis();
+    }
+
+    public static SimpleMailMessage sendSimpleMessage(String to, String subject, String text) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("myeclinic@163.com");
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(text);
+        return message;
     }
 
 }
