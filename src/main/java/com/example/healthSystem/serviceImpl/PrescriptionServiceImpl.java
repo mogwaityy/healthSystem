@@ -116,7 +116,7 @@ public class PrescriptionServiceImpl implements IPrescriptionService {
         if (prescriptions!=null) {
             for (Prescription prescription : prescriptions) {
                 patientPrescription.setPrescription(prescription);
-                queryWrapper.eq("prescription_id", prescription.getPrescriptionId());
+                medicinePrescriptionQueryWrapper.eq("prescription_id", prescription.getPrescriptionId());
                 medicinePrescriptions = medicinePrescriptionMapper.selectList(medicinePrescriptionQueryWrapper);
                 patientPrescription.setMedicinePrescriptions(medicinePrescriptions);
                 patientPrescriptions.add(patientPrescription);
@@ -140,7 +140,7 @@ public class PrescriptionServiceImpl implements IPrescriptionService {
         if (prescriptions!=null) {
             for (Prescription prescription : prescriptions) {
                 patientPrescription.setPrescription(prescription);
-                queryWrapper.eq("prescription_id", prescription.getPrescriptionId());
+                medicinePrescriptionQueryWrapper.eq("prescription_id", prescription.getPrescriptionId());
                 medicinePrescriptions = medicinePrescriptionMapper.selectList(medicinePrescriptionQueryWrapper);
                 patientPrescription.setMedicinePrescriptions(medicinePrescriptions);
                 patientPrescriptions.add(patientPrescription);

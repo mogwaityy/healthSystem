@@ -109,6 +109,7 @@ public class AppointmentServiceImpl implements IAppointmentService {
         if (status!=null) {
             queryWrapper.eq("status", status);
         }
+        queryWrapper.orderByDesc("date");
         QueryWrapper<Patient> patientQueryWrapper=new QueryWrapper<>();
         QueryWrapper<Doctor> doctorQueryWrapper=new QueryWrapper<>();
         List<AppointmentDTO> appointmentDTOS=new ArrayList<>();
