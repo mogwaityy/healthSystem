@@ -184,6 +184,15 @@ public class AppointmentServiceImpl implements IAppointmentService {
     }
 
     @Override
+    public ApiResponse<String> deleteAppointment(String patinetId, String appointmentId) {
+        QueryWrapper<Appointment> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("appointment_id", appointmentId)
+                .eq("patient_id", patinetId);
+        appointmentMapper.delete(queryWrapper);
+        return ApiResponse.success("cancel success");
+    }
+
+    @Override
     public ApiResponse<String> alternativeAppointment(AlternativeAppointmentDTO alternativeAppointmentDTO) {
         Long appointmentId=alternativeAppointmentDTO.getAppointmentId();
         LocalDateTime newTime=alternativeAppointmentDTO.getNewTime();

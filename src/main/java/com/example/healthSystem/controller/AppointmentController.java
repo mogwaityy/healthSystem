@@ -58,6 +58,15 @@ public class AppointmentController {
         return appointmentService.getAppointment(patientId,status);
     }
 
+    //病人删除appointment
+    @ResponseBody
+    @RequestMapping("/cancelAppointment")
+    @SaCheckRole("patient")
+    public ApiResponse<String> cancelAppointment(@RequestBody String appointmentId) {
+        String patientId= (String) StpUtil.getLoginId();
+        return appointmentService.deleteAppointment(patientId,appointmentId);
+    }
+
     //admin根据状态获取appointment，0-未分配，1-分配医生，3-拒绝,2-已完成
     @ResponseBody
     @RequestMapping("/getAppointmentByStatus")

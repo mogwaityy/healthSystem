@@ -21,6 +21,8 @@ public interface IAppointmentService {
 
     public ApiResponse<String> rejectAppointment(String appointmentId);
 
+    public ApiResponse<String> deleteAppointment(String patinetId,String appointmentId);
+
     public ApiResponse<String> alternativeAppointment(AlternativeAppointmentDTO alternativeAppointmentDTO);
 
     public ApiResponse<String> addMedicalHistory(MedicalHistory medicalHistory);
