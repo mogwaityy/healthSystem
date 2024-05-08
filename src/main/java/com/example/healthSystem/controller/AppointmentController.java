@@ -48,6 +48,16 @@ public class AppointmentController {
         String patientId= (String) StpUtil.getLoginId();
         return appointmentService.getAppointment(patientId,null);
     }
+
+    //病人获取自己的appointment
+    @ResponseBody
+    @RequestMapping("/getAppointmentBystatus")
+    @SaCheckRole("patient")
+    public ApiResponse<List<AppointmentDTO>> getAppointmentBystatus(@RequestBody Integer status) {
+        String patientId= (String) StpUtil.getLoginId();
+        return appointmentService.getAppointment(patientId,status);
+    }
+
     //admin根据状态获取appointment，0-未分配，1-分配医生，3-拒绝,2-已完成
     @ResponseBody
     @RequestMapping("/getAppointmentByStatus")
