@@ -38,6 +38,9 @@ public class AppointmentServiceImpl implements IAppointmentService {
     @Autowired
     JavaMailSender mailSender;
 
+    @Autowired
+    MedicalHistoryMapper medicalHistoryMapper;
+
     @Override
     public ApiResponse<Page> getPatientPage( int pageNum, int pageSize) {
         QueryWrapper<Patient> queryWrapper = new QueryWrapper<>();
@@ -202,6 +205,11 @@ public class AppointmentServiceImpl implements IAppointmentService {
         return ApiResponse.success("alternative failed, there is no patient!");
     }
 
+    @Override
+    public ApiResponse<String> addMedicalHistory(MedicalHistory medicalHistory) {
+        medicalHistoryMapper.insert(medicalHistory);
+        return ApiResponse.success("add medical history success");
+    }
 
 
 }

@@ -10,6 +10,7 @@ import com.example.healthSystem.service.IAppointmentService;
 import com.example.healthSystem.service.IPrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.context.support.SimpleTheme;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -104,6 +105,12 @@ public class AppointmentController {
     }
 
 
+    //doctor或者admin增加病历史
+    @ResponseBody
+    @RequestMapping("/addMedicalHistory")
+    public ApiResponse<String> addMedicalHistory(@RequestBody MedicalHistory medicalHistory) {
+        return appointmentService.addMedicalHistory(medicalHistory);
+    }
 
 
 
