@@ -126,6 +126,30 @@ public class PrescriptionServiceImpl implements IPrescriptionService {
     }
 
     @Override
+    public ApiResponse<List<PatientPrescription>> getMyPrescriptionByAppointmentId(String appointmentId) {
+
+        List<PatientPrescription> patientPrescriptions=new ArrayList<>();
+        PatientPrescription patientPrescription=new PatientPrescription();
+        QueryWrapper<Prescription> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("appointment_id",appointmentId);
+        //获取所有处方
+        List<Prescription> prescriptions=prescriptionMapper.selectList(queryWrapper);
+        //根据处方单号查找药方
+        QueryWrapper<MedicinePrescription> medicinePrescriptionQueryWrapper=new QueryWrapper<>();
+        List<MedicinePrescription> medicinePrescriptions=new ArrayList<>();
+        if (prescriptions!=null) {
+            for (Prescription prescription : prescriptions) {
+                patientPrescription.setPrescription(prescription);
+                queryWrapper.eq("prescription_id", prescription.getPrescriptionId());
+                medicinePrescriptions = medicinePrescriptionMapper.selectList(medicinePrescriptionQueryWrapper);
+                patientPrescription.setMedicinePrescriptions(medicinePrescriptions);
+                patientPrescriptions.add(patientPrescription);
+            }
+        }
+        return ApiResponse.success(patientPrescriptions);
+    }
+
+    @Override
     public ApiResponse<String> addTest(List<TestResult> testResults) {
         if (testResults==null)return ApiResponse.success("add test success!");
         for (TestResult testResult:testResults

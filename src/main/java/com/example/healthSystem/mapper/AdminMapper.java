@@ -14,7 +14,7 @@ public interface AdminMapper extends BaseMapper<Admin> {
     @Select("SELECT admin_id FROM admin WHERE email = #{email} AND password = #{password}")
     String findUserByEmailAndPassword(@Param("email") String Email, @Param("password") String password);
 
-    @Select("SELECT * FROM admin WHERE id = #{id}")
+    @Select("SELECT * FROM admin WHERE admin_id = #{id}")
     Admin findAdminById(@Param("id") String id);
 
 }

@@ -190,5 +190,32 @@ public class UserServiceImpl implements IUserService {
         return ApiResponse.success(doctors);
     }
 
+    @Override
+    public ApiResponse<CurrentUserDTO> getCurrentUser() {
+        CurrentUserDTO user=new CurrentUserDTO();
+        String id= (String) StpUtil.getLoginId();
+        String role=StpUtil.getRoleList().get(0);
+        String name;
+        switch (role) {
+            case "admin":
+                Admin admin=adminMapper.selectById(id);
+                name = admin.getName();
+                break;
+            case "doctor":
+                Doctor doctor=doctorMapper.selectById(id);
+                name = doctor.getName();
+                break;
+            case "patient":
+                Patient patient=patientMapper.selectById(id);
+                name = patient.getName();
+                break;
+            default:
+                return ApiResponse.error(404, "Role not found");
+        }
+        user.setId(id);
+        user.setName(name);
+        return ApiResponse.success(user);
+    }
+
 
 }

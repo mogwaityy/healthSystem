@@ -41,8 +41,8 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping("/getCurrentUser")
-    public ApiResponse<String> getCurrentUser(){
-        return ApiResponse.success((String)StpUtil.getLoginId());
+    public ApiResponse<CurrentUserDTO> getCurrentUser(){
+        return userService.getCurrentUser();
     }
 
     @SaIgnore

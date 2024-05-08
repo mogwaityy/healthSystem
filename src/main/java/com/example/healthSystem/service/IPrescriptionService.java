@@ -16,8 +16,12 @@ public interface IPrescriptionService {
 
     ApiResponse<List<PatientPrescription>> getMyPrescription(String patientId);
 
+    ApiResponse<List<PatientPrescription>> getMyPrescriptionByAppointmentId(String appointmentId);
+
+
     ApiResponse<String> addTest(List<TestResult> testResult);
 
     ApiResponse<String> updateTest(List<TestResult> testResult);
+
 
 }

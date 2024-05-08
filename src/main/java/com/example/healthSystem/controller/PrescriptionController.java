@@ -35,6 +35,12 @@ public class PrescriptionController {
     }
 
     @ResponseBody
+    @RequestMapping("/getPrescriptionByAppointment")
+    public ApiResponse<List<PatientPrescription>> getPrescriptionByAppointment(@RequestBody String appointmentId) {
+        return prescriptionService.getMyPrescriptionByAppointmentId(appointmentId);
+    }
+
+    @ResponseBody
     @RequestMapping("/getMyPrescription")
     public ApiResponse<List<PatientPrescription>> getMyPrescription() {
         String patientId= (String) StpUtil.getLoginId();

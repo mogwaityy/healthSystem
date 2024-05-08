@@ -28,4 +28,6 @@ public interface IUserService {
     ApiResponse<String> addListDoctor(List<Doctor> doctors);
 
     ApiResponse<List<Doctor>> getDoctorBySpecialty(String specialty);
+
+    ApiResponse<CurrentUserDTO> getCurrentUser();
 }
