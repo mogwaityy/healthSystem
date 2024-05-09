@@ -1,0 +1,49 @@
+.mhead{
+    text-align: center;
+    margin: 20px auto !important;
+    font-size: 26px !important;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+}
+.minfo{
+    display: flex;
+    margin-bottom: 30px;
+}
+.minfo p{
+    flex: 1;
+}
+.minfo strong{
+    display: block;
+}
+.mmedical{
+    display: flex;
+}
+.mmedical .diagnosis{
+    width: 33%;
+    margin-right: 2%;
+}
+.mmedical .medicine{
+    width: 64%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+mmedical  .item{
+    margin-top: 15px !important;
+    margin-bottom: 0 !important;
+}
+.mmedical  .medicine .MuiFormControl-root{
+    width: 45%;
+    box-sizing: border-box;
+
+    min-width: auto !important;
+
+}
+.mmedical  .item1 .MuiFormControl-root,.mmedical  .item1  .MuiInputBase-root {
+    height: 100% !important;
+}
+.mmedical button{
+    margin-top: 11px !important;
+    width: 46%  !important;
+}

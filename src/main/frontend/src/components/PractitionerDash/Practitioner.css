@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.background {
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Arial', sans-serif;
+    height: 100vh;
+}
+
+.p-container{
+        display: grid;
+        width: 100%;
+        background: white;
+        gap: 16px;
+        grid-template-columns: auto 30rem;  
+}
+
+@media screen and (max-width: 1200px)
+{
+    .p-container{
+        grid-template-columns: 4rem auto;
+    }
+}
+
+
+
+

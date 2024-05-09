@@ -1,0 +1,64 @@
+.MainDash {
+    flex-grow: 1; /* This allows it to take up the rest of the space beside the sidebar */
+    display: flex;
+    flex-direction: column;
+    background-color: #eaf0f7; /* Ensures background color is kept as needed */
+    padding: 3.5rem 2%;
+    margin-left: 220px;
+}
+
+.admin-dash-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Full viewport height */
+    background-color: #eaf0f7; /* Blue background */
+    padding: 20px; /* Add some padding around */
+}
+
+.MainDash h1{
+    margin-left: 20px;
+    color: #1F2B6C;
+    font-size: 1.8rem;
+}
+.mbanner{
+    position: relative;
+}
+.mbanner button{
+    position: absolute;
+    top: 20%;
+    left: 5%;
+    width: 5%;
+    min-width: 88px;
+    padding: 10px 20px;
+    background-color: #a4c0f7;
+    color: #1F2B6C;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.mbanner button:hover{
+    background-color:#1F2B6C;
+    color: #a4c0f7;
+    font-weight: 800;
+}
+@media screen and (max-width: 1200px) {
+    .MainDash{
+        justify-content:flex-start;
+    }
+}
+
+@media screen and (max-width: 768px)
+{
+    .MainDash{
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+
+    .MainDash{
+        margin-left: 100px;
+    }
+  }

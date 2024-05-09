@@ -1,0 +1,69 @@
+.MuiTableRow-root > * {
+  padding: 10px;
+}
+
+.MuiTableRow-root.MuiTableRow-head > * {
+  font-weight: bold !important;
+}
+
+.Table{
+  margin: 35px 20px;
+}
+
+.table-container{
+  box-shadow: 0px 13px 20px 0px #80808029;
+  border-radius: 20px;
+  overflow-y: scroll;
+  max-height: 520px;
+}
+
+.Table h3{
+  color:#1F2B6C;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+table{
+  margin-top: 1%;
+  margin-bottom: 1%;
+  margin-left: 2%;
+}
+.Table td,
+th {
+  border: none !important;
+}
+
+.Table:first-child {
+  border-radius: 0.7rem !important;
+}
+
+.details {
+  color: #1F2B6C;
+  background-color: #bfd2f8;
+  padding: 7px;
+  border-radius: 8px;
+  font-size: 0.7rem;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1200px) {
+  .table-container{
+    overflow: auto;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .Table{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 23rem;
+  }
+
+  .table-container{
+    overflow: auto;
+  }
+}

@@ -1,0 +1,87 @@
+.form-row {
+    align-items: center; /* 垂直居中 */
+    width: 100%; /* 使用全部可用宽度 */
+    margin-bottom: 20px;
+}
+
+.form-label {
+    /* white-space: nowrap;
+    margin-right: 10px; */
+    display: flex;
+    align-items: center;
+}
+
+.form-input, .form-select, .form-textarea {
+    flex-grow: 1; /* 输入控件扩展填满剩余空间 */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.submit-btn {
+    width: 100%; /* 按钮宽度填满整个行 */
+    padding: 10px 20px;
+    background-color: #BFD2F8;
+    color: #1F2B6C;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+
+    background-color: #1F2B6C;
+    color: #bfd2f8;
+}
+
+.mform .form-label span{
+    font-size: 16px;
+    width: 80px;
+    text-align: left;
+    margin: 0;
+}
+.mform textarea{
+    height: 100px;
+}
+
+.bg-register{
+    border: 1px solid #ddd;
+    width: 450px;
+    height: 550px;
+    margin: 200px auto;
+    padding: 10px 30px;
+    border-radius: 10px;
+    background-color: white;
+
+}
+.mform1{
+    padding: 20px;
+    border-radius: 6px;
+    padding-bottom: 30px;
+}
+.mform1 h3{
+    text-align: center;
+    margin: 20px 0 40px;
+    font-size: 26px;
+}
+
+.bg-register h1{
+    text-align: center;
+    margin: 30px auto;
+    color: #1F2B6C;
+}
+.mform1 .input-group {
+    display: flex;
+    margin-bottom: 20px;
+}
+.mform1 .input-group label{
+    width: 120px;
+    line-height: 38.5px;
+}
+.text-input, .text-select, .text-textarea {
+    flex-grow: 1; /* 输入控件扩展填满剩余空间 */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
