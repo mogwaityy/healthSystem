@@ -15,8 +15,13 @@ const SignUpStep2 = () => {
         confirmPassword: ''
     });
 
+    const goHome = () => {
+        history.push('/');
+    };
+
+
     const goBack = () => {
-        history.push('/register'); // 使用history.push()方法导航到主页
+        history.push('/register');
     };
 
     const [showPassword, setShowPassword] = useState(false);
@@ -55,7 +60,10 @@ const SignUpStep2 = () => {
     };
 
     return (
-        <div style={{backgroundColor: "#eaf0f7", display: "flex", height: "100vh"}}>
+            <div style={{backgroundColor:"#eaf0f7", display:"flex", height:"100vh"}}>
+                <div className="mbanner-btn">
+                    <button onClick={goHome} style={{position:"absolute", top:"5%",left:"5%"}}>Back</button>
+                </div>
             <div className="bg-register">
                 <h1>Sign Up</h1>
                 <form onSubmit={handleSubmit} className="form-container mform1">

@@ -49,7 +49,7 @@
     border: 1px solid #ddd;
     width: 450px;
     height: 550px;
-    margin: 200px auto;
+    margin: 180px auto;
     padding: 10px 30px;
     border-radius: 10px;
     background-color: white;
@@ -84,4 +84,38 @@
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+.register-link{
+    margin-top: 30px;
+}
+.register-link p{
+    color: #1F2B6C;
+    text-align: center;
+    cursor: pointer;
+}
+
+.register-link p:hover{
+    font-weight: 800;
+}
+
+.mbanner-btn button{
+    position: absolute;
+    top: 20%;
+    left: 5%;
+    width: 5%;
+    min-width: 88px;
+    padding: 10px 20px;
+    background-color: #a4c0f7;
+    color: #1F2B6C;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.mbanner-btn button:hover{
+    background-color:#1F2B6C;
+    color: #a4c0f7;
+    font-weight: 800;
 }

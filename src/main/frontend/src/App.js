@@ -30,7 +30,6 @@ import CreateDoctor from "./components/CreateDoctor";
 import AllTest from "./components/AllTest";
 
 window.alert = toast;
-alert('Appointment booked successfully')
 emitter.on("ccc",(data)=>{
   console.log("ccc->data",data)
 })

@@ -16,7 +16,7 @@ const Header = () => {
     const history = useHistory();
     useEffect(() => {
         let curUser = localStorage.getItem('curUser');
-        
+
         if (curUser) {
             curUser = JSON.parse(curUser)
             if(curUser?.user_name){
@@ -34,7 +34,7 @@ const Header = () => {
         const cookies = document.cookie.split(';').map(cookie => cookie.trim().split('=')[0]);
 // 遍历所有cookie名称并使用js-cookie的remove方法删除它们
         cookies.forEach(cookieName => {
-        Cookies.remove(cookieName);
+            Cookies.remove(cookieName);
         });
         alert("Logout success")
     }
@@ -47,7 +47,7 @@ const Header = () => {
         setUserData(data)
         console.log("ata.role===>",data.role)
         if(data.role == "admin"){
-            history.push('/dash')
+            history.push('/admin/dash')
         }
     })
     window.addEventListener("scroll", function () {
@@ -69,7 +69,7 @@ const Header = () => {
                 {
                     loginIn ?
                         <><span style={{color: "#a4c0f7", fontSize:"0.8rem", position:"absolute", right:"31%"}}>{UserData.user_name}</span>
-                        <button onClick={() => clearSession()} >Sign Out</button></>
+                            <button onClick={() => clearSession()} >Sign Out</button></>
                         : <button onClick={() => setVisible(true)}>Sign In</button>
                 }
 

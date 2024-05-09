@@ -7,6 +7,10 @@ const SignUpStep1 = () => {
     const [formData, setFormData] = useState({});
     const history = useHistory();
 
+    const goBack = () => {
+        history.push('/'); // 使用history.push()方法导航到主页
+    };
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prevState => ({
@@ -49,10 +53,10 @@ const SignUpStep1 = () => {
 
     return (
         <div style={{backgroundColor:"#eaf0f7", display:"flex", height:"100vh"}}>
-            <div className='mbanner'>
-                <button style={{position:"absolute", "top":"5%","right":"50%"}}>Back</button>
+            <div className="mbanner-btn">
+            <button onClick={goBack} style={{position:"absolute", top:"5%",left:"5%"}}>Back</button>
+        </div>
 
-            </div>
         <div className="bg-register">
             <h1>Sign Up</h1>
             <form onSubmit={handleSubmit} className="form-container mform1">

@@ -10,6 +10,11 @@ import { TextField, Button, FormControl, InputLabel, Select, MenuItem, IconButto
 
 const Login = () => {
     const history = useHistory();
+
+    const goRegister = () => {
+        history.push('/register');
+    };
+
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -31,13 +36,13 @@ const Login = () => {
         const match = responseString.match(regex);
 
         if (match) {
-          const successMessage = match[1].trim(); // 匹配登录成功的未知信息并去除前后空白
-          const token = match[2]; // 第二个括号内的内容即为token
-          return { successMessage, token };
+            const successMessage = match[1].trim(); // 匹配登录成功的未知信息并去除前后空白
+            const token = match[2]; // 第二个括号内的内容即为token
+            return { successMessage, token };
         } else {
-          return { successMessage: "", token: null }; // 如果匹配失败
+            return { successMessage: "", token: null }; // 如果匹配失败
         }
-      }
+    }
 
 
     const handleSubmit = async (e) => {
@@ -84,7 +89,7 @@ const Login = () => {
             <form onSubmit={handleSubmit}>
                 {LoginData.map((field, index) => (
                     <FormControl fullWidth key={index} margin="normal" variant="outlined">
-                        <InputLabel htmlFor={field.name}>{field.label}</InputLabel>
+                        {field.type === "select" ? <InputLabel htmlFor={field.name}>{field.label}</InputLabel> :""}
                         {field.type === "select" ? (
                             <Select
                                 label={field.label}
@@ -136,6 +141,11 @@ const Login = () => {
                 }}>
                     Sign In
                 </Button>
+
+                <div className="register-link">
+                    <p onClick={goRegister}> Do not have an account? Register Here!</p>
+                </div>
+
             </form>
         </div>
     );
