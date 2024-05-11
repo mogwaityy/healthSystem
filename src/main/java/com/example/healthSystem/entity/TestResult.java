@@ -1,5 +1,6 @@
 package com.example.healthSystem.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -9,7 +10,7 @@ import java.util.Date;
 @Data
 @TableName("test_result")
 public class TestResult {
-    @TableId("test_result_id")
+    @TableId(value = "test_result_id",type = IdType.AUTO)
     private Integer testResultId;
 
     @TableField("patient_id")

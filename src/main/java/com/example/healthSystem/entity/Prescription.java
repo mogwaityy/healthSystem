@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 @TableName("prescription")
 public class Prescription {
-    @TableId("prescription_id")
+    @TableId(value = "prescription_id")
     private Long prescriptionId;
 
     @TableField("appointment_id")
