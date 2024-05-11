@@ -159,6 +159,8 @@ public class UserServiceImpl implements IUserService {
     public ApiResponse<String> addDoctor(Doctor doctor) {
         String doctorId="doctor"+CommonFunction.generateId();
         doctor.setDoctorId(doctorId);
+        String password="eclinicgoodgood";
+        doctor.setPassword(CommonFunction.encodePassword(password));
         doctorMapper.insert(doctor);
         UserRole userRole=new UserRole();
         userRole.setRole("doctor");
