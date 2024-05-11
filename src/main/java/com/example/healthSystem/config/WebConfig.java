@@ -17,7 +17,8 @@ public class WebConfig {
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // 允许的HTTP方法
                         .allowedHeaders("*") // 允许所有的请求头
                         .allowCredentials(true) // 如果需要携带cookie等凭证信息，则需要设置为true
-                        .maxAge(3600); // 预检请求的有效期，单位秒
+                        .maxAge(3600); // 预检请求的有效期，单位
+
             }
         };
     }
