@@ -91,6 +91,4 @@ public class UserController {
     public ApiResponse<String> addListDoctor(@RequestBody List<Doctor> doctors) {
         return userService.addListDoctor(doctors);
     }
-
-
 }

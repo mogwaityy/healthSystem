@@ -131,6 +131,4 @@ public class AppointmentController {
         return appointmentService.addMedicalHistory(medicalHistory);
     }
 
-
-
 }
