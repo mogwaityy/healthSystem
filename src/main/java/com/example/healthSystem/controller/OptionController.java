@@ -30,7 +30,7 @@ public class OptionController {
     @ResponseBody
     @RequestMapping("/getMedicine")
     public ApiResponse<List> patientMedicine() {
-        return optionalService.getSpecialty();
+        return optionalService.getMedicine();
     }
 
 
