@@ -219,5 +219,12 @@ public class UserServiceImpl implements IUserService {
         return ApiResponse.success(user);
     }
 
+    @Override
+    public ApiResponse<Integer> getPatientStatus() {
+        String id= (String) StpUtil.getLoginId();
+        Patient patient=patientMapper.selectById(id);
+        return ApiResponse.success(patient.getStatus());
+    }
+
 
 }

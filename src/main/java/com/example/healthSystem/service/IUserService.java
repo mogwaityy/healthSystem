@@ -30,4 +30,6 @@ public interface IUserService {
     ApiResponse<List<Doctor>> getDoctorBySpecialty(String specialty);
 
     ApiResponse<CurrentUserDTO> getCurrentUser();
+
+    ApiResponse<Integer> getPatientStatus();
 }

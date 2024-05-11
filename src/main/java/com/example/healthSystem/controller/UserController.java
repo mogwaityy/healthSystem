@@ -91,4 +91,11 @@ public class UserController {
     public ApiResponse<String> addListDoctor(@RequestBody List<Doctor> doctors) {
         return userService.addListDoctor(doctors);
     }
+
+    @SaCheckRole("patient")
+    @ResponseBody
+    @RequestMapping("/getPatientStatus")
+    public ApiResponse<Integer> getPatientStatus() {
+        return userService.getPatientStatus();
+    }
 }
