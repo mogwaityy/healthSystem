@@ -43,7 +43,7 @@ public class UserServiceImpl implements IUserService {
         Patient patient=patientRegisterDTO.getPatient();
         if (StringUtils.hasText(patient.getEmail())&&StringUtils.hasText(patient.getName()) && StringUtils.hasText(patient.getPassword())) {
             if (patientMapper.existsByEmail(patient.getEmail())){
-                return ApiResponse.error(400,"邮箱已被注册");
+                return ApiResponse.error(400,"email have already registered!");
             }
             String id="patient" + CommonFunction.generateId();
             patient.setPatientId(id);
@@ -166,7 +166,7 @@ public class UserServiceImpl implements IUserService {
         userRole.setRole("doctor");
         userRole.setId(doctorId);
         userRoleMapper.insert(userRole);
-        return ApiResponse.success("添加医生成功");
+        return ApiResponse.success("add Doctor success");
     }
 
     @Override
@@ -181,7 +181,7 @@ public class UserServiceImpl implements IUserService {
             userRole.setId(doctorId);
             userRoleMapper.insert(userRole);
         }
-        return ApiResponse.success("添加医生成功");
+        return ApiResponse.success("add Doctor success");
     }
 
     @Override

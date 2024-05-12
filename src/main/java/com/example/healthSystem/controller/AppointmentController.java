@@ -24,6 +24,7 @@ public class AppointmentController {
     @Autowired
     IAppointmentService appointmentService;
 
+
     //admin分页获取所有病人记录
     @ResponseBody
     @RequestMapping("/getPatientPage")

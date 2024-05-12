@@ -1,11 +1,9 @@
-//SignUpStep2.jsx
 import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import './Form.css';
 import { SignUpData2 } from '../../../Data/SignUpData';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import SignUpStep3 from "./SignUpStep3";
 
 const SignUpStep2 = () => {
     const history = useHistory();
@@ -18,7 +16,6 @@ const SignUpStep2 = () => {
     const goHome = () => {
         history.push('/');
     };
-
 
     const goBack = () => {
         history.push('/register');
@@ -48,7 +45,15 @@ const SignUpStep2 = () => {
         e.preventDefault();
         console.log("Form Data:", formData); // 打印表单数据以进行调试
         if (!formData.password.trim() || !formData.confirmPassword.trim()) {
-            alert("All field cannot be empty.");
+            alert("All fields cannot be empty.");
+            return;
+        }
+        if (formData.password.length < 8) {
+            alert("Password must be at least 8 characters long.");
+            return;
+        }
+        if (!/[A-Z]/.test(formData.password) || !/[a-z]/.test(formData.password)) {
+            alert("Password must contain at least one uppercase letter and one lowercase letter.");
             return;
         }
         if (formData.password !== formData.confirmPassword) {
@@ -60,10 +65,10 @@ const SignUpStep2 = () => {
     };
 
     return (
-            <div style={{backgroundColor:"#eaf0f7", display:"flex", height:"100vh"}}>
-                <div className="mbanner-btn">
-                    <button onClick={goHome} style={{position:"absolute", top:"5%",left:"5%"}}>Back</button>
-                </div>
+        <div style={{backgroundColor:"#eaf0f7", display:"flex", height:"100vh"}}>
+            <div className="mbanner-btn">
+                <button onClick={goHome} style={{position:"absolute", top:"5%",left:"5%"}}>Back</button>
+            </div>
             <div className="bg-register">
                 <h1>Sign Up</h1>
                 <form onSubmit={handleSubmit} className="form-container mform1">
@@ -80,18 +85,16 @@ const SignUpStep2 = () => {
                                 className="text-input"
                             />
                             <span onClick={handleToggleShowPassword}>
-                            {showPassword ? <VisibilityOffIcon/> : <RemoveRedEyeIcon/>}
-                        </span>
+                                {showPassword ? <VisibilityOffIcon/> : <RemoveRedEyeIcon/>}
+                            </span>
                         </div>
                     ))}
                     <button type="submit" className='submit-btn'> Next Step</button>
                     <button onClick={goBack} className='submit-btn'> Previous Step</button>
                 </form>
             </div>
-
         </div>
-
     );
-}
+};
 
 export default SignUpStep2;
