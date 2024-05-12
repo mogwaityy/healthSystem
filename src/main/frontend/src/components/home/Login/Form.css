@@ -47,9 +47,9 @@
 
 .bg-register{
     border: 1px solid #ddd;
-    width: 450px;
-    height: 550px;
-    margin: 180px auto;
+    width: 500px;
+    height: 600px;
+    margin: 160px auto;
     padding: 10px 30px;
     border-radius: 10px;
     background-color: white;
@@ -119,3 +119,15 @@
     color: #a4c0f7;
     font-weight: 800;
 }
+
+.policy-item{
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+.policy-item h3{
+    color: #1F2B6C;
+    padding-bottom: 10px;
+}
+
+

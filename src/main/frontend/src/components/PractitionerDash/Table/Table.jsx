@@ -11,27 +11,12 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import "./Table.css";
 import { getAppointmentByStatusApi } from "../../../api/action/appointment";
 import { Details } from "@mui/icons-material";
-
+import { Select, MenuItem, InputLabel } from '@mui/material';
+import useExtractDate from "../../../hooks/exDate";
+// <InputLabel id="demo-simple-select-label">Age</InputLabel>
 function createData(status, applicationNo, name, DoB, indication, updateTime, detail) {
     return { status, applicationNo, name, DoB, indication, updateTime, detail };
 }
-
-// const rows = [
-//   createData("Assigned", 111111, "Shelley", "2 March 2022", "test", "20:31", "Details"),
-//   createData("Rejected", 111111, "Test", "2 March 2022", "test","20:31", "Details"),
-//   createData("Pending", 111111, "Test", "2 March 2022", "test", "Yesterday","Details"),
-//   createData("New Request", 111111, "Test", "2 March 2022", "test", "22 Apr", "Details"),
-//   createData("Assigned", 111111, "Test", "2 March 2022", "test", "22 Apr", "Details"),
-//   createData("Assigned", 111111, "Test", "2 March 2022", "test", "22 Apr", "Details"),
-//   createData("Assigned", 111111, "Test", "2 March 2022", "test", "22 Apr", "Details"),
-//   createData("Assigned", 111111, "Test", "2 March 2022", "test", "22 Apr", "Details"),
-//   createData("Assigned", 111111, "Test", "2 March 2022", "test", "22 Apr", "Details"),
-//   createData("Assigned", 111111, "Test", "2 March 2022", "test", "22 Apr", "Details"),
-//   createData("Assigned", 111111, "Test", "2 March 2022", "test", "22 Apr", "Details"),
-//   createData("Assigned", 111111, "Test", "2 March 2022", "test", "22 Apr", "Details"),
-//   createData("Assigned", 111111, "Test", "2 March 2022", "test", "22 Apr", "Details"),
-//   createData("Assigned", 111111, "Test", "2 March 2022", "test", "22 Apr", "Details")
-// ];
 
 
 const makeStyle = (status) => {
@@ -58,46 +43,82 @@ const makeStyle = (status) => {
 }
 //0-New Request，1-Assigned，2-Complete，3-Reject，4-Pending
 const mapItem = [
-    "Request","Assigned","Complete","Reject","Pending"
+    "New Request", "Assigned", "Complete", "Reject", "Pending"
 ];
 export default function BasicTable() {
     const [rows, setRows] = useState([]);
+    const [rowsCopy, setRowsCopy] = useState([]);
     const history = useHistory();
-    useEffect(() => {
-        getAppointmentByStatusApi(1).then(res => {
+    const [status, setStatus] = useState('0');
+    const {extractDateTime} = useExtractDate();
+    const handleChange = (event) => {
+        setStatus(event.target.value);
+        getAppointmentByStatusApi(event.target.value).then(res => {
             setRows(res)
-            console.log("res.data",res)
+            setRowsCopy(res)
+            console.log("res.data", res)
+        })
+    };
+    useEffect(() => {
+        getAppointmentByStatusApi(0).then(res => {
+            setRows(res)
+            setRowsCopy(res)
+            console.log("res.data", res)
         })
     }, [])
 
-    function handDetailAction(row){
-        console.log("row",row)
+    function handDetailAction(row) {
+        console.log("row", row)
         history.push({
-            pathname: '/detail',
+            pathname: `/admin/dash/detail`,
             state: { row } // Passing appointment details for pre-filling the form
         });
 
     }
 
+
+
     return (
         <div className="Table">
             <TableContainer className="table-container"
-                            component={Paper}
-                            style={{ boxShadow: "0px 13px 20px 0px #80808029", borderRadius: "20px",
-                                height:"900px", overflow:"auto",
-                                marginTop:"30px"
-            }}
+                component={Paper}
+                style={{
+                    boxShadow: "0px 13px 20px 0px #80808029", borderRadius: "20px",
+                    height: "900px", overflow: "auto",
+                    marginTop: "30px"
+                }}
             >
                 <Table sx={{ minWidth: 1000 }} aria-label="simple table" stickyHeader>
                     <TableHead>
                         <TableRow>
-                            <TableCell align="left" style={{ width: "14%", wordWrap: "break-word" }}>Status</TableCell>
+                            <TableCell align="left" style={{ width: "10%", wordWrap: "break-word" }}>
+                                <Select
+                                    sx={{
+                                        border: 'none',
+                                        '& .MuiOutlinedInput-notchedOutline': {
+                                            border: 'none' // 移除边框
+                                        }
+                                    }}
+
+                                    id="demo-simple-select-label"
+                                    value={status}
+                                    onChange={handleChange}
+                                    style={{fontSize:"0.8rem",fontWeight:"800"}}
+                                >
+                                    <MenuItem value="0">New Request</MenuItem>
+                                    <MenuItem value="1">Assigned</MenuItem>
+                                    <MenuItem value="2">Complete</MenuItem>
+                                    <MenuItem value="3">Reject</MenuItem>
+                                    <MenuItem value="4">Pending</MenuItem>
+                                </Select>
+
+                            </TableCell>
                             <TableCell align="left" style={{ width: "14%", wordWrap: "break-word" }}>Application No.</TableCell>
                             <TableCell align="left" style={{ width: "13%", wordWrap: "break-word" }}>Name</TableCell>
-                            <TableCell align="left" style={{ width: "15%", wordWrap: "break-word" }}>Date of Birth</TableCell>
+                            <TableCell align="left" style={{ width: "15%", wordWrap: "break-word" }}>Appointment Time</TableCell>
                             <TableCell align="left" style={{ width: "22%", wordWrap: "break-word" }}>Indication</TableCell>
 
-                            <TableCell align="left" style={{ width: "10%", wordWrap: "break-word" }}>Details</TableCell>
+                            <TableCell align="left" style={{ width: "14%", wordWrap: "break-word" }}>Details</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody style={{ color: "white" }}>
@@ -106,14 +127,17 @@ export default function BasicTable() {
                                 key={index}  // 使用索引作为key
                                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                             >
-                                <TableCell component="th" scope="row">
-                                    <span style={makeStyle(mapItem[row.appointment.status])}>{mapItem[row.appointment.status]}</span>
+                                <TableCell component="th" scope="row" align="left">
+    <span style={{ ...makeStyle(mapItem[row.appointment.status]), marginLeft: '13px' }}>
+        {mapItem[row.appointment.status]}
+    </span>
                                 </TableCell>
+
                                 <TableCell align="left">{row.appointment.appointmentId}</TableCell>
                                 <TableCell align="left">{row.patient.name}</TableCell>
-                                <TableCell align="left">{row.patient.birth}</TableCell>
+                                <TableCell align="left">{extractDateTime(row.appointment.date)}</TableCell>
                                 <TableCell align="left">{row.appointment.description}</TableCell>
-                                <TableCell align="left"><span className="details" onClick={()=>handDetailAction(row)}>detail</span></TableCell>
+                                <TableCell align="left"><span className="details" onClick={() => handDetailAction(row)}>detail</span></TableCell>
                             </TableRow>
                         )) : ""}
                     </TableBody>

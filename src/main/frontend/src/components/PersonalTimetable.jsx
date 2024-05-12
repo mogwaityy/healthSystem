@@ -89,8 +89,9 @@ function YourSchedule() {
     return (
         <div className="MainDash">
 
-            <h1 style={{marginTop:'75px'}}>Your Schedule</h1>
-            <Table sx={{ maxWidth: 1175}} aria-label="doctor schedule" style={{backgroundColor:"white",borderRadius:"20px", marginTop:"40px", marginRight:"20px"}}>
+            <h1>Your Schedule</h1>
+            <div style={{marginTop:"30px"}}>
+            <Table sx={{maxWidth: 1175}} aria-label="doctor schedule" style={{backgroundColor:"white",borderRadius:"20px", marginTop:"40px", marginRight:"20px"}}>
                 <TableHead >
                     <TableRow>
                         <TableCell style={{ border: '1px solid "#eaf0f7"' }}>Date / Time</TableCell>
@@ -111,6 +112,7 @@ function YourSchedule() {
                     )) : ""}
                 </TableBody>
             </Table>
+            </div>
         </div>
     );
 }

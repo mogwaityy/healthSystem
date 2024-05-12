@@ -67,8 +67,27 @@
     background: #a4c0f7;
     margin-right: calc(1rem - 8px);
   }
-  
-  
+
+  .model-button{
+    display: flex;
+    margin-top: 20px;
+  }
+
+  .model-button button{
+    margin: 0 auto;
+    width: 70px;
+    height: 30px;
+    color: #1F2B6C;
+    background: #a4c0f7;
+    border: none;
+    border-radius: 5px;
+  }
+
+  .model-button button:hover{
+    background-color: #1F2B6C;
+   color: #a4c0f7;
+  }
+
   @media screen and (max-width: 1200px) {
 
     .menuItem>span{

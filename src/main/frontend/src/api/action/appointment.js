@@ -52,8 +52,19 @@ export const getgetDoctorScheduleApi = (data) => {
           }
     })
 }
+export const getTestResultByPatientApi = (data) => {
+    return api.post("getTestResultByPatient", data,{
+        headers: {
+            'Content-Type': 'text/plain;charset=utf-8'
+          }
+    })
+}
+
 export const getDoctorAppointmentApi = () => {
     return api.get("getDoctorAppointment")
+}
+export const getPatientStatusApi = () => {
+    return api.post("getPatientStatus")
 }
 export const getCurrentUserApi = () => {
     return api.get("getCurrentUser")
@@ -87,6 +98,11 @@ export const getMyTestResultApi = () => {
 export const getMyDoctorScheduleApi = () => {
     return api.post("getMyDoctorSchedule")
 }
+// export const getPrescriptionApi = () => {
+//     return api.post("getPrescription")
+// }
+
+
 
 
 export const reviewRegisterApi = (data) => {
@@ -104,4 +120,43 @@ export const getDoctorScheduleApi = (data) => {
         data: data
     })
 }
+export const addDoctorApi = (data) => {
+    return api({
+        url: 'addDoctor',
+        method: 'post',
+        data: data
+    })
+}
+export const updateTestApi = (data) => {
+    return api({
+        url: 'updateTest',
+        method: 'post',
+        data: data
+    })
+}
+export const updateDoctorScheduleApi = (data) => {
+    return api({
+        url: 'updateDoctorSchedule',
+        method: 'post',
+        data: data
+    })
+}
 
+
+
+export const alternativeAppointmentApi = (data) => {
+   
+    return api({
+        url: 'alternativeAppointment',
+        method: 'post',
+        data: data
+    })
+}
+export const addMedicalHistoryJsonApi = (data) => {
+   
+    return api({
+        url: 'addMedicalHistory',
+        method: 'post',
+        data: data
+    })
+}

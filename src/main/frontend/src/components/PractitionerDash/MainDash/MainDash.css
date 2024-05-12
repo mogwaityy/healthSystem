@@ -5,6 +5,7 @@
     background-color: #eaf0f7; /* Ensures background color is kept as needed */
     padding: 3.5rem 2%;
     margin-left: 220px;
+    min-height: 100vh;
 }
 
 .admin-dash-container {

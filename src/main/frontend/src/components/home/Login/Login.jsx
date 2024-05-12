@@ -7,6 +7,7 @@ import {LoginApi} from "../../../api/action/login";
 import {emitter} from "../../../api/m/index";
 import Cookies from 'js-cookie';
 import { TextField, Button, FormControl, InputLabel, Select, MenuItem, IconButton } from '@mui/material';
+import { getPatientStatusApi } from '../../../api/action/appointment';
 
 const Login = () => {
     const history = useHistory();
@@ -61,6 +62,18 @@ const Login = () => {
             return false;
         }
         //data
+        //et data = await getPatientStatusApi()
+        if(formData.role === "patient"){
+            let dataStatus = await getPatientStatusApi()
+            console.log('getPatientStatusApi===>',dataStatus)
+            //不存在状态
+            if(dataStatus?.reponseFailStatus){
+                localStorage.setItem("pStatus",0)
+            }else{
+                localStorage.setItem("pStatus",dataStatus)
+            }
+        }
+      
 
         const result = parseDynamicLoginResponse(data);
         console.log("Login message:", result.successMessage);
@@ -69,6 +82,7 @@ const Login = () => {
             alert(result.successMessage)
             //处理对应的存储
             localStorage.setItem('token', result.token);
+            localStorage.setItem('role', formData.role);
             Cookies.set("satoken",result.token)
             localStorage.setItem('curUser',JSON.stringify({
                 user_name:formData.email,
@@ -88,7 +102,7 @@ const Login = () => {
             <h1 style={{textAlign:"center", color:"#1F2B6C",marginBottom:"40px"}}>Sign In</h1>
             <form onSubmit={handleSubmit}>
                 {LoginData.map((field, index) => (
-                    <FormControl fullWidth key={index} margin="normal" variant="outlined">
+                    <FormControl fullWidth key={index} margin="normal" variant="outlined" fullwidth>
                         {field.type === "select" ? <InputLabel htmlFor={field.name}>{field.label}</InputLabel> :""}
                         {field.type === "select" ? (
                             <Select

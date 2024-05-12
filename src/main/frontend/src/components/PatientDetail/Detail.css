@@ -21,6 +21,9 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    background-color: white;
+    margin: 30px;
+    width: 100%;
 }
 .mbox .leftbox{
     width: 70%;
@@ -37,6 +40,8 @@
 }
 .mbox .box1 span{
     font-size: 20px;
+    margin-right: 50px;
+    font-weight: 800;
 }
 .mbox  h3{
     margin-bottom: 20px;
@@ -64,18 +69,25 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     width: 100%;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
+
+
 
 .actions button{
     width: 100%;
     padding: 10px 5px;
-    background-color: #4CAF50;
-    color: white;
+    background-color: #a4c0f7;
+    color: #1F2B6C;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     margin-bottom: 15px;
+}
+
+.actions button:hover{
+    color: #a4c0f7;
+    background-color: #1F2B6C;
 }
 
 .btns {
@@ -85,4 +97,10 @@
 }
 .btns button{
     width: 45%;
+}
+
+.blue-bg{
+    display: flex;
+    min-height: 100vh;
+    background-color: #eaf0f7;
 }

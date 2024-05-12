@@ -38,15 +38,15 @@ function DoctorTimetable() {
             mData[item.key] = mData[item.key] || [];
             mData[item.key].push(item);
         });
-         console.log('mData==>',mData)
-         setMpData(mData)
+        console.log('mData==>',mData)
+        setMpData(mData)
         //
 
         // getMyDoctorScheduleApi
 
     }
     const hasInTime = (date,time)=>{
-        
+
         if(mpData?.[date]){
             return mpData[date].some(item=>item.time==time)
         }
@@ -122,7 +122,7 @@ function DoctorTimetable() {
     const handleDoctorChange =async (event) => {
         console.log("event",event.target.value);
         let data = await getgetDoctorScheduleApi(event.target.value)
-        
+
         data = data.map(item => {
             item.time = `${getTimeComponents(item.startTime)}:00-${getTimeComponents(item.endTime)}:00`
             item.key = getDateByKey(new Date(item.startTime))
@@ -135,70 +135,74 @@ function DoctorTimetable() {
             mData[item.key] = mData[item.key] || [];
             mData[item.key].push(item);
         });
-         console.log('mData==>',mData)
-         setMpData(mData)
+        console.log('mData==>',mData)
+        setMpData(mData)
     };
 
     return (
-        <div className="MainDash">
-            <h1>Schedule for All Doctors</h1>
+        <div>
+            <div style={{marginTop: "40px", marginLeft: "25px"}}>
+                <FormControl size="small" style={{minWidth: "200px", backgroundColor: "white", marginRight: "20px"}}>
+                    <InputLabel id="doctor-select-label">Select Surgery</InputLabel>
+                    <Select
+                        labelId="Surgery-select-label"
+                        label="Select a Surgery"
+                        onChange={(e) => {
+                            handleChange(e)
+                        }}
+                    >
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+                        {specialty.map((doctor) => (
+                            <MenuItem key={doctor.name} value={doctor.name}>{doctor.name}</MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
 
-            <div style={{marginTop:"40px", marginLeft:"25px"}} >
-            <FormControl size="small" style={{minWidth:"200px", backgroundColor:"white",marginRight:"20px"}}>
-                <InputLabel id="doctor-select-label">Select  Surgery</InputLabel>
-                <Select
-                    labelId="Surgery-select-label"
-                    label="Select a Surgery"
-                    onChange={(e)=>{
-                        handleChange(e)
-                    }}
-                >
-                    <MenuItem value="">
-                        <em>None</em>
-                    </MenuItem>
-                    {specialty.map((doctor) => (
-                        <MenuItem key={doctor.name} value={doctor.name}>{doctor.name}</MenuItem>
-                    ))}
-                </Select>
-            </FormControl>
-
-            <FormControl size="small" style={{minWidth:"200px", backgroundColor:"white"}}>
-                <InputLabel id="doctor-select-label">Select a Doctor</InputLabel>
-                <Select
-                    labelId="doctor-select-label"
-                    label="Select a Doctor"
-                    onChange={handleDoctorChange}
-                >
-                    <MenuItem value="">
-                        <em>None</em>
-                    </MenuItem>
-                    {dockers.map((doctor) => (
-                        <MenuItem key={doctor.doctorId} value={doctor.doctorId}>{doctor.name}</MenuItem>
-                    ))}
-                </Select>
-            </FormControl>
+                <FormControl size="small" style={{minWidth: "200px", backgroundColor: "white"}}>
+                    <InputLabel id="doctor-select-label">Select a Doctor</InputLabel>
+                    <Select
+                        labelId="doctor-select-label"
+                        label="Select a Doctor"
+                        onChange={handleDoctorChange}
+                    >
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+                        {dockers.map((doctor) => (
+                            <MenuItem key={doctor.doctorId} value={doctor.doctorId}>{doctor.name}</MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
             </div>
 
-                <Table sx={{ maxWidth: 1175 }} style={{backgroundColor:"white",borderRadius:"20px", marginTop:"40px", marginRight:"20px"}} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell style={{ border: '1px solid "#eaf0f7"' }}>Date / Time</TableCell>
-                            {Array.from({ length: 5 }, (_, i) => 8 + 2 * i).map(hour => (
-                                <TableCell key={hour} style={{ border: '1px solid "#eaf0f7"' }}>{`${hour}:00-${hour + 2}:00`}</TableCell>
+            <Table sx={{maxWidth: 1175}}
+                   style={{backgroundColor: "white", borderRadius: "20px", marginTop: "40px", marginRight: "20px"}}
+                   aria-label="simple table">
+                <TableHead>
+                    <TableRow>
+                        <TableCell style={{border: '1px solid "#eaf0f7"'}}>Date / Time</TableCell>
+                        {Array.from({length: 5}, (_, i) => 8 + 2 * i).map(hour => (
+                            <TableCell key={hour}
+                                       style={{border: '1px solid "#eaf0f7"'}}>{`${hour}:00-${hour + 2}:00`}</TableCell>
+                        ))}
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {Object.keys(timetable).map(date => (
+                        <TableRow key={date}>
+                            <TableCell style={{border: '1px solid #eaf0f7'}}>{date}</TableCell>
+                            {Object.keys(timetable[date]).map(time => (
+                                <TableCell key={time} style={{
+                                    backgroundColor: hasInTime(date, time) ? '#a4c0f7' : '',
+                                    border: '1px solid #eaf0f7'
+                                }}></TableCell>
                             ))}
                         </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {Object.keys(timetable).map(date => (
-                            <TableRow key={date}>
-                                <TableCell style={{ border: '1px solid #eaf0f7' }}>{date}</TableCell>
-                                {Object.keys(timetable[date]).map(time => (
-                                    <TableCell key={time} style={{ backgroundColor: hasInTime(date,time) ? '#a4c0f7' : '', border: '1px solid #eaf0f7' }}></TableCell>
-                                ))}
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                    ))}
+                </TableBody>
+            </Table>
         </div>
     );
 }

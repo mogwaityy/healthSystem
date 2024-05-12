@@ -6,14 +6,16 @@ import Contact from '../home/Contact/Contact';
 import Model from 'react-modal'
 import MakeAppointment from "../Patient/MakeAppointment";
 import {CheckAppointment} from "../Patient/CheckAppointment";
+import map from "./map";
 
 export const HomePages = () => {
   return (
-    <>
-      <Element id="home"><Home /></Element>
-      <Element id="service"><Service /></Element>
-      <Element id="contact"><Contact /></Element>
-    </>
+      <>
+          <Element id="home"><Home/></Element>
+          <Element id="service"><Service/></Element>
+          <Element id="contact"><Contact/></Element>
+
+      </>
   );
 }
 

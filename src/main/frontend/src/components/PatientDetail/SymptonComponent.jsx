@@ -6,7 +6,7 @@ function SymptomInfoComponent({ symptoms }) {
         <div className="symptoms">
             <h3>Symptom</h3>
             {symptoms.map((symptom, index) => (
-                <div key={index} className="symptom-detail">
+                <div key={index} >
                     <p><strong>Description:</strong> {symptom.description}</p>
                 </div>
             ))}

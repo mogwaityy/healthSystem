@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import "./Sidebar.css";
-import { SidebarData } from "../../../Data/SidebarData";
+import Model from 'react-modal';
+import { SidebarData2 } from "../../../Data/SidebarData";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { emitter } from "@/api/m/index"
 const Sidebar = () => {
     const [selected, setSelected] = useState(0);
-    //const history = useHistory();
+    const [visible, setVisible] = useState(false);
     const history = useHistory()
     const hasCurLink = (link,key =null)=>{
         let curHis = window.location.href;
         if(key){
+            
             return false
           }
         return curHis.includes(link);
@@ -24,15 +27,20 @@ const Sidebar = () => {
                 </div>
 
                 <div className="menu">
-                    {SidebarData.map((item, index) => {
+                    {SidebarData2.map((item, index) => {
                         return (
                             <div
                                 key={index}
                                 className={hasCurLink(item.link,item?.key) ? "menuItem active" : "menuItem"}  
                                 onClick={() => {
-                                    history.push({
+                                    if(item?.key && item.key === "logout"){
+                                        setVisible(true)
+                                    }else{
+                                        history.push({
                                         "pathname": item.link
                                     })
+                                    }
+                                   
                                 }}
                             >
                                 <item.icon />
@@ -43,6 +51,15 @@ const Sidebar = () => {
                     <div className="menuItem">
                     </div>
                 </div>
+                <Model
+                    style={{ overlay: { background: "none" }, content: { backgroundColor:"#eaf0f7",margin: "auto", width: "250px", height: "150px" } }}
+                    isOpen={visible} onRequestClose={() => setVisible(false)}>
+                    <p style={{textAlign:"center",marginTop:"20px"}}>Are you sure to logout?</p>
+                    <div className="model-button">
+                        <button onClick={()=>emitter.emit("userLoginOut")}>Confirm</button>
+                        <button  onClick={()=>setVisible(false)}>Cancel</button>
+                    </div>
+                </Model>
             </div>
         </>
     );

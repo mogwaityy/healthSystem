@@ -39,6 +39,7 @@ export default function BasicTable() {
           patientId,
           status:1
         })
+        alert("Please wait for a while")
         if(!data?.reponseFailStatus){
           alert("Success")
           fetchData()
@@ -50,6 +51,7 @@ export default function BasicTable() {
       patientId,
       status:2
     })
+    alert("Please wait for a while")
     if(!data?.reponseFailStatus){
       alert("Success")
       fetchData()

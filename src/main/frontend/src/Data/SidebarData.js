@@ -2,6 +2,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import LogoutIcon from '@mui/icons-material/Logout';
 import DescriptionIcon from '@mui/icons-material/Description';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 export const SidebarData = [
     {
@@ -20,9 +21,28 @@ export const SidebarData = [
         link: "/admin/register-request"
     },
     {
-        icon: DescriptionIcon,
+        icon: AddBoxIcon,
         heading:"New Doctor",
         link: "/admin/create-doctor"
+    },
+    {
+        icon:LogoutIcon,
+        heading: "Lou Out",
+        key:"logout",
+        link: "/"
+    }
+]
+
+export const SidebarData2 = [
+    {
+        icon: HomeIcon,
+        heading: "Appointments",
+        link: "/doctor/dash"
+    },
+    {
+        icon:CalendarMonthIcon,
+        heading: "Schedule",
+        link: "/doctor/schedule"
     },
     {
         icon:LogoutIcon,

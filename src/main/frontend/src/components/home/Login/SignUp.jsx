@@ -54,45 +54,45 @@ const SignUpStep1 = () => {
     return (
         <div style={{backgroundColor:"#eaf0f7", display:"flex", height:"100vh"}}>
             <div className="mbanner-btn">
-            <button onClick={goBack} style={{position:"absolute", top:"5%",left:"5%"}}>Back</button>
-        </div>
+                <button onClick={goBack} style={{position:"absolute", top:"5%",left:"5%", width:"150px"}}>Back to Home</button>
+            </div>
 
-        <div className="bg-register">
-            <h1>Sign Up</h1>
-            <form onSubmit={handleSubmit} className="form-container mform1">
-                {SignUpData1.map((field, index) => (
-                    <div className="input-group" key={index}>
-                        <label htmlFor={field.name}>{field.label}</label>
-                        {field.type === "select" ? (
-                            <select
-                                id={field.name}
-                                name={field.name}
-                                onChange={handleChange}
-                                value={formData[field.name] || ""}
-                                required={field.required}
-                                className="text-input"
-                            >
-                                {field.options.map((option, index) => (
-                                    <option key={index} value={option.value}>{option.label}</option>
-                                ))}
-                            </select>
-                        ) : (
-                            <input
-                                type={field.type}
-                                id={field.name}
-                                name={field.name}
-                                placeholder={field.placeholder}
-                                onChange={handleChange}
-                                value={formData[field.name] || ""}
-                                required={field.required}
-                                className="text-input"
-                            />
-                        )}
-                    </div>
-                ))}
-                <button type="submit" className='submit-btn'> Next Step</button>
-            </form>
-        </div>
+            <div className="bg-register">
+                <h1>Sign Up</h1>
+                <form onSubmit={handleSubmit} className="form-container mform1">
+                    {SignUpData1.map((field, index) => (
+                        <div className="input-group" key={index}>
+                            <label htmlFor={field.name}>{field.label}</label>
+                            {field.type === "select" ? (
+                                <select
+                                    id={field.name}
+                                    name={field.name}
+                                    onChange={handleChange}
+                                    value={formData[field.name] || ""}
+                                    required={field.required}
+                                    className="text-input"
+                                >
+                                    {field.options.map((option, index) => (
+                                        <option key={index} value={option.value}>{option.label}</option>
+                                    ))}
+                                </select>
+                            ) : (
+                                <input
+                                    type={field.type}
+                                    id={field.name}
+                                    name={field.name}
+                                    placeholder={field.placeholder}
+                                    onChange={handleChange}
+                                    value={formData[field.name] || ""}
+                                    required={field.required}
+                                    className="text-input"
+                                />
+                            )}
+                        </div>
+                    ))}
+                    <button type="submit" className='submit-btn'> Next Step</button>
+                </form>
+            </div>
         </div>
     );
 }

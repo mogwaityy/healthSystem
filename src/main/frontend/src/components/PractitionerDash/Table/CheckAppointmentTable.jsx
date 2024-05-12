@@ -2,6 +2,7 @@ import React, { useState,useEffect } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, getAppBarUtilityClass } from '@mui/material';
 import {getAppointmentApi, getAppointmentByStatusApi} from "../../../api/action/appointment"
+import useExtractDate from '../../../hooks/exDate';
 
 // Function to create mock appointment data
 function createAppointment(applicationNo, date, doctor, symptom, specialty, test = '', prescription = '') {
@@ -14,6 +15,7 @@ const initialAppointments = []
 // Main component
 export default function BasicTable() {
   const history = useHistory();
+  const {extractDateTime}=useExtractDate()
 
   const [appointments, setAppointments] = useState(initialAppointments);
   useEffect( ()=>{
@@ -84,7 +86,7 @@ export default function BasicTable() {
             {appointments.length> 0 ? appointments.map((appointment, index) => (
               <TableRow key={index}>
                 <TableCell>{appointment?.appointment?.appointmentId}</TableCell>
-                <TableCell>{appointment?.appointment?.date}</TableCell>
+                <TableCell>{extractDateTime(appointment?.appointment?.date)}</TableCell>
                 
                 <TableCell>{appointment?.doctor?.name}</TableCell>
                 <TableCell>{appointment?.appointment?.description}</TableCell>

@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { TextField, Button, Typography, Paper, Box, Container, InputAdornment, IconButton } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { TextField, Select, Button, InputLabel, FormControl, Typography, Paper, MenuItem, Box, Container, InputAdornment, IconButton } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import './PractitionerDash/Practitioner.css'
+import { addDoctorApi, getDoctorBySpecialtyApi, getSpecialtyApi } from '../api/action/appointment';
 
 const CreateDoctor = () => {
     const [formData, setFormData] = useState({
@@ -12,6 +13,8 @@ const CreateDoctor = () => {
         email: '',
         password: ''
     });
+    const [specialty, setSpecialty] = useState([]);
+    const [dockers, setDockers] = useState([]);
     const [showPassword, setShowPassword] = useState(false);
 
     const handleChange = (event) => {
@@ -21,27 +24,31 @@ const CreateDoctor = () => {
         });
     };
 
+    useEffect(() => {
+        getSpecialtyApi().then(res => {
+            console.log('getSpecialtyApi==>', res)
+            setSpecialty(res)
+        })
+    }, [])
+
     const handlePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        // 这里处理表单提交逻辑，通常是将数据发送到后端服务器
-        console.log(formData);
+        let result = await addDoctorApi(formData)
+        if (!result?.responseFailStatus) {
+            alert(result)
+        }
     };
 
     return (
         <div className="MainDash">
-            <div className="top-bar">
-
-            </div>
             <Container component="main" maxWidth="sm">
-                <Paper style={{ padding: '20px', marginTop:'20px' }}>
-                    <Typography variant="h5" component="h1" style={{ marginBottom: '5px' }}>
-                        Doctor Sign Up
-                    </Typography>
-                    <form onSubmit={handleSubmit}>
+                <Paper style={{ padding: '50px', marginTop: '50px' }}>
+                    <h1 style={{ textAlign: "center" }}>Sign Up for Doctor</h1>
+                    <form onSubmit={handleSubmit} style={{ marginTop: "30px" }}>
                         <TextField
                             fullWidth
                             label="Name"
@@ -51,12 +58,30 @@ const CreateDoctor = () => {
                             onChange={handleChange}
                             margin="normal"
                         />
+                        <FormControl fullWidth margin="normal">
+                            <InputLabel id="Surgery-select-label">Select Surgery</InputLabel>
+                            <Select
+                                labelId="Surgery-select-label"
+                                label="Select a Surgery"
+                                value={formData.specialty}
+                                name="specialty"
+                                onChange={handleChange}
+                            >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
+                                {specialty.length && specialty.map((doctor) => (
+                                    <MenuItem key={doctor.name} value={doctor.name}>{doctor.name}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
                         <TextField
                             fullWidth
-                            label="Specialty"
-                            name="specialty"
+                            label="Email"
+                            name="email"
+                            type="email"
                             variant="outlined"
-                            value={formData.specialty}
+                            value={formData.email}
                             onChange={handleChange}
                             margin="normal"
                         />
@@ -71,48 +96,14 @@ const CreateDoctor = () => {
                             onChange={handleChange}
                             margin="normal"
                         />
-                        <TextField
-                            fullWidth
-                            label="Email"
-                            name="email"
-                            type="email"
-                            variant="outlined"
-                            value={formData.email}
-                            onChange={handleChange}
-                            margin="normal"
-                        />
-                        <TextField
-                            fullWidth
-                            label="Password"
-                            name="password"
-                            type={showPassword ? 'text' : 'password'}
-                            variant="outlined"
-                            value={formData.password}
-                            onChange={handleChange}
-                            margin="normal"
-                            InputProps={{
-                                endAdornment: (
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={handlePasswordVisibility}
-                                            edge="end"
-                                        >
-                                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                )
-                            }}
-                        />
                         <Box style={{ marginTop: '10px' }}>
-                            <Button type="submit" variant="contained" color="primary" fullWidth>
+                            <button type="submit" className="submit-btn" style={{height:"45px"}}>
                                 Sign Up
-                            </Button>
+                            </button>
                         </Box>
                     </form>
                 </Paper>
             </Container>
-
         </div>
     );
 }

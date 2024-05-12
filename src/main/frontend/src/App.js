@@ -14,7 +14,6 @@ import PatientDetail from './components/PatientDetail/PatientDetail';
 import MakeAppointment from './components/Patient/MakeAppointment';
 import { AdminDash } from './components/AdminDash';
 import { CheckAppointment } from './components/Patient/CheckAppointment';
-import StaffRegister from './components/StaffRegister';
 import Prescription from './components/Prescription';
 import DoctorDash from './components/DoctorDash';
 import PrescriptionDetail from './components/PrescriptionDetail';
@@ -28,18 +27,63 @@ import DoctorTimetable from "./components/DoctorTimetable";
 import PersonalTimetable from "./components/PersonalTimetable";
 import CreateDoctor from "./components/CreateDoctor";
 import AllTest from "./components/AllTest";
-
+import AuthRoute from './components/useAuth';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import Cookies from 'js-cookie';
 window.alert = toast;
 emitter.on("ccc",(data)=>{
   console.log("ccc->data",data)
 })
+
+function debounce(func, wait) {
+  let timeout;
+
+  return function(...args) {
+    clearTimeout(timeout); // 每次调用时清除之前的定时器
+    timeout = setTimeout(() => {
+      func.apply(this, args); // 在延迟时间结束后执行原函数
+    }, wait);
+  };
+}
+
+// 使用示例
+
+
+window.alertTsg = debounce(window.alert, 300); // 创建防抖后的函数，延迟时间为300毫秒
+
+
+emitter.on("userLoginOut", () => {
+  console.log('userLoginOut====>')
+  let role = localStorage.getItem("role");
+  localStorage.clear();
+
+  const cookies = document.cookie.split(';').map(cookie => cookie.trim().split('=')[0]);
+// 遍历所有cookie名称并使用js-cookie的remove方法删除它们
+  cookies.forEach(cookieName => {
+      Cookies.remove(cookieName);
+  });
+  console.log("role===>",role)
+  alert("Logout success")
+  window.setTimeout(()=>{
+    if(role == "admin"){
+      window.location.href='/#/admin-login'
+  }else{
+    window.location.href='/'
+  }
+  },1000)
+
+
+  
+})
+emitter.emit("clearOut")
 emitter.emit('ccc','dd')
 
-
+//AuthRoute
 function App() {
   return (
       <Router>
       <ToastContainer />
+      <AuthRoute>
         <Switch>
           <Route path="/" exact >
               <Header />
@@ -62,13 +106,6 @@ function App() {
             </div>
           </Route>
 
-          <Route path="/admin/create-doctor" exact>
-            <div className="dashboard-container">
-              <Sidebar />
-              <CreateDoctor />
-            </div>
-          </Route>
-
           <Route path="/doctor/test" exact>
             <div className="dashboard-container">
               <Sidebar2 />
@@ -76,11 +113,22 @@ function App() {
             </div>
           </Route>
 
+          <Route path="/admin/create-doctor" exact>
+            <div className="dashboard-container">
+              <Sidebar />
+              <CreateDoctor />
+            </div>
+          </Route>
+
+          <Route path="/doctor/test/:patientId" exact>
+              <AllTest />
+          </Route>
+
 
 
           <Route path="/admin/schedule" exact>
             <div className="dashboard-container">
-              <Sidebar2 />
+              <Sidebar />
               <DoctorTimetable />
             </div>
           </Route>
@@ -97,7 +145,7 @@ function App() {
             <SignUpStep3 />
           </Route>
 
-          <Route path="/detail" exact>
+          <Route path="/admin/dash/detail" exact>
             <PatientDetail />
           </Route>
 
@@ -113,7 +161,6 @@ function App() {
             <div className="dashboard-container">
               <Sidebar />
               <AdminDash />
-
             </div>
 
           </Route>
@@ -127,15 +174,13 @@ function App() {
             <CheckAppointment />
           </Route>
 
-          <Route path="/staff-register" exact>
-            <StaffRegister />
-          </Route>
 
           <Route path="/prescription" exact>
             <Prescription />
           </Route>
 
-          <Route path="/doctor" exact>
+          <Route path="/doctor/dash" exact>
+            <Sidebar2/>
             <DoctorDash />
           </Route>
 
@@ -147,6 +192,7 @@ function App() {
           </Route>
 
         </Switch>
+        </AuthRoute>
       </Router>
   );
 }

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link as ScrollLink } from "react-scroll";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
-import Model from 'react-modal'
+import Model from 'react-modal';
 import Login from './Login/Login';
 import { useHistory } from 'react-router-dom';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
@@ -13,6 +13,7 @@ const Header = () => {
     const [visible, setVisible] = useState(false);
     const [loginIn, setloginIn] = useState(false);
     const [UserData, setUserData] = useState({});
+    let now = Date.now()
     const history = useHistory();
     useEffect(() => {
         let curUser = localStorage.getItem('curUser');
@@ -39,6 +40,15 @@ const Header = () => {
         alert("Logout success")
     }
 
+   
+    emitter.on("clearOut", () => {
+      
+        setloginIn(false);
+        setUserData({})
+   
+        //alert("Logout success")
+        
+    })
 
     //触发弹窗的关闭
     emitter.on("userLoginIn", (data) => {
@@ -48,6 +58,9 @@ const Header = () => {
         console.log("ata.role===>",data.role)
         if(data.role == "admin"){
             history.push('/admin/dash')
+        }
+        if(data.role == "doctor"){
+            history.push('/doctor/dash')
         }
     })
     window.addEventListener("scroll", function () {

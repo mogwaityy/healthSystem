@@ -3,9 +3,12 @@ import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow
 import AppointmentImg2 from "../assets/img_1.png";
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { getMyTestResultApi } from '../api/action/appointment';
+import { useTxAuth } from './useAuth';
 
 const TestResult = () => {
     const [testResults, setTestResults] = useState([])
+    //useTxAuth 
+    
     function extractDate(dateTimeString) {
         const date = new Date(dateTimeString);
         const year = date.getFullYear();
@@ -16,14 +19,14 @@ const TestResult = () => {
     async function getData() {
         let data = await getMyTestResultApi()
         console.log('data==>', data)
-        setTestResults(data.map(item => {
+        setTestResults(data.length ?data.map(item => {
             if (item?.testDate) {
                 item.date = extractDate(item.testDate)
             }
             item.result = item.testResult
             return item;
 
-        }))
+        }) : [] )
 
     }
     useEffect(() => {

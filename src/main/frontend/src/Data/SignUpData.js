@@ -38,6 +38,13 @@ export const SignUpData1 = [
         required: true
     },
     {
+        label: "Mobile",
+        name: "mobile",
+        placeholder: "Mobile",
+        type: "text",
+        required: true
+    },
+    {
         label: "Address",
         name: "address",
         placeholder: "Address",
@@ -72,28 +79,20 @@ export const SignUpData3 = [
         label: "Diabetes"
     },
     {
-        name: "hypertension",
-        label: "Hypertension"
-    },
-    {
-        "name": "coronary_artery_disease",
-        "label": "Coronary Artery Disease"
-    },
-    {
         "name": "cancer",
         "label": "Cancer"
     },
     {
-        "name": "alzheimers_disease",
-        "label": "Alzheimer's Disease"
+        "name": "alzheimers",
+        "label": "Alzheimer"
     },
     {
         "name": "osteoarthritis",
         "label": "Osteoarthritis"
     },
     {
-        "name": "parkinsons_disease",
-        "label": "Parkinson's Disease"
+        "name": "parkinsons",
+        "label": "Parkinson"
     },
     {
         "name": "tuberculosis",
@@ -108,8 +107,8 @@ export const SignUpData3 = [
         "label": "Hypertension"
     },
     {
-        "name": "diabetes_mellitus",
-        "label": "Diabetes Mellitus"
+        "name": "mellitus",
+        "label": "Mellitus"
     }
 
 ];
@@ -133,48 +132,22 @@ export const LoginData = [
         type: "select",
         options: [  // Changed from 'Option' to 'options'
             { value: 'doctor', label: 'Doctor' },
-            { value: 'patient', label: 'Patient' },
-            { value: 'admin', label: 'Admin' },
+            { value: 'patient', label: 'Patient' }
         ],
         required: true,
     }
 
 ];
 
-
-export const SignUpDataStaff = [
-    { 
-        label: "Staff ID",
-        name: "staffId",
-        placeholder: "Staff ID",
-        type: "text",
-        required: true
-    },
+export const LoginData2 = [
     {
-        label: "Name",
-        name: "Name",
-        placeholder: "First Name",
-        type: "text",
-        required: true
-    },
-    {
-        label: "Email Address",
         name: "email",
-        placeholder: "Email Address",
-        type: "email",
-        required: true
+        label: "Email",
+        icon: ""
     },
     {
         name: "password",
         label: "Password",
-        placeholder: "Password",
-        icon: <RemoveRedEyeIcon />
-    },
-    {
-        name: "confirmPassword",
-        label: "Confirm Password",
-        placeholder:"Confirm Password",
         icon: <RemoveRedEyeIcon />
     }
-
 ];

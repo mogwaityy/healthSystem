@@ -41,10 +41,16 @@ th {
 .details {
   color: #1F2B6C;
   background-color: #bfd2f8;
-  padding: 7px;
+  padding: 7px 10px;
   border-radius: 8px;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   cursor: pointer;
+}
+
+.details:hover{
+  color: #bfd2f8;
+  background-color: #1F2B6C;
+
 }
 
 @media screen and (max-width: 1200px) {

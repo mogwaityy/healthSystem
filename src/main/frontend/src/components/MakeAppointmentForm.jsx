@@ -5,7 +5,6 @@ import "../App.css"
 import "./PractitionerDash/Practitioner.css"
 import { bookAppointmentApi } from '../api/action/appointment';
 
-
 function MakeAppointmentForm() {
     const location = useLocation();
     const [appointment, setAppointment] = useState({
@@ -31,38 +30,40 @@ function MakeAppointmentForm() {
         setAppointment(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit =async(event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         console.log('Appointment details:', appointment);
-        // Resetting form can be removed if needed to keep the form filled after submission for review
-      //  setAppointment(appointment);
-      let data = {
-        date:new Date(`${appointment.date} ${appointment.time}`),
-        description:appointment.description
-    }
-    console.log('data===>',data)
-     let result = await bookAppointmentApi(data)
-     console.log('result===>',result)
-     if(!result?.reponseFailStatus){
-        alert('Appointment booked successfully')
-     }
+        let data = {
+            date: new Date(`${appointment.date} ${appointment.time}`),
+            description: appointment.description
+        };
+        console.log('data===>', data);
+        let result = await bookAppointmentApi(data);
+        console.log('result===>', result);
+        if (!result?.responseFailStatus) {
+            alert('Appointment booked successfully');
+        }
     };
+
+    const today = new Date();
+    const minDate = today.toISOString().split('T')[0];
+    const maxDate = new Date(today.getTime() + (7 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0];
 
     return (
         <form onSubmit={handleSubmit} className="form-container mform">
             <div className="form-row">
                 <label className="form-label">
                     <span>Date:</span>
-                    <input type="date" name="date" value={appointment.date} onChange={handleChange} required className="form-input"/>
+                    <input type="date" name="date" value={appointment.date} onChange={handleChange} required min={minDate} max={maxDate} className="form-input"/>
                 </label>
             </div>
             <div className="form-row">
                 <label className="form-label">
                     <span>Time:</span>
-                    <input type="time" name="time" value={appointment.time} onChange={handleChange} required className="form-input"/>
+                    <input type="time" name="time" value={appointment.time} onChange={handleChange} required min="08:00" max="18:00" step="3600" className="form-input"/>
                 </label>
             </div>
-        
+
             <div className="form-row">
                 <label className="form-label">
                     <textarea name="description" value={appointment.description} onChange={handleChange}

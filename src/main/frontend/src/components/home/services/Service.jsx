@@ -7,7 +7,7 @@ const Service = () => {
             console.log("val",val)
             if(val?.key){
                 history.push({
-                     "pathname":'/result'
+                     "pathname":val.link
                 //     //"state":val
                 })
             }

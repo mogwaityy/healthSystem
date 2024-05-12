@@ -1,9 +1,20 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
+import {useHistory} from "react-router-dom";
 import './Detail.css';
-import { getDoctorBySpecialtyApi, getDoctorScheduleApi, getSpecialtyApi, rejectAppointmentApi } from '../../api/action/appointment';
+import Model from 'react-modal';
+import { alternativeAppointmentApi, getDoctorBySpecialtyApi, getDoctorScheduleApi, getSpecialtyApi, rejectAppointmentApi, updateDoctorScheduleApi } from '../../api/action/appointment';
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import DoctorTimetable2 from "../DoctorTimetable2";
 
 function ActionsComponent({ row }) {
+    const [visible, setVisible] = useState(false);
+    const history = useHistory();
+
+    const goBack = () => {
+        history.push('/admin/dash'); // 使用history.push()方法导航到主页
+    };
+
     //获取所有科室的数据
     //getSpecialtyApi
     const [specialty, setSpecialty] = useState([]);
@@ -11,21 +22,23 @@ function ActionsComponent({ row }) {
     const [actionItems, setActionItems] = useState({
         action: "accept"
     });
-    const [actionSubmitItems,setActionSubmitItems] = useState({
-         "doctorId": "",
-         "startTime": "",
-         "endTime": "",
-         "patientId": row?.patient.patientId,
-         "appointmentId": row?.appointment?.appointmentId
-        });
+    const [actionSubmitItems, setActionSubmitItems] = useState({
+        "doctorId": "",
+        "startTime": "",
+        "endTime": "",
+        "patientId": row?.patient.patientId,
+        "appointmentId": row?.appointment?.appointmentId
+    });
 
 
-    async function handlerSubmit(){
-            //getDoctorSchedule
-         let data = await  getDoctorScheduleApi(actionSubmitItems);
-         if(!data?.reponseFailStatus){
-            alert("Success");
-         }
+    async function handlerSubmit() {
+        //getDoctorSchedule
+        //  let data = await  getDoctorScheduleApi(actionSubmitItems);
+        //  if(!data?.reponseFailStatus){
+        //     alert("Success");
+        //  }
+  
+        Check()
     }
 
 
@@ -50,10 +63,41 @@ function ActionsComponent({ row }) {
     async function Check() {
         switch (actionItems.action) {
             case "accept":
+                //updateDoctorScheduleApi
+                if(!actionSubmitItems?.startTime || !actionSubmitItems?.endTime){
+                        alert("Please select time")
+                    return 
+                }
+                let startTime = new Date(actionSubmitItems.startTime);
+                let endTime = new Date(actionSubmitItems.endTime);
+                startTime.setDate(startTime.getDate() + 1); // 日期增加一
+                endTime.setDate(endTime.getDate() + 1); // 日期增加一
+
+               setActionSubmitItems({
+                ...actionSubmitItems,
+                startTime,
+                endTime
+               })
+
+                let data = updateDoctorScheduleApi(actionSubmitItems)
+                if (!data?.reponseFailStatus) {
+                    alert("Success");
+                }
                 break;
             case "reject":
+                alert("Please wait for a while")
+                rejectAppointmentAction()
                 break;
             case "alternative":
+                //alternativeAppointmentApi
+                alert("Please wait for a while")
+                alternativeAppointmentApi({
+                    appointmentId:row.appointment.appointmentId,
+                    newTime:new Date()
+                })
+                if (!data?.reponseFailStatus) {
+                    alert("Success");
+                }
                 break;
         }
     }
@@ -68,7 +112,7 @@ function ActionsComponent({ row }) {
     return (
         <div className="actions">
             <h3>Actions</h3>
-            <select value={actionItems.action} onChange={(e) => {
+            <select style={{marginTop:"20px"}} value={actionItems.action} onChange={(e) => {
                 let val = e.target.value;
                 setActionItems({ ...actionItems, action: val })
             }}>
@@ -76,40 +120,53 @@ function ActionsComponent({ row }) {
                 <option value="reject">Reject</option>
                 <option value="alternative">Alternative Option</option>
             </select>
-            <button onClick={() => {
-                Check();
-            }}>Check Doctor Timetable</button>
-            <select onChange={handleChange} >
+            {actionItems.action == "accept" ? <button onClick={() => {
+                setVisible(true);
+            }}>Check Doctor Timetable</button> : ""}
+            {actionItems.action == "accept" ? <select onChange={handleChange} >
                 {specialty.length > 0 ?
                     specialty.map(option => <option key={option.specialtyId} value={option.name}>{option.name}</option>)
                     : <option>Loading...</option>
                 }
-            </select>
-            <select onChange={(e)=>{
-                let val = e.target.val;
-                setActionItems({...actionItems,doctor:val})
+            </select> : ""}
+
+
+            {actionItems.action == "accept" ? <select onChange={(e) => {
+                
+                let val = e.target.value;
+                setActionSubmitItems({ ...actionSubmitItems, doctorId: val })
             }}>
                 <option>Assign Doctor</option>
                 {dockers.length > 0 ?
-                    dockers.map(option => <option key={option.doctorId} value={option.name}>{option.name}</option>)
+                    dockers.map(option => <option key={option.doctorId} value={option.doctorId}>{option.name}</option>)
                     : <option>Loading...</option>
                 }
-            </select>
-            <input type="datetime-local" value={actionSubmitItems.startTime} onChange={e=>{
+            </select> : ""}
+
+
+            {actionItems.action == "accept" ? <input type="datetime-local" value={actionSubmitItems.startTime} onChange={e => {
                 let val = e.target.value;
                 setActionSubmitItems({ ...actionSubmitItems, startTime: val })
-            }}/>
-            <input type="datetime-local" value={actionSubmitItems.endTime} onChange={e=>{
+            }} /> : ""}
+            {actionItems.action == "accept" ? <input type="datetime-local" value={actionSubmitItems.endTime} onChange={e => {
                 let val = e.target.value;
                 setActionSubmitItems({ ...actionSubmitItems, endTime: val })
-            }}/>
+            }} /> : ""}
 
             <div className="btns">
-                <button onClick={()=>{
+                <button onClick={() => {
                     handlerSubmit()
                 }}>Submit</button>
-                <button>Back</button>
+                <button onClick={goBack}>Back</button>
             </div>
+
+            <Model
+                style={{ overlay: { background: "none" }, content: { margin: "5%",background:"#eaf0f7" } }}
+                isOpen={visible} onRequestClose={() => setVisible(false)}>
+                <HighlightOffIcon style={{position:"absolute", "right":"5%", color:"#1F2B6C"}} onClick={() => setVisible(false)}
+                />
+                <DoctorTimetable2 />
+            </Model>
         </div>
     );
 }

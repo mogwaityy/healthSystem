@@ -1,12 +1,15 @@
 import React from 'react';
 import './Detail.css';
+import useExtractDate from '../../hooks/exDate';
 
 function BasicInfoComponent({ patientInfo }) {
+    
+    const {extractDate} = useExtractDate()
     return (
         <div className="basic-info box2">
             <h3>Basic Information</h3>
             <div className="info-row">
-                <p><strong>Date of Birth:</strong> {patientInfo.dob}</p>
+                <p><strong>Date of Birth:</strong> {extractDate(patientInfo.dob)}</p>
                
                 <p><strong>Gender:</strong> {patientInfo.gender}</p>
             </div>

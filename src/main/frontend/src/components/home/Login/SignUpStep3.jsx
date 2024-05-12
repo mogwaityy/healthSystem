@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import './Form.css';
-import { SignUpData3 } from '../../../Data/SignUpData'; // Ensure this path is correct
-import {patientRegisterApi} from "../../../api/action/login";
+import { SignUpData3 } from '../../../Data/SignUpData';
+import { patientRegisterApi } from "../../../api/action/login";
+import { Checkbox, FormControlLabel, Button, FormGroup, Grid, Typography } from '@mui/material';
+import Model from 'react-modal';
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import Login from "./Login";
+import PrivacyPolicy from "./PrivacyPolicy";
 
 const SignUpStep3 = () => {
     const history = useHistory();
-
+    const [visible, setVisible] = useState(false);
     const [formData, setFormData] = useState({
         patient_id: '',
         name: '',
@@ -16,12 +21,21 @@ const SignUpStep3 = () => {
         password: '',
         gender: '',
         mobile: '',
-        medicalHistory: {},  // Use an object to track checked conditions
-        agreedToPrivacy: false // Added to track the privacy policy agreement
+        medicalHistory: {},
+        agreedToPrivacy: false
     });
 
+    const goBack = () => {
+        history.push('/register-2');
+    };
+
+    const handleLabelClick = (event) => {
+        event.stopPropagation(); // 阻止事件冒泡
+        setVisible(true); // 假设 setVisible 已经通过 props 或者上下文传递
+    };
+
+
     useEffect(() => {
-        // Load data from sessionStorage
         const data1 = sessionStorage.getItem('signUpDataStep1');
         const data2 = sessionStorage.getItem('signUpDataStep2');
         if (data1 && data2) {
@@ -49,6 +63,7 @@ const SignUpStep3 = () => {
     };
 
     const handleSubmit = async (e) => {
+        alert("Please wait for a while")
         e.preventDefault();
         if (!formData.agreedToPrivacy) {
             alert('You must agree to the privacy policy before submitting.');
@@ -75,40 +90,65 @@ const SignUpStep3 = () => {
     };
 
     return (
-        <div style={{backgroundColor: "#eaf0f7", display: "flex", height: "100vh"}}>
+        <div style={{ backgroundColor: "#eaf0f7", display: "flex", height: "100vh" }}>
             <div className="mbanner-btn">
-                <button onClick={() => history.push('/register-2')} style={{position: "absolute", top: "5%", left: "5%"}}>Back</button>
+                <Button onClick={() => history.push('/')} style={{ position: "absolute", top: "5%", left: "5%", width:"150px" }}>Back to Home</Button>
             </div>
             <div className="bg-register">
                 <h1>Medical History</h1>
                 <form onSubmit={handleSubmit} className="form-container mform1">
-                    {SignUpData3.map((field, index) => (
-                        <label key={index}>
-                            <input
-                                style={{padding: "20px"}}
-                                type="checkbox"
-                                name={field.name}
-                                checked={formData.medicalHistory[field.name] || false}
-                                onChange={handleCheckboxChange}
-                            />
-                            {field.label}
-                            <br/>
-                        </label>
-                    ))}
-                    <label>
-                        <input
-                            type="checkbox"
-                            checked={formData.agreedToPrivacy}
-                            onChange={handlePrivacyChange}
-                        />
-                        I agree to the Privacy Policy
-                    </label>
-                    <button type="submit" className='submit-btn'>Submit</button>
-                    <button onClick={() => history.push('/register-2')} className='submit-btn'>Previous Step</button>
+                    <FormGroup style={{marginLeft: "50px"}}>
+                        <Grid container spacing={1}>
+                            {SignUpData3.map((field, index) => (
+                                <Grid item xs={6}
+                                      key={index}>  {/* Each item takes up half the width of the container */}
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                checked={formData.medicalHistory[field.name] || false}
+                                                onChange={handleCheckboxChange}
+                                                name={field.name}
+                                            />
+                                        }
+                                        label={field.label}
+                                    />
+                                </Grid>
+                            ))}
+                        </Grid>
+
+                        <Grid container spacing={1} style={{ alignItems: 'center', marginTop:"10px" }}>
+                            <Grid item>
+                                <Checkbox
+                                    checked={formData.agreedToPrivacy}
+                                    onChange={handlePrivacyChange}
+                                    name="agreedToPrivacy"
+                                />
+                            </Grid>
+                            <Grid item>
+        <span onClick={handleLabelClick} style={{ cursor: 'pointer', color: 'red' }}>
+            I agree to the Privacy Policy.
+        </span>
+                            </Grid>
+                        </Grid>
+
+
+
+                    </FormGroup>
+                    <button type="submit" style={{ marginTop:"20px"}} className='submit-btn'>Submit</button>
+                    <button onClick={goBack} className='submit-btn'> Previous Step</button>
                 </form>
             </div>
+
+            <Model
+                style={{ overlay: { background: "none" }, content: { margin: "auto", width: "600px", height: "670px" } }}
+                isOpen={visible} onRequestClose={() => setVisible(false)}>
+                <HighlightOffIcon style={{position:"absolute", "right":"5%", color:"#1F2B6C"}} onClick={() => setVisible(false)}
+                />
+                <PrivacyPolicy />
+            </Model>
         </div>
     );
 };
 
 export default SignUpStep3;
+

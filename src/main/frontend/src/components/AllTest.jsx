@@ -1,35 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Button } from '@mui/material';
+import { TextField,Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Button } from '@mui/material';
 import { useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { getTestResultByPatientApi, updateTestApi } from '../api/action/appointment';
 
-// 模拟API调用函数
-const getMyTestResultApi = async () => {
-    // 模拟网络延迟
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    return [
-        {
-            id: '1',
-            Patient: 'John Doe',
-            testType: 'Blood Sugar',
-            testDate: '2023-05-01T08:30:00Z',
-            testResult: '5.8 mmol/L',
-            normalRange: '3.9-6.1 mmol/L'
-        },
-        {
-            id: '2',
-            Patient: 'Jane Smith',
-            testType: 'Cholesterol',
-            testDate: '2023-05-02T09:30:00Z',
-            testResult: '200 mg/dL',
-            normalRange: '125-200 mg/dL'
-        },
-        // 更多模拟数据
-    ];
-};
+
+let mapResult = {
+     "testResultId": -1592066047,
+    "patientId": "patient0",
+    "testDate": "2024-05-07",
+    "doctorId": "admin0",
+    "testResult": "Positive",
+    "testType": "Blood Test",
+    "normalRange": "0.5-1.5"
+    };
 
 const TestResult = () => {
-    const [testResults, setTestResults] = useState([]);
 
+    const goBack = () => {
+        history.push('/doctor/dash'); // 使用history.push()方法导航到主页
+    };
+    const [testResults, setTestResults] = useState([]);
+    const { patientId } = useParams();
+    console.log('patientId==>', patientId);
     function extractDate(dateTimeString) {
         const date = new Date(dateTimeString);
         const year = date.getFullYear();
@@ -37,17 +30,18 @@ const TestResult = () => {
         const day = date.getDate().toString().padStart(2, '0');
         return `${year}-${month}-${day}`;
     }
+    //const { patientId } = useParams();
 
-    async function getData() {
-        let data = await getMyTestResultApi();
-        console.log('data==>', data);
-        setTestResults(data.map(item => {
-            if (item?.testDate) {
-                item.date = extractDate(item.testDate);
-            }
-            item.result = item.testResult;
+    async function getData() {      
+        let data = await getTestResultByPatientApi(patientId);
+        console.log('1data==>', data);
+        setTestResults(data.length ? data.map(item =>{
+          
+            item.testDate  = extractDate(item.testDate);
+            item.is_show = 0;
             return item;
-        }));
+        } ): [])
+        console.log('2data==>', testResults);
     }
 
     useEffect(() => {
@@ -55,57 +49,102 @@ const TestResult = () => {
     }, []);
 
     const history = useHistory();
-    const handleEdit = (testId) => {
-        console.log('Editing:', testId);
+    const handleEdit = (row,index) => {
+        console.log('Editing:', row);
+        row.is_show = row.is_show === 0 ? 1 : 0;
+        testResults[index] = row;
+        setTestResults([...testResults]);
         // 编辑功能的实现逻辑
     };
+    const clearAllShow = ()=>{
+       
+        setTestResults([... testResults.map(item =>{
+            item.is_show = 0;
+            return item;
+        } )]);
+    }
+    function setTestResultsUpdate(){
+        setTestResults([...testResults]);
+    }
 
-    const handleSave = (testId) => {
-        console.log('Saving:', testId);
+    const handleSave = async (row,index) => {
+        console.log("row,index",row,index);
         // 保存功能的实现逻辑
+        // 保存功能的实现逻辑
+        let data = [];
+        testResults.forEach((item,index) => {
+            Object.keys(mapResult).forEach(it=>{
+                data[index] = data[index] || {}; // 短路运算符简化初始化逻辑
+                data[index][it] = item[it]; // 直接赋值，假设item[it]是想要赋予的值
+            })
+            
+        })
+        let result = await updateTestApi(data);
+        console.log("result===>",result);
+        if(!result?.reponseFailStatus){
+            alert(result)
+            clearAllShow()
+        }
     };
 
     return (
-        <div className="MainDash">
-            <div className="Table">
-                <Typography variant="h3" style={{ color: "#1F2B6C", margin: "40px 0 20px" }}>Test Results</Typography>
+        <div className="blue-bg">
+            <div className="mbanner-btn">
+                <button onClick={goBack} style={{position: "absolute", top: "5%", left: "5%"}}>Back
+                </button>
+            </div>
+
+            <div className="Table" style={{margin: "120px auto"}}>
+                <h1 style={{color: "#1F2B6C", marginBottom: "40px"}}>Patient Test Results</h1>
                 <TableContainer component={Paper} className="table-container" style={{
                     boxShadow: "0px 13px 20px 0px #80808029",
                     borderRadius: "20px",
                     overflowY: "scroll",
                     maxHeight: "520px"
                 }}>
-                    <Table sx={{ minWidth: 700 }} aria-label="simple table">
+                    <Table sx={{minWidth: 1000}} aria-label="simple table" stickyHeader>
                         <TableHead>
                             <TableRow>
-                                <TableCell>Patient</TableCell>
                                 <TableCell>Test Type</TableCell>
                                 <TableCell>Date</TableCell>
                                 <TableCell>Result</TableCell>
-                            <TableCell>Normal Range</TableCell>
-                            <TableCell>Operation</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {testResults.map((test) => (
-                            <TableRow key={test.id}>
-                                <TableCell>{test.Patient}</TableCell>
-                                <TableCell>{test.testType}</TableCell>
-                                <TableCell>{test.date}</TableCell>
-                                <TableCell>{test.result}</TableCell>
-                                <TableCell>{test.normalRange}</TableCell>
-                                <TableCell>
-                                    <Button color="primary" onClick={() => handleEdit(test.id)}>Edit</Button>
-                                    <Button color="secondary" onClick={() => handleSave(test.id)}>Save</Button>
-                                </TableCell>
+                                <TableCell>Normal Range</TableCell>
+                                <TableCell>Operation</TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                        </TableHead>
+                        <TableBody>
+                            {testResults.length > 0 ? testResults.map((test, index) => (
+                                <TableRow key={test.id}>
+                                    <TableCell>{test.testType}</TableCell>
+                                    <TableCell>{test.testDate}</TableCell>
+
+                                    <TableCell>
+                                        {!test.is_show > 0 ? test.testResult :
+                                            <TextField id="outlined-basic" onChange={(e) => {
+                                                let val = e.target.value;
+                                                test.testResult = val;
+                                                setTestResultsUpdate()
+                                            }} label="result" value={test['testResult']}
+                                                       variant="outlined"/>}</TableCell>
+                                    <TableCell>{!test.is_show > 0 ? test.normalRange :
+                                        <TextField id="outlined-basic" onChange={(e) => {
+                                            let val = e.target.value;
+                                            test.normalRange = val;
+                                            setTestResultsUpdate()
+                                        }} label="normalRange" variant="outlined"
+                                                   value={test['normalRange']}/>}</TableCell>
+                                    <TableCell>
+                                        <Button color="primary" onClick={() => handleEdit(test, index)}>Edit</Button>
+                                        <Button color="error" onClick={() => handleSave(test, index)}>Save</Button>
+                                    </TableCell>
+                                </TableRow>
+                            )) : ""}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </div>
         </div>
-</div>
-);
+    );
 };
 
 export default TestResult;

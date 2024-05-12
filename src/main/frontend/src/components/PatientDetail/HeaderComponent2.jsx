@@ -1,15 +1,11 @@
 import React from 'react';
 import './Detail.css';
-import useExtractDate from '../../hooks/exDate';
 
 function HeaderComponent({ name, applicationNo, appointmentTime }) {
-    const {extractDateTime} = useExtractDate()
- 
     return (
         <div className="box1">
             <span>Patient Name: {name}</span>
             <span>Application No: {applicationNo}</span>
-            <span>Time: {extractDateTime(appointmentTime)}</span>
         </div>
     );
 }

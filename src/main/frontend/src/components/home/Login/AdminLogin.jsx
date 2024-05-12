@@ -2,13 +2,19 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import {LoginApi} from "../../../api/action/login";
+import Cookies from "js-cookie";
+import {emitter} from "../../../api/m";
+import {LoginData2} from "../../../Data/SignUpData";
+import {Button, FormControl, IconButton, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 
-const Login = () => {
+const AdminLogin = () => {
     const history = useHistory();
+
     const [formData, setFormData] = useState({
         email: '',
         password: '',
-        role: 'admin'  // Set the role to 'admin' by default
+        role: 'admin'
     });
     const [errors, setErrors] = useState({});
     const [showPassword, setShowPassword] = useState(false);
@@ -22,11 +28,25 @@ const Login = () => {
         setShowPassword(!showPassword);
     };
 
+    function parseDynamicLoginResponse(responseString) {
+        const regex = /(.+), token: ([a-f0-9-]+)/i;
+        const match = responseString.match(regex);
+
+        if (match) {
+            const successMessage = match[1].trim(); // 匹配登录成功的未知信息并去除前后空白
+            const token = match[2]; // 第二个括号内的内容即为token
+            history.push('./admin/dash')
+            return { successMessage, token };
+        } else {
+            return { successMessage: "", token: null }; // 如果匹配失败
+        }
+    }
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Form Data:", formData);
-        if (!formData.email || !formData.password) {
-            alert("Email and password are required!");
+        if (!formData.email || !formData.password ) {
+            alert("All fields are required!");
             return;
         }
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
@@ -34,41 +54,84 @@ const Login = () => {
             return;
         }
 
-        const response = await fetch('/login', { // Assuming the endpoint might be different for admin
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(formData)
-        });
-        const data = await response.json();
+        const data = await LoginApi(formData);
+        if(data?.reponseFailStatus){
+            return false;
+        }
+        //data
 
-        if (response.ok && data.success) {
-            localStorage.setItem('adminToken', data.token); // Store token in localStorage
-            history.push('/dash'); // Redirect to admin dashboard
-            alert('Admin login successful!');
-        } else {
-            console.error('Admin login failed:', data.message);
-            alert(data.message || "Admin login failed");
-            setErrors({ form: data.message || "Failed to login, please try again." });
+        const result = parseDynamicLoginResponse(data);
+        console.log("Login message:", result.successMessage);
+        console.log("Token:", result.token);
+        if(result.token){
+            alert(result.successMessage)
+            //处理对应的存储
+            localStorage.setItem('token', result.token);
+            localStorage.setItem( 'role','admin');
+            Cookies.set("satoken",result.token)
+            localStorage.setItem('curUser',JSON.stringify({
+                user_name:formData.email,
+            }))
+
+            emitter.emit('userLoginIn',{
+                user_name:formData.email,
+                role:"admin"
+            })
+            //向上发送对应的通
         }
     };
 
+
     return (
-        <form onSubmit={handleSubmit}>
-            <div className="form-group">
-                <label htmlFor="email">Email:</label>
-                <input type="text" id="email" name="email" placeholder="Enter your email" value={formData.email} onChange={handleChange} className="text-input" />
+        <div style={{backgroundColor: "#eaf0f7", display: "flex", height: "100vh"}}>
+            <div className="bg-register">
+                <h1 style={{textAlign: "center", color: "#1F2B6C", marginBottom: "40px"}}>Sign In</h1>
+                <form onSubmit={handleSubmit}>
+                    {LoginData2.map((field, index) => (
+                        <FormControl fullWidth key={index} margin="normal" variant="outlined" fullwidth>
+                            {field.type === "select" ? <InputLabel htmlFor={field.name}>{field.label}</InputLabel> : ""}
+                            <TextField
+                                type={field.name === "password" && !showPassword ? "password" : "text"}
+                                id={field.name}
+                                name={field.name}
+                                label={field.label}
+                                value={formData[field.name]}
+                                onChange={handleChange}
+                                InputProps={{
+                                    endAdornment: field.name === "password" && (
+                                        <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={handleTogglePasswordVisibility}
+                                            edge="end"
+                                        >
+                                            {showPassword ? <VisibilityOffIcon/> : <RemoveRedEyeIcon/>}
+                                        </IconButton>
+                                    )
+                                }}
+                            />
+
+                            {errors[field.name] &&
+                                <div style={{color: 'red', marginTop: '8px'}}>{errors[field.name]}</div>}
+                        </FormControl>
+                    ))}
+                    {errors.form && <div style={{color: 'red', marginTop: '8px'}}>{errors.form}</div>}
+                    <Button type="submit" style={{
+                        width: "100%",
+                        padding: "10px 20px",
+                        backgroundColor: "#BFD2F8",
+                        color: "#1F2B6C",
+                        border: "none",
+                        borderRadius: "5px",
+                        cursor: "pointer",
+                        marginTop: "20px"
+                    }}>
+                        Sign In
+                    </Button>
+
+                </form>
             </div>
-            <div className="form-group" style={{ position: 'relative' }}>
-                <label htmlFor="password">Password:</label>
-                <input type={showPassword ? "text" : "password"} id="password" name="password" placeholder="Enter your password" value={formData.password} onChange={handleChange} className="text-input" />
-                <span onClick={handleTogglePasswordVisibility} style={{ position: 'absolute', right: '10px', top: '8px', cursor: 'pointer' }}>
-                    {showPassword ? <VisibilityOffIcon /> : <RemoveRedEyeIcon />}
-                </span>
-            </div>
-            {errors.form && <div className="error">{errors.form}</div>}
-            <button type="submit" className="submit-btn">Sign In</button>
-        </form>
+        </div>
     );
 };
 
-export default Login;
+export default AdminLogin;
