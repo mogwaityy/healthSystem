@@ -9,6 +9,8 @@ import DoctorTimetable2 from "../DoctorTimetable2";
 
 function ActionsComponent({ row }) {
     const [visible, setVisible] = useState(false);
+    const [visibleAlt, setVisibleAlt] = useState(false);
+    const [newTime, setNewTime] = useState();
     const history = useHistory();
 
     const goBack = () => {
@@ -107,13 +109,19 @@ function ActionsComponent({ row }) {
                 break;
             case "alternative":
                 //alternativeAppointmentApi
+             
+                if(!newTime){
+                        alert("Please select time")
+                        return false
+                }
                 alert("Please wait for a while")
                  data = await alternativeAppointmentApi({
                     appointmentId:row.appointment.appointmentId,
-                    newTime:new Date()
+                    newTime:newTime
                 })
                 if (!data?.reponseFailStatus) {
                     alert("Success");
+                    setNewTime('')
                 }
                 break;
         }
@@ -132,11 +140,20 @@ function ActionsComponent({ row }) {
             <select style={{marginTop:"20px"}} value={actionItems.action} onChange={(e) => {
                 let val = e.target.value;
                 setActionItems({ ...actionItems, action: val })
+                if(val == "alternative"){
+                    setVisibleAlt(true)
+                }else{
+                    setVisibleAlt(false)
+                }
             }}>
                 <option value="accept">Accept</option>
                 <option value="reject">Reject</option>
                 <option value="alternative">Alternative Option</option>
             </select>
+            {visibleAlt? <input type="datetime-local" value={newTime} onChange={e => {
+                let val = e.target.value;
+                setNewTime(val)
+            }} /> : ""}
             {actionItems.action == "accept" ? <button onClick={() => {
                 setVisible(true);
             }}>Check Doctor Timetable</button> : ""}
