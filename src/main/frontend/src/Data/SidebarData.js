@@ -27,7 +27,7 @@ export const SidebarData = [
     },
     {
         icon:LogoutIcon,
-        heading: "Lou Out",
+        heading: "Log Out",
         key:"logout",
         link: "/"
     }
@@ -46,7 +46,7 @@ export const SidebarData2 = [
     },
     {
         icon:LogoutIcon,
-        heading: "Lou Out",
+        heading: "Log Out",
         key:"logout",
         link: "/"
     }

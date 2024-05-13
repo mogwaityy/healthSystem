@@ -1,6 +1,7 @@
 package com.example.healthSystem.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
+import cn.dev33.satoken.annotation.SaCheckRole;
 import cn.dev33.satoken.stp.StpUtil;
 import com.example.healthSystem.common.ApiResponse;
 import com.example.healthSystem.entity.*;
@@ -22,6 +23,7 @@ public class PrescriptionController {
     IPrescriptionService prescriptionService;
 
     //医生给出处方，医生id自己获得，更新appointment状态为已完成
+    @SaCheckRole("doctor")
     @ResponseBody
     @RequestMapping("/addPrescription")
     public ApiResponse<String> addPrescription(@RequestBody PatientPrescription patientPrescription) {
@@ -48,6 +50,7 @@ public class PrescriptionController {
     }
 
     //doctor点击一个病人详情获取病人的所有检验结果
+    @SaCheckRole("doctor")
     @ResponseBody
     @RequestMapping("/getTestResultByPatient")
     public ApiResponse<List<TestResult>> getTestResultByPatient(@RequestBody String patientId) {
@@ -75,12 +78,14 @@ public class PrescriptionController {
     }
 
     //医生增加额外的体检
+    @SaCheckRole("doctor")
     @ResponseBody
     @RequestMapping("/addTest")
     public ApiResponse<String> addTest(@RequestBody List<TestResult> testResult ) {
         return prescriptionService.addTest(testResult);
     }
     //体检结果完成，修改体检结果
+    @SaCheckRole("doctor")
     @ResponseBody
     @RequestMapping("/updateTest")
     public ApiResponse<String> updateTest(@RequestBody List<TestResult> testResult ) {

@@ -5,8 +5,8 @@ import {  toast } from 'react-toastify';
 
 const api = axios.create({
     // baseURL: import.meta.env.DEV ? '/api/' : import.meta.env.VITE_APP_API_BASEURL,
-    baseURL: "http://localhost:8080/",
-   // baseURL: "https://healthystem.nicesea-44cd997c.eastus.azurecontainerapps.io/",
+    // baseURL: "http://localhost:8080/",
+   baseURL: "https://healthystem.nicesea-44cd997c.eastus.azurecontainerapps.io/",
     timeout: 30000,
     responseType: 'json',
     headers: {

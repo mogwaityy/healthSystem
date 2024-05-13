@@ -43,7 +43,7 @@ public class UserServiceImpl implements IUserService {
         Patient patient=patientRegisterDTO.getPatient();
         if (StringUtils.hasText(patient.getEmail())&&StringUtils.hasText(patient.getName()) && StringUtils.hasText(patient.getPassword())) {
             if (patientMapper.existsByEmail(patient.getEmail())){
-                return ApiResponse.error(400,"email have already registered!");
+                return ApiResponse.error(400,"email have already been registered!");
             }
             String id="patient" + CommonFunction.generateId();
             patient.setPatientId(id);
@@ -140,11 +140,35 @@ public class UserServiceImpl implements IUserService {
         patientMapper.update(null, updateWrapper);
         Patient patient=patientMapper.selectById(patientId);
         if (status==1){
-            SimpleMailMessage message=CommonFunction.sendSimpleMessage(patient.getEmail(),"Register Success","Success");
+            SimpleMailMessage message=CommonFunction.sendSimpleMessage(patient.getEmail(),"Registration Successful - Start Booking Your Appointments Now!","" +
+                    "Dear " +patient.getName()+
+                    ",\n" +
+                    "We are delighted to inform you that your registration on our platform has been successfully completed! Welcome to E-Clinic!\n" +
+                    "\n" +
+                    "With your registration complete, you can now start booking appointments with our healthcare professionals at your convenience. Whether you need a routine check-up, consultation, or specialized treatment, our platform offers a seamless booking experience tailored to your needs.\n" +
+                    "\n" +
+                    "Here are some key features and benefits of our platform:\n" +
+                    "\n" +
+                    "Convenient Booking: Easily schedule appointments with your preferred healthcare providers from the comfort of your home or on the go.\n" +
+                    "Wide Range of Specialists: Choose from a diverse pool of healthcare professionals, including doctors, specialists, and therapists, covering various medical fields.\n" +
+                    "Manage Your Health: Access your appointment history, medical records, and personalized health recommendations all in one place.\n" +
+                    "To start booking appointments, simply log in to your account on our website  and navigate to the \"Book Appointment\" section. If you have any questions or need assistance, our customer support team is here to help you.\n" +
+                    "\n" +
+                    "Thank you for choosing E-Clinic for your healthcare needs. We look forward to serving you and helping you stay healthy.\n" +
+                    "\n" +
+                    "Best regards,"+
+                    "\n"+
+                    "E-clinic office");
             mailSender.send(message);
         }
         if (status==2){
-            SimpleMailMessage message=CommonFunction.sendSimpleMessage(patient.getEmail(),"Regsiter failed","failed");
+            SimpleMailMessage message=CommonFunction.sendSimpleMessage(patient.getEmail(),"Registration Unsuccessful","Dear " +patient.getName()+","+
+                    "\n" +
+                    "We regret to inform you that your registration on our platform was unsuccessful due to something."+
+                    "\n"+
+                    "Best regards,"+
+                    "\n"+
+                    "Eclinic-office");
             mailSender.send(message);
         }
         return ApiResponse.success(null);

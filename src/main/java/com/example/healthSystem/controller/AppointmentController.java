@@ -26,6 +26,7 @@ public class AppointmentController {
 
 
     //admin分页获取所有病人记录
+    @SaCheckRole("admin")
     @ResponseBody
     @RequestMapping("/getPatientPage")
     public ApiResponse<Page> getPatientPage() {
@@ -69,6 +70,7 @@ public class AppointmentController {
     }
 
     //admin根据状态获取appointment，0-未分配，1-分配医生，3-拒绝,2-已完成
+    @SaCheckRole("admin")
     @ResponseBody
     @RequestMapping("/getAppointmentByStatus")
     public ApiResponse<List<AppointmentDTO>> getAppointmentByStatus(@RequestBody Integer status) {
@@ -86,8 +88,8 @@ public class AppointmentController {
         return appointmentService.getDoctorAppointment(doctorId,status);
     }
 
-
     //病人预约看病，admin审核appointment后安排医生
+    @SaCheckRole("admin")
     @ResponseBody
     @RequestMapping("/updateDoctorSchedule")
     public ApiResponse<String> updateDoctorSchedule(@RequestBody DoctorSchedule doctorSchedule) {
@@ -95,6 +97,7 @@ public class AppointmentController {
     }
 
     //admin拒绝appointment
+    @SaCheckRole("admin")
     @ResponseBody
     @RequestMapping("/rejectAppointment")
     public ApiResponse<String> rejectAppointment(@RequestBody String appointmentId) {
@@ -102,6 +105,7 @@ public class AppointmentController {
     }
 
     //给出替补方案，即更改appointment日期，发送邮件
+    @SaCheckRole("admin")
     @ResponseBody
     @RequestMapping("/alternativeAppointment")
     public ApiResponse<String> alternativeAppointment(@RequestBody AlternativeAppointmentDTO alternativeAppointmentDTO) {
@@ -110,6 +114,7 @@ public class AppointmentController {
 
 
     //管理员获取医生的时间表
+    @SaCheckRole("admin")
     @ResponseBody
     @RequestMapping("/getDoctorSchedule")
     public ApiResponse<List<DoctorSchedule>> getDoctorSchedule(@RequestBody String doctorId) {

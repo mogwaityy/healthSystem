@@ -76,7 +76,6 @@ export default function BasicTable() {
             <TableRow>
               <TableCell>Name</TableCell>
               <TableCell>Gender</TableCell>
-              <TableCell>Status</TableCell>
               <TableCell>Birth</TableCell>
               <TableCell>Mobile</TableCell>
               <TableCell>Email</TableCell>
@@ -89,7 +88,6 @@ export default function BasicTable() {
               <TableRow key={index}>
                 <TableCell>{row.name}</TableCell>
                 <TableCell>{row?.gender ? mapGender[row.gender] : ""}</TableCell>
-                <TableCell>{mapStatus[row.status]}</TableCell>
                 <TableCell>{row?.birth ? formatDate(row.birth) :""}</TableCell>
                 <TableCell>{row.mobile}</TableCell>
                 <TableCell>{row.email}</TableCell>

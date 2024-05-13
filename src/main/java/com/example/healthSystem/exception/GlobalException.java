@@ -17,35 +17,35 @@ public class GlobalException {
         e.printStackTrace();
 
         // 返回给前端
-        return SaResult.error(e.getMessage());
+        return SaResult.error("Not logged in");
     }
 
     // 拦截：缺少权限异常
     @ExceptionHandler(value = NotPermissionException.class)
     public SaResult handlerException(NotPermissionException e) {
         e.printStackTrace();
-        return SaResult.error("缺少权限：" + e.getPermission());
+        return SaResult.error("Missing permissions：" + e.getPermission());
     }
 
     // 拦截：缺少角色异常
     @ExceptionHandler(NotRoleException.class)
     public SaResult handlerException(NotRoleException e) {
         e.printStackTrace();
-        return SaResult.error("缺少角色：" + e.getRole());
+        return SaResult.error("Missing permissions：" + e.getRole());
     }
 
     // 拦截：二级认证校验失败异常
     @ExceptionHandler(NotSafeException.class)
     public SaResult handlerException(NotSafeException e) {
         e.printStackTrace();
-        return SaResult.error("二级认证校验失败：" + e.getService());
+        return SaResult.error("Second level authentication verification failed：" + e.getService());
     }
 
     // 拦截：服务封禁异常
     @ExceptionHandler(DisableServiceException.class)
     public SaResult handlerException(DisableServiceException e) {
         e.printStackTrace();
-        return SaResult.error("当前账号 " + e.getService() + " 服务已被封禁 (level=" + e.getLevel() + ")：" + e.getDisableTime() + "秒后解封");
+        return SaResult.error("Current account " + e.getService() + " Service has been blocked (level=" + e.getLevel() + ")：" + e.getDisableTime() + "秒后解封");
     }
 
     // 拦截：Http Basic 校验失败异常

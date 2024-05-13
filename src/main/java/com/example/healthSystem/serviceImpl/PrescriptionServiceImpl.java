@@ -54,7 +54,7 @@ public class PrescriptionServiceImpl implements IPrescriptionService {
         }
         //修改appointment状态为已完成-2
         UpdateWrapper<Appointment> updateWrapper=new UpdateWrapper<>();
-        updateWrapper.eq("appointment_id",prescription.getPrescriptionId());
+        updateWrapper.eq("appointment_id",prescription.getAppointmentId());
         updateWrapper.set("status",2);
         appointmentMapper.update(updateWrapper);;
         return ApiResponse.success("处方添加成功");
@@ -135,10 +135,10 @@ public class PrescriptionServiceImpl implements IPrescriptionService {
         //获取所有处方
         List<Prescription> prescriptions=prescriptionMapper.selectList(queryWrapper);
         //根据处方单号查找药方
-        QueryWrapper<MedicinePrescription> medicinePrescriptionQueryWrapper=new QueryWrapper<>();
         List<MedicinePrescription> medicinePrescriptions=new ArrayList<>();
         if (prescriptions!=null) {
             for (Prescription prescription : prescriptions) {
+                QueryWrapper<MedicinePrescription> medicinePrescriptionQueryWrapper=new QueryWrapper<>();
                 patientPrescription.setPrescription(prescription);
                 medicinePrescriptionQueryWrapper.eq("prescription_id", prescription.getPrescriptionId());
                 medicinePrescriptions = medicinePrescriptionMapper.selectList(medicinePrescriptionQueryWrapper);

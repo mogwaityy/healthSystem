@@ -68,7 +68,7 @@ function ActionsComponent({ row }) {
         
         // 使用setHours方法设置小时数，参数为当前小时数加1
         // setHours方法会自动处理小时溢出，比如从23小时变为00小时
-        newDate.setHours(date.getHours() + 2);
+        newDate.setHours(date.getHours() + 1);
         
         return newDate;
     }

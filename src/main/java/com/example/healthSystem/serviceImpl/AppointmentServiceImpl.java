@@ -45,8 +45,8 @@ public class AppointmentServiceImpl implements IAppointmentService {
     public ApiResponse<Page> getPatientPage( int pageNum, int pageSize) {
         QueryWrapper<Patient> queryWrapper = new QueryWrapper<>();
         //0代表账号请求注册，1代表通过注册，
-        //获取请求注册和通过注册的请求
-        queryWrapper.lt("status", 2);
+        //获取请求注册的请求
+        queryWrapper.eq("status", 0);
         Page<Patient> page = new Page<>(pageNum, pageSize);
         return ApiResponse.success(patientMapper.selectPage(page,queryWrapper));
     }

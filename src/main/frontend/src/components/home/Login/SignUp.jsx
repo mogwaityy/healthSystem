@@ -7,6 +7,15 @@ const SignUpStep1 = () => {
     const [formData, setFormData] = useState({});
     const history = useHistory();
 
+    // Function to get today's date in YYYY-MM-DD format
+    const getTodayDate = () => {
+        const today = new Date();
+        const day = String(today.getDate()).padStart(2, '0');
+        const month = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        const year = today.getFullYear();
+        return `${year}-${month}-${day}`;
+    };
+
     const goBack = () => {
         history.push('/'); // 使用history.push()方法导航到主页
     };
@@ -86,6 +95,7 @@ const SignUpStep1 = () => {
                                     value={formData[field.name] || ""}
                                     required={field.required}
                                     className="text-input"
+                                    max={field.type === 'date' ? getTodayDate() : ''}
                                 />
                             )}
                         </div>
