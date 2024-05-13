@@ -30,11 +30,22 @@ function MakeAppointmentForm() {
         setAppointment(prev => ({ ...prev, [name]: value }));
     };
 
+    function addOneHour(date) {
+        // 创建一个新的Date对象，基于传入的日期
+        var newDate = new Date(date.getTime());
+        
+        // 使用setHours方法设置小时数，参数为当前小时数加1
+        // setHours方法会自动处理小时溢出，比如从23小时变为00小时
+        newDate.setHours(date.getHours() + 2);
+        
+        return newDate;
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log('Appointment details:', appointment);
         let data = {
-            date: new Date(`${appointment.date} ${appointment.time}`),
+            date: addOneHour(new Date(`${appointment.date} ${appointment.time}`)),
             description: appointment.description
         };
         console.log('data===>', data);

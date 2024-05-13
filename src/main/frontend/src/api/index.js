@@ -5,8 +5,8 @@ import {  toast } from 'react-toastify';
 
 const api = axios.create({
     // baseURL: import.meta.env.DEV ? '/api/' : import.meta.env.VITE_APP_API_BASEURL,
-   // baseURL: "http://localhost:8080/",
-    baseURL: "https://healthystem.nicesea-44cd997c.eastus.azurecontainerapps.io/",
+    baseURL: "http://localhost:8080/",
+   // baseURL: "https://healthystem.nicesea-44cd997c.eastus.azurecontainerapps.io/",
     timeout: 30000,
     responseType: 'json',
     headers: {
@@ -46,7 +46,14 @@ api.interceptors.request.use(
         return response.data.data;
       }else{
         let msg = response.data?.message ?? response.data?.msg
-        alert(msg)
+        //缺少角色：doctor
+        
+        if(msg.includes('缺少角色：')){
+          msg = msg.replace("缺少角色：","Lack of role :")
+        }else if(msg.includes("无效")){
+          msg = "Invalid token"
+        }
+        window.alertTsg(msg)
         return Promise.resolve({
             msg,
             reponseFailStatus:1

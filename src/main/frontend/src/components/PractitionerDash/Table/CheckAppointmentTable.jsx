@@ -61,14 +61,12 @@ export default function BasicTable() {
 
   return (
     <div className="Table">
-    
-      <h3>Your appointments</h3>
       <TableContainer
         component={Paper}
         className="table-container"
         style={{ boxShadow: "0px 13px 20px 0px #80808029", borderRadius: "20px" }}
       >
-        <Table sx={{ minWidth: 1100 }} aria-label="simple table">
+        <Table sx={{ minWidth: 1100 }} aria-label="simple table" stickyHeader>
           <TableHead>
             <TableRow>
               <TableCell>Application No.</TableCell>

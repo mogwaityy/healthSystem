@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
-import AppointmentImg2 from "../assets/img_1.png";
+import AppointmentImg3 from "../assets/img_3.png";
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { getMyTestResultApi } from '../api/action/appointment';
 import { useTxAuth } from './useAuth';
@@ -55,27 +55,24 @@ const TestResult = () => {
     }
     //getTestResultByPatient
     return (
-        <div>
-            <img src={AppointmentImg2} style={{ width: "100%" }}></img>
-            <div className="mbanner" style={{
-                position: "absolute",
-                top: "100px",
-                left: "100px",
-            }}>
+        <div className="container" style={{background: "#eaf0f7", minHeight: "100vh"}}>
+
+            <div className="mbanner">
+                <img src={AppointmentImg3} style={{width: "100%"}}></img>
 
                 <button onClick={() => {
                     goBack()
-                }}>Back</button>
+                }}>Back
+                </button>
             </div>
-            <div className="Table">
-                <Typography variant="h3" style={{ color: "#1F2B6C", margin: "40px 0 20px" }}>Test Results</Typography>
+            <div className="Table" style={{margin:"20px 150px"}}>
                 <TableContainer component={Paper} className="table-container" style={{
                     boxShadow: "0px 13px 20px 0px #80808029",
                     borderRadius: "20px",
                     overflowY: "scroll",
                     maxHeight: "520px"
                 }}>
-                    <Table sx={{ minWidth: 700 }} aria-label="simple table">
+                    <Table sx={{minWidth: 700}} aria-label="simple table" stickyHeader>
                         <TableHead>
                             <TableRow>
                                 <TableCell>Test Type</TableCell>

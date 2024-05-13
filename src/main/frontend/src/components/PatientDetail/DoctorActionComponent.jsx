@@ -95,6 +95,10 @@ function ActionsComponent({ row }) {
                     testDate: e.target.value
                 })
             }} required className="form-input" value={testRow.testDate}/>
+            <button style={{marginBottom: "40px"}} onClick={() => {
+                handlerSave(row)
+            }}>Add Test
+            </button>
 
             <label>Update Medical History</label>
             <input style={{marginTop: "10px", marginBottom: "20px"}} value={medicalHistory.description} onChange={e => {
@@ -105,19 +109,17 @@ function ActionsComponent({ row }) {
 
             }}>
             </input>
-
-            <button onClick={() => {
-                handlerClick(row)
-            }}>Generate prescription
-            </button>
-            <button onClick={() => {
-                handlerSave(row)
-            }}>Add Test
-            </button>
-            <button onClick={() => {
+            <button style={{marginBottom: "40px"}} onClick={() => {
                 handlerSaveHistory(row)
             }}>Add Medical History
             </button>
+
+            <label>Generate Prescription</label>
+            <button style={{marginTop: "10px", marginBottom: "40px"}} onClick={() => {
+                handlerClick(row)
+            }}>Generate prescription
+            </button>
+
             <button onClick={goBack}>Back</button>
 
 

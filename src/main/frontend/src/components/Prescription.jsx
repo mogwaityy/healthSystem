@@ -104,21 +104,21 @@ const PrescriptionForm = () => {
     const today = new Date().toLocaleDateString();
 
     return (
-        <div style={{backgroundColor:"#eaf0f7", minHeight:"100vh",padding:"20px 30px"}}>
-            <HighlightOffIcon style={{position:"absolute", "right":"5%", color:"#1F2B6C"}} onClick={goBack}
+        <div className="container" style={{background: "#eaf0f7", padding: "80px"}}>
+            <HighlightOffIcon style={{position: "absolute", "right": "3%", top: "3%", color: "#1F2B6C"}}
+                              onClick={goBack}
             />
-            <Paper style={{ padding: "20px"}}>
+            <Paper style={{padding: "30px"}}>
                 <Typography className="mhead">Prescription</Typography>
-                <div className="minfo">
+                <div className="minfo" style={{textAlign:"center", marginTop:"20px"}}>
                     <Typography><strong>Patient Name:</strong> {curRow?.patient?.name}</Typography>
                     <Typography><strong>Gender:</strong> {mapGender[curRow?.patient?.gender ?? 0]}</Typography>
-                  
                     <Typography><strong>Date of Birth:</strong>{extractDate(curRow?.patient?.birth)}</Typography>
                     <Typography><strong>Date:</strong> {extractDate(curRow?.appointment?.date)}</Typography>
                     <Typography><strong>Doctor:</strong>{dockerName}</Typography>
                 </div>
                 <div className="mmedical">
-                    <div className="diagnosis">
+                    <div className="diagnosis" style={{padding:"0 20px"}}>
                         <FormControl fullWidth margin="normal">
                             <InputLabel>Diagnose</InputLabel>
                             <Select className="item"
@@ -131,7 +131,7 @@ const PrescriptionForm = () => {
                                 <MenuItem value="Hypertension">Hypertension</MenuItem>
                             </Select>
                         </FormControl>
-                        <div className="item1" style={{ height:"200px" }}>
+                        <div className="item1" style={{height: "200px"}}>
                             <TextField className="item"
                                        fullWidth
                                        label="Symptom Description"
@@ -141,9 +141,9 @@ const PrescriptionForm = () => {
                         </div>
 
                     </div>
-                    <div className="medicine">
+                    <div className="medicine" style={{padding:"0 20px", marginTop:"5px"}}>
                         {Object.keys(medicineForm).map((key, index) => (
-                            <FormControl key={index} style={{minWidth: 120, margin: "10px"}}>
+                            <FormControl  key={index} style={{minWidth: 120, margin: "10px"}}>
                                 <InputLabel>{key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}</InputLabel>
                                 <Select className="item"
                                         value={medicineForm[key]}
@@ -161,7 +161,8 @@ const PrescriptionForm = () => {
                             Medicine</Button>
                     </div>
                 </div>
-                <Button onClick={()=>{addMedicineSubmit()}} variant="contained" color="primary"  style={{height: '56px',width:"100%",marginTop:"30px",marginBottom:"20px"}}>submit</Button>
+                <br/>
+                <br/>
                 <TableContainer component={Paper}>
                     <Table>
                         <TableHead>
@@ -188,11 +189,15 @@ const PrescriptionForm = () => {
                             ))}
                         </TableBody></Table>
                 </TableContainer>
-              
+                <Button onClick={() => {
+                    addMedicineSubmit()
+                }} variant="contained" color="primary"
+                        style={{height: '56px', width: "100%", marginTop: "30px", marginBottom: "20px"}}>submit</Button>
+
             </Paper>
-      
+
         </div>
     );
-    }
+}
 
 export default PrescriptionForm;

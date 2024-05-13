@@ -60,7 +60,18 @@ function ActionsComponent({ row }) {
 
     }
 
+    function addOneHour(date) {
+        // 创建一个新的Date对象，基于传入的日期
+        var newDate = new Date(date.getTime());
+        
+        // 使用setHours方法设置小时数，参数为当前小时数加1
+        // setHours方法会自动处理小时溢出，比如从23小时变为00小时
+        newDate.setHours(date.getHours() + 2);
+        
+        return newDate;
+    }
     async function Check() {
+        let data = null;
         switch (actionItems.action) {
             case "accept":
                 //updateDoctorScheduleApi
@@ -68,18 +79,24 @@ function ActionsComponent({ row }) {
                         alert("Please select time")
                     return 
                 }
-                let startTime = new Date(actionSubmitItems.startTime);
-                let endTime = new Date(actionSubmitItems.endTime);
-                startTime.setDate(startTime.getDate() + 1); // 日期增加一
-                endTime.setDate(endTime.getDate() + 1); // 日期增加一
+     
+                let startTime = addOneHour(new Date(actionSubmitItems.startTime ));
+                let endTime =  addOneHour(new Date(actionSubmitItems.endTime ));;
+                
 
                setActionSubmitItems({
                 ...actionSubmitItems,
                 startTime,
                 endTime
                })
+              
+             
 
-                let data = updateDoctorScheduleApi(actionSubmitItems)
+                 data =await updateDoctorScheduleApi({
+                    ...actionSubmitItems,
+                    startTime,
+                    endTime
+                   })
                 if (!data?.reponseFailStatus) {
                     alert("Success");
                 }
@@ -91,7 +108,7 @@ function ActionsComponent({ row }) {
             case "alternative":
                 //alternativeAppointmentApi
                 alert("Please wait for a while")
-                alternativeAppointmentApi({
+                 data = await alternativeAppointmentApi({
                     appointmentId:row.appointment.appointmentId,
                     newTime:new Date()
                 })

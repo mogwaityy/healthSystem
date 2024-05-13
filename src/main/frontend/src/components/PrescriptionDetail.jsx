@@ -1,12 +1,18 @@
 // PrescriptionDetails.jsx
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import { Paper, Typography, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import { getPrescriptionByAppointmentApi } from '../api/action/appointment';
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 function PrescriptionDetails() {
   const { applicationId } = useParams();
   const [prescription, setPrescription] = useState(null);
+  const history = useHistory();
+
+  const goBack = () => {
+    history.push('/check-appointment');
+  };
 
   // Mock function to simulate fetching data
   useEffect(() => {
@@ -20,7 +26,7 @@ function PrescriptionDetails() {
           applicationId,
           doctor: result?.prescription?.doctorId,
           diagnosis: result?.prescription?.diagnose,
-          description: result?.prescription?.description,
+          description: result?.prescription?.instruction,
           medicines:result?.medicinePrescriptions.map(item=>{
               item.name = item.medicine;
               item.qty = item.quantity;
@@ -37,11 +43,15 @@ function PrescriptionDetails() {
   if (!prescription) return <div>Loading...</div>;
 
   return (
-    <Paper style={{ padding: "20px", margin: "20px" }}>
-      <Typography variant="h4" style={{ marginBottom: "20px" }}>Prescription Details</Typography>
-      <Typography><strong>Doctor:</strong> {prescription.doctor}</Typography>
-      <Typography><strong>Diagnosis:</strong> {prescription.diagnosis}</Typography>
-      <Typography><strong>Description:</strong> {prescription.description}</Typography>
+      <div className="container" style={{background: "#eaf0f7", minHeight: "100vh", padding:"80px"}}>
+        <HighlightOffIcon onClick={goBack} style={{position:"absolute", "right":"3%",top:"3%", color:"#1F2B6C"}}/>
+    <Paper style={{ padding: "20px", height:"700px"}}>
+      <Typography variant="h4" style={{ marginBottom: "20px", textAlign:"center", color:"#1F2B6C", padding:"20px"}}>Prescription Details</Typography>
+      <div style={{display:"flex", marginLeft:"40px"}}>
+      <Typography style={{marginRight:"50px"}}><strong>Doctor:</strong> {prescription.doctor}</Typography>
+      <Typography style={{marginRight:"50px"}}><strong>Diagnosis:</strong> {prescription.diagnosis}</Typography>
+      </div>
+      <Typography style={{marginLeft:"40px", marginTop:"20px", marginBottom:"40px"}}><strong>Description:</strong> {prescription.description}</Typography>
       <Table>
         <TableHead>
           <TableRow>
@@ -49,7 +59,7 @@ function PrescriptionDetails() {
             <TableCell>Quantity</TableCell>
             <TableCell>Unit</TableCell>
             <TableCell>Dosage</TableCell>
-      
+
           </TableRow>
         </TableHead>
         <TableBody>
@@ -59,12 +69,13 @@ function PrescriptionDetails() {
               <TableCell>{med.qty}</TableCell>
               <TableCell>{med.unit}</TableCell>
               <TableCell>{med.dosage}</TableCell>
-           
+
             </TableRow>
           )) : ""}
         </TableBody>
       </Table>
     </Paper>
+      </div>
   );
 }
 

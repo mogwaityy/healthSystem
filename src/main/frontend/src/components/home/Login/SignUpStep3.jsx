@@ -63,7 +63,6 @@ const SignUpStep3 = () => {
     };
 
     const handleSubmit = async (e) => {
-        alert("Please wait for a while")
         e.preventDefault();
         if (!formData.agreedToPrivacy) {
             alert('You must agree to the privacy policy before submitting.');
@@ -86,6 +85,11 @@ const SignUpStep3 = () => {
 
         // Submit the final data
         let response = await patientRegisterApi(finalData);
+        if(!response?.reponseFailStatus){
+            alert("Registration successful Please login")
+            history.push('/')
+        }
+        console.log('response==>',response);
         // Handle the response according to your API
     };
 
