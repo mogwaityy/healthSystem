@@ -46,7 +46,6 @@ const Footer = () => {
             <div className="legal container">
                 <p>Copyright @2024. All rights reserved. Developted by Tian Yi, Lu Li.</p>
             </div>
-
         </footer>
     </>
   )
