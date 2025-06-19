@@ -5,19 +5,19 @@ import makeAppoinment from '../assets/makeAppointment.jpg'
 
 export const ServicesData = [
     {
-        title: "Make Appoinment",
+        title: "预约",
         cover: makeAppoinment,
         key: "makeAppointment",
         link:"/make-appointment"
     },
     {
-        title: "Check Appoinments",
+        title: "查看预约",
         cover: check,
         key: "check",
         link:"/check-appointment"
     },
     {
-        title: "Test Result",
+        title: "检查结果",
         cover: medicalRecord,
         key:"medicalRecord",
         link:"/result"

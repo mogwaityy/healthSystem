@@ -105,20 +105,20 @@ export default function BasicTable() {
                                     onChange={handleChange}
                                     style={{fontSize:"0.8rem",fontWeight:"800"}}
                                 >
-                                    <MenuItem value="0">New Request</MenuItem>
-                                    <MenuItem value="1">Assigned</MenuItem>
-                                    <MenuItem value="2">Complete</MenuItem>
-                                    <MenuItem value="3">Reject</MenuItem>
-                                    <MenuItem value="4">Pending</MenuItem>
+                                    <MenuItem value="0">新申请</MenuItem>
+                                    <MenuItem value="1">已分配</MenuItem>
+                                    <MenuItem value="2">已完成</MenuItem>
+                                    <MenuItem value="3">已拒绝</MenuItem>
+                                    <MenuItem value="4">待处理</MenuItem>
                                 </Select>
 
                             </TableCell>
-                            <TableCell align="left" style={{ width: "14%", wordWrap: "break-word" }}>Application No.</TableCell>
-                            <TableCell align="left" style={{ width: "13%", wordWrap: "break-word" }}>Name</TableCell>
-                            <TableCell align="left" style={{ width: "15%", wordWrap: "break-word" }}>Appointment Time</TableCell>
-                            <TableCell align="left" style={{ width: "22%", wordWrap: "break-word" }}>Indication</TableCell>
+                            <TableCell align="left" style={{ width: "14%", wordWrap: "break-word" }}>申请编号</TableCell>
+                            <TableCell align="left" style={{ width: "13%", wordWrap: "break-word" }}>姓名</TableCell>
+                            <TableCell align="left" style={{ width: "15%", wordWrap: "break-word" }}>预约时间</TableCell>
+                            <TableCell align="left" style={{ width: "22%", wordWrap: "break-word" }}>说明</TableCell>
 
-                            <TableCell align="left" style={{ width: "14%", wordWrap: "break-word" }}>Details</TableCell>
+                            <TableCell align="left" style={{ width: "14%", wordWrap: "break-word" }}>详情</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody style={{ color: "white" }}>
@@ -137,7 +137,7 @@ export default function BasicTable() {
                                 <TableCell align="left">{row.patient.name}</TableCell>
                                 <TableCell align="left">{extractDateTime(row.appointment.date)}</TableCell>
                                 <TableCell align="left">{row.appointment.description}</TableCell>
-                                <TableCell align="left"><span className="details" onClick={() => handDetailAction(row)}>detail</span></TableCell>
+                                <TableCell align="left"><span className="details" onClick={() => handDetailAction(row)}>详情</span></TableCell>
                             </TableRow>
                         )) : ""}
                     </TableBody>
