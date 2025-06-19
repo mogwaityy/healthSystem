@@ -55,7 +55,7 @@ function ActionsComponent({ row }) {
                 emitter.emit('updateMedicalHistoryItems')
            }
         }else{
-            alert('Please enter the medical history')
+            alert('请输入病史')
         }
     
      }
@@ -71,15 +71,15 @@ function ActionsComponent({ row }) {
 
     return (
         <div className="actions">
-            <h3 style={{marginBottom: "20px"}}>Record</h3>
-            <label>Additional test (if needed)</label>
+            <h3 style={{marginBottom: "20px"}}>记录</h3>
+            <label>额外检查（如需要）</label>
             <select style={{marginTop: "10px", marginBottom: "20px"}} onChange={e => {
                 setTestRow({
                     ...testRow,
                     testType: e.target.value
                 })
             }}>
-                <option value="" disabled selected hidden>Additional Test</option>
+                <option value="" disabled selected hidden>选择检查项目</option>
                 <option value="X-ray">X-ray</option>
                 <option value="MRI">MRI</option>
                 <option value="CT">CT Scan</option>
@@ -88,7 +88,7 @@ function ActionsComponent({ row }) {
                 <option value="Echocardiogram">Echocardiogram</option>
                 <option value="Mammography">Mammography</option>
             </select>
-            <label>Test Date</label>
+            <label>检查日期</label>
             <input style={{marginTop: "10px", marginBottom: "20px"}} type="date" name="date" onChange={e => {
                 setTestRow({
                     ...testRow,
@@ -97,10 +97,10 @@ function ActionsComponent({ row }) {
             }} required className="form-input" value={testRow.testDate}/>
             <button style={{marginBottom: "40px"}} onClick={() => {
                 handlerSave(row)
-            }}>Add Test
+            }}>添加检查
             </button>
 
-            <label>Update Medical History</label>
+            <label>更新病史</label>
             <input style={{marginTop: "10px", marginBottom: "20px"}} value={medicalHistory.description} onChange={e => {
                 setMedicalHistory({
                     ...medicalHistory,
@@ -111,16 +111,16 @@ function ActionsComponent({ row }) {
             </input>
             <button style={{marginBottom: "40px"}} onClick={() => {
                 handlerSaveHistory(row)
-            }}>Add Medical History
+            }}>新增病史
             </button>
 
-            <label>Generate Prescription</label>
+            <label>生成处方</label>
             <button style={{marginTop: "10px", marginBottom: "40px"}} onClick={() => {
                 handlerClick(row)
-            }}>Generate prescription
+            }}>生成处方
             </button>
 
-            <button onClick={goBack}>Back</button>
+            <button onClick={goBack}>返回</button>
 
 
         </div>

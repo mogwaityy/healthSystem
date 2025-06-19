@@ -36,7 +36,7 @@ public class UserController {
     public ApiResponse<String> testSql() {
        // System.out.println(StpUtil.isLogin());
         userService.testSql();
-        return ApiResponse.success("Test success");
+        return ApiResponse.success("测试成功");
     }
 
     @ResponseBody
