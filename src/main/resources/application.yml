@@ -14,9 +14,9 @@ spring:
       mail.smtp.socketFactory.class: javax.net.ssl.SSLSocketFactory
       mail.smtp.socketFactory.fallback: false
   datasource:
-    url: jdbc:mysql://healtsystem.mysql.database.azure.com:3306/health_system?useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=true&sslMode=REQUIRED
-    username: mogwaity
-    password: TyandSwe!
+    url:  jdbc:mysql://localhost:3306/health_system?useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false
+    username: root
+    password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
 mybatis-plus:
   configuration:
