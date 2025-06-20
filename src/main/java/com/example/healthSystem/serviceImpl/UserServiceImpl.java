@@ -62,7 +62,8 @@ public class UserServiceImpl implements IUserService {
             return ApiResponse.success("注册成功");
         }
 
-        return ApiResponse.error(400,"");
+        // 注册信息缺失
+        return ApiResponse.error(400,"注册信息不完整");
     }
 
     @Override
