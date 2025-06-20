@@ -65,7 +65,7 @@ const SignUpStep3 = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!formData.agreedToPrivacy) {
-            alert('You must agree to the privacy policy before submitting.');
+            alert('提交前必须同意隐私政策');
             return;
         }
 
@@ -86,7 +86,7 @@ const SignUpStep3 = () => {
         // Submit the final data
         let response = await patientRegisterApi(finalData);
         if(!response?.reponseFailStatus){
-            alert("Registration successful Please login")
+            alert("注册成功，请登录")
             history.push('/')
         }
         console.log('response==>',response);

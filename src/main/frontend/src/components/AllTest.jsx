@@ -90,12 +90,12 @@ const TestResult = () => {
     return (
         <div className="blue-bg">
             <div className="mbanner-btn">
-                <button onClick={goBack} style={{position: "absolute", top: "5%", left: "5%"}}>Back
+                <button onClick={goBack} style={{position: "absolute", top: "5%", left: "5%"}}>返回
                 </button>
             </div>
 
             <div className="Table" style={{margin: "120px auto"}}>
-                <h1 style={{color: "#1F2B6C", marginBottom: "40px"}}>Patient Test Results</h1>
+                <h1 style={{color: "#1F2B6C", marginBottom: "40px"}}>患者检查结果</h1>
                 <TableContainer component={Paper} className="table-container" style={{
                     boxShadow: "0px 13px 20px 0px #80808029",
                     borderRadius: "20px",
@@ -105,11 +105,11 @@ const TestResult = () => {
                     <Table sx={{minWidth: 1000}} aria-label="simple table" stickyHeader>
                         <TableHead>
                             <TableRow>
-                                <TableCell>Test Type</TableCell>
-                                <TableCell>Date</TableCell>
-                                <TableCell>Result</TableCell>
-                                <TableCell>Normal Range</TableCell>
-                                <TableCell>Operation</TableCell>
+                                <TableCell>检查类型</TableCell>
+                                <TableCell>日期</TableCell>
+                                <TableCell>结果</TableCell>
+                                <TableCell>正常范围</TableCell>
+                                <TableCell>操作</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -124,18 +124,18 @@ const TestResult = () => {
                                                 let val = e.target.value;
                                                 test.testResult = val;
                                                 setTestResultsUpdate()
-                                            }} label="result" value={test['testResult']}
+                                            }} label="结果" value={test['testResult']}
                                                        variant="outlined"/>}</TableCell>
                                     <TableCell>{!test.is_show > 0 ? test.normalRange :
                                         <TextField id="outlined-basic" onChange={(e) => {
                                             let val = e.target.value;
                                             test.normalRange = val;
                                             setTestResultsUpdate()
-                                        }} label="normalRange" variant="outlined"
+                                        }} label="正常范围" variant="outlined"
                                                    value={test['normalRange']}/>}</TableCell>
                                     <TableCell>
-                                        <Button color="primary" onClick={() => handleEdit(test, index)}>Edit</Button>
-                                        <Button color="error" onClick={() => handleSave(test, index)}>Save</Button>
+                                        <Button color="primary" onClick={() => handleEdit(test, index)}>编辑</Button>
+                                        <Button color="error" onClick={() => handleSave(test, index)}>保存</Button>
                                     </TableCell>
                                 </TableRow>
                             )) : ""}

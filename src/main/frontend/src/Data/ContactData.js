@@ -14,9 +14,9 @@ export const ContactData = [
     {
         icon: <i className='fa fa-location-dot'></i>,
         method: "地址",
-        content1:"SO00 3ET, Southampton",
-        content2:"SO11 3ET, Southampton"
-    },   
+        content1:"广东省深圳市福田区益田路5033号",
+        content2:"平安金融中心"
+    },
     {
         icon: <i className='fa fa-clock'></i>,
         method: "工作时间",

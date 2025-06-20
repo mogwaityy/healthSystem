@@ -63,7 +63,7 @@ emitter.on("userLoginOut", () => {
       Cookies.remove(cookieName);
   });
   console.log("role===>",role)
-  alert("Logout success")
+  alert("退出成功")
   window.setTimeout(()=>{
     if(role == "admin"){
       window.location.href='/#/admin-login'
