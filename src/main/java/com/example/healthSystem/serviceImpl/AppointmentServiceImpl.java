@@ -86,9 +86,14 @@ public class AppointmentServiceImpl implements IAppointmentService {
         //获取病人email
         Patient patient=patientMapper.selectById(doctorSchedule.getPatientId());
         String patientEmail=patient.getEmail();
-        //发送预约成功邮件
-        SimpleMailMessage message= CommonFunction.sendSimpleMessage(patientEmail,"预约成功",
-                "您的预约已成功，请登录 myclinic.com 查看状态。");
+        // 发送预约成功邮件
+        SimpleMailMessage message = CommonFunction.sendSimpleMessage(
+                patientEmail,
+                "预约成功",
+                "您的预约已成功，请登录 myclinic.com 查看状态。"
+        );
+        // 实际发送邮件
+        mailSender.send(message);
         return ApiResponse.success("更新成功");
     }
 
