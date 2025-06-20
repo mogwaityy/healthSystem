@@ -29,7 +29,7 @@ const Contact = () => {
                     <div className="footer-map" style={{margin: "0 180px"}}>
                         <h3 style={{textAlign:"center", fontSize:"1.8rem"}}>药店地图</h3>
                         <iframe
-                            src="https://maps.google.com/maps?q=%E5%B9%B3%E5%AE%89%E9%87%91%E8%9E%8D%E4%B8%AD%E5%BF%83%20%E6%B7%B1%E5%9C%B3&z=15&output=embed"
+                            src="https://maps.google.com/maps?q=%E4%B8%AD%E5%9B%BD%E6%B7%B1%E5%9C%B3%E5%B9%B3%E5%AE%89%E9%87%91%E8%9E%8D%E4%B8%AD%E5%BF%83&z=15&output=embed"
                             width="600"
                             height="450"
                             style={{border: 0}}
