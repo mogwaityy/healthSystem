@@ -4,10 +4,10 @@ import './Detail.css';
 function SymptomInfoComponent({ symptoms }) {
     return (
         <div className="symptoms">
-            <h3>Symptom</h3>
+            <h3>症状</h3>
             {symptoms.map((symptom, index) => (
                 <div key={index} >
-                    <p><strong>Description:</strong> {symptom.description}</p>
+                    <p><strong>描述:</strong> {symptom.description}</p>
                 </div>
             ))}
         </div>
