@@ -39,4 +39,4 @@ sa-token:
   # 是否输出操作日志
   is-log: true
 deepseek:
-  api-key: ${DEEPSEEK_API_KEY:}
+  api-key: sk-cdb969be65754532b13a647fefee51a1

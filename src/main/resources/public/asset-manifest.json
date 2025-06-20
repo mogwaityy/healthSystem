@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.16200940.css",
-    "main.js": "/static/js/main.815ce31d.js",
+    "main.css": "/static/css/main.96e4c0d4.css",
+    "main.js": "/static/js/main.9feaf168.js",
     "static/js/453.d855a71b.chunk.js": "/static/js/453.d855a71b.chunk.js",
     "static/media/img.png": "/static/media/img.84fbfad5e994e6c53d43.png",
     "static/media/cover.png": "/static/media/cover.7d2e67cb56a85167333b.png",
@@ -13,12 +13,12 @@
     "static/media/bookAppointment.jpg": "/static/media/bookAppointment.f2148d9637e5049fdedd.jpg",
     "static/media/medicalRecord.jpg": "/static/media/medicalRecord.cfcf06c0c593ac4ef043.jpg",
     "index.html": "/index.html",
-    "main.16200940.css.map": "/static/css/main.16200940.css.map",
-    "main.815ce31d.js.map": "/static/js/main.815ce31d.js.map",
+    "main.96e4c0d4.css.map": "/static/css/main.96e4c0d4.css.map",
+    "main.9feaf168.js.map": "/static/js/main.9feaf168.js.map",
     "453.d855a71b.chunk.js.map": "/static/js/453.d855a71b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.16200940.css",
-    "static/js/main.815ce31d.js"
+    "static/css/main.96e4c0d4.css",
+    "static/js/main.9feaf168.js"
   ]
 }
