@@ -6,7 +6,17 @@ const MedicalAssistant = () => {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([]);
-  const toggle = () => setOpen(!open);
+  const [initialized, setInitialized] = useState(false);
+  const welcome = '您好，我是医疗小助手，可以回答常见疾病咨询并提供就诊指引，您可以问我症状疑问或预约流程。';
+
+  const toggle = () => {
+    const next = !open;
+    setOpen(next);
+    if (next && !initialized) {
+      setMessages([{ role: 'assistant', content: welcome }]);
+      setInitialized(true);
+    }
+  };
 
   const sendMessage = async () => {
     if (!input.trim()) return;

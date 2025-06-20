@@ -5,39 +5,51 @@
   z-index: 1000;
 }
 .assistant-toggle {
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
-  background-color: #1976d2;
+  background: linear-gradient(#ffcc4d, #f69422);
   color: #fff;
-  font-size: 24px;
+  font-size: 28px;
   display: flex;
   justify-content: center;
   align-items: center;
   border: none;
   cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 .assistant-panel {
-  width: 300px;
-  height: 400px;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  width: 320px;
+  height: 420px;
+  background: #fffef5;
+  border: 1px solid #f0c36d;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   margin-bottom: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: "Comic Sans MS", sans-serif;
 }
 .assistant-messages {
   flex: 1;
   padding: 8px;
   overflow-y: auto;
+  background: #f7fbff;
 }
 .msg {
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   line-height: 1.4;
+  padding: 6px 10px;
+  border-radius: 12px;
+  max-width: 80%;
+}
+.msg.assistant {
+  background: #fff;
+  align-self: flex-start;
 }
 .msg.user {
-  text-align: right;
+  background: #c8e6c9;
+  align-self: flex-end;
 }
 .assistant-input {
   display: flex;
@@ -52,7 +64,8 @@
 .assistant-input button {
   padding: 6px 12px;
   border: none;
-  background: #1976d2;
+  background: #f69422;
   color: #fff;
   cursor: pointer;
+  border-radius: 4px;
 }
