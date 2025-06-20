@@ -14,15 +14,24 @@ const MedicalAssistant = () => {
     setMessages(newMessages);
     setInput('');
     try {
-      const res = await axios.post('https://api.deepseek.com/v1/chat/completions', {
-        model: 'deepseek-chat',
-        messages: newMessages,
-      }, {
-        headers: {
-          Authorization: `Bearer ${process.env.REACT_APP_DEEPSEEK_API_KEY}`,
-          'Content-Type': 'application/json',
+      const apiMessages = [
+        { role: 'system', content: 'You are a helpful medical assistant.' },
+        ...newMessages,
+      ];
+      const res = await axios.post(
+        'https://api.deepseek.com/chat/completions',
+        {
+          model: 'deepseek-chat',
+          messages: apiMessages,
+          stream: false,
         },
-      });
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.REACT_APP_DEEPSEEK_API_KEY}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
       const reply = res.data.choices?.[0]?.message?.content || '无法获取回复';
       setMessages([...newMessages, { role: 'assistant', content: reply }]);
     } catch (err) {
@@ -49,8 +58,8 @@ const MedicalAssistant = () => {
           </div>
         </div>
       )}
-      <button className="assistant-toggle" onClick={toggle}>
-        {open ? '关闭助手' : '医疗助手'}
+      <button className="assistant-toggle" onClick={toggle} aria-label="医疗助手">
+        {open ? '✖' : '🤖'}
       </button>
     </div>
   );
