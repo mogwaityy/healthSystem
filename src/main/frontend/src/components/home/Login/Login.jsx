@@ -33,12 +33,13 @@ const Login = () => {
         setShowPassword(!showPassword);
     };
     function parseDynamicLoginResponse(responseString) {
-        const regex = /(.+), token: ([a-f0-9-]+)/i;
+        // 兼容中文逗号和冒号，提取token
+        const regex = /token[:：]\s*([a-f0-9-]+)/i;
         const match = responseString.match(regex);
 
         if (match) {
-            const successMessage = match[1].trim(); // 匹配登录成功的未知信息并去除前后空白
-            const token = match[2]; // 第二个括号内的内容即为token
+            const token = match[1];
+            const successMessage = responseString.split(/token[:：]/)[0].trim();
             return { successMessage, token };
         } else {
             return { successMessage: "", token: null }; // 如果匹配失败
@@ -49,11 +50,11 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!formData.email || !formData.password ) {
-            alert("All fields are required!");
+            alert("所有字段均为必填！");
             return;
         }
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-            alert("Invalid email format!");
+            alert("邮箱格式不正确！");
             return;
         }
 
@@ -99,7 +100,7 @@ const Login = () => {
 
     return (
         <div style={{marginTop:"50px"}}>
-            <h1 style={{textAlign:"center", color:"#1F2B6C",marginBottom:"40px"}}>Sign In</h1>
+            <h1 style={{textAlign:"center", color:"#1F2B6C",marginBottom:"40px"}}>登录</h1>
             <form onSubmit={handleSubmit}>
                 {LoginData.map((field, index) => (
                     <FormControl fullWidth key={index} margin="normal" variant="outlined" fullwidth>
@@ -153,11 +154,11 @@ const Login = () => {
                     cursor: "pointer",
                     marginTop: "20px"
                 }}>
-                    Sign In
+                    登录
                 </Button>
 
                 <div className="register-link">
-                    <p onClick={goRegister}> Do not have an account? Register Here!</p>
+                    <p onClick={goRegister}> 没有账号？点击注册！</p>
                 </div>
 
             </form>

@@ -78,7 +78,7 @@ function ActionsComponent({ row }) {
             case "accept":
                 //updateDoctorScheduleApi
                 if(!actionSubmitItems?.startTime || !actionSubmitItems?.endTime){
-                        alert("Please select time")
+                        alert("请选择时间")
                     return 
                 }
      
@@ -100,27 +100,27 @@ function ActionsComponent({ row }) {
                     endTime
                    })
                 if (!data?.reponseFailStatus) {
-                    alert("Success");
+                    alert("成功");
                 }
                 break;
             case "reject":
-                alert("Please wait for a while")
+                alert("请稍候")
                 rejectAppointmentAction()
                 break;
             case "alternative":
                 //alternativeAppointmentApi
              
                 if(!newTime){
-                        alert("Please select time")
+                        alert("请选择时间")
                         return false
                 }
-                alert("Please wait for a while")
+                alert("请稍候")
                  data = await alternativeAppointmentApi({
                     appointmentId:row.appointment.appointmentId,
                     newTime:newTime
                 })
                 if (!data?.reponseFailStatus) {
-                    alert("Success");
+                    alert("成功");
                     setNewTime('')
                 }
                 break;
@@ -136,7 +136,7 @@ function ActionsComponent({ row }) {
 
     return (
         <div className="actions">
-            <h3>Actions</h3>
+            <h3>操作</h3>
             <select style={{marginTop:"20px"}} value={actionItems.action} onChange={(e) => {
                 let val = e.target.value;
                 setActionItems({ ...actionItems, action: val })
@@ -146,9 +146,9 @@ function ActionsComponent({ row }) {
                     setVisibleAlt(false)
                 }
             }}>
-                <option value="accept">Accept</option>
-                <option value="reject">Reject</option>
-                <option value="alternative">Alternative Option</option>
+                <option value="accept">接受</option>
+                <option value="reject">拒绝</option>
+                <option value="alternative">替代方案</option>
             </select>
             {visibleAlt? <input type="datetime-local" value={newTime} onChange={e => {
                 let val = e.target.value;
@@ -156,11 +156,11 @@ function ActionsComponent({ row }) {
             }} /> : ""}
             {actionItems.action == "accept" ? <button onClick={() => {
                 setVisible(true);
-            }}>Check Doctor Timetable</button> : ""}
+            }}>查看医生时间表</button> : ""}
             {actionItems.action == "accept" ? <select onChange={handleChange} >
                 {specialty.length > 0 ?
                     specialty.map(option => <option key={option.specialtyId} value={option.name}>{option.name}</option>)
-                    : <option>Loading...</option>
+                    : <option>加载中...</option>
                 }
             </select> : ""}
 
@@ -170,10 +170,10 @@ function ActionsComponent({ row }) {
                 let val = e.target.value;
                 setActionSubmitItems({ ...actionSubmitItems, doctorId: val })
             }}>
-                <option>Assign Doctor</option>
+                <option>指派医生</option>
                 {dockers.length > 0 ?
                     dockers.map(option => <option key={option.doctorId} value={option.doctorId}>{option.name}</option>)
-                    : <option>Loading...</option>
+                    : <option>加载中...</option>
                 }
             </select> : ""}
 
@@ -190,8 +190,8 @@ function ActionsComponent({ row }) {
             <div className="btns">
                 <button onClick={() => {
                     handlerSubmit()
-                }}>Submit</button>
-                <button onClick={goBack}>Back</button>
+                }}>提交</button>
+                <button onClick={goBack}>返回</button>
             </div>
 
             <Model

@@ -95,7 +95,7 @@ public class PrescriptionServiceImpl implements IPrescriptionService {
                 o = patientMapper.selectById(id);
                 break;
             default:
-                return ApiResponse.error(404, "Role not found");
+                return ApiResponse.error(404, "角色不存在");
         }
 
         return ApiResponse.success(o);
@@ -151,22 +151,22 @@ public class PrescriptionServiceImpl implements IPrescriptionService {
 
     @Override
     public ApiResponse<String> addTest(List<TestResult> testResults) {
-        if (testResults==null)return ApiResponse.success("add test success!");
+        if (testResults==null)return ApiResponse.success("添加体检成功！");
         for (TestResult testResult:testResults
              ) {
             testResult.setDoctorId((String) StpUtil.getLoginId());
             testResultMapper.insert(testResult);
         }
-        return ApiResponse.success("add test success!");
+        return ApiResponse.success("添加体检成功！");
     }
 
     @Override
     public ApiResponse<String> updateTest(List<TestResult> testResults) {
-        if (testResults==null)return ApiResponse.success("update test success!");
+        if (testResults==null)return ApiResponse.success("更新体检成功！");
         for (TestResult testResult:testResults
         ) {
             testResultMapper.updateById(testResult);
         }
-        return ApiResponse.success("update test success!");
+        return ApiResponse.success("更新体检成功！");
     }
 }

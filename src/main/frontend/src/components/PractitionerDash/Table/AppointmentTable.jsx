@@ -48,12 +48,12 @@ export default function BasicTable() {
           <Table sx={{ minWidth: 1000}} aria-label="simple table" stickyHeader>
             <TableHead>
               <TableRow>
-                <TableCell align="left" style={{width: "15%", wordWrap:"break-word"}}>Application No.</TableCell>
-                <TableCell align="left" style={{width: "15%", wordWrap:"break-word"}}>Name</TableCell>
-                <TableCell align="left" style={{width: "30%", wordWrap:"break-word"}}>Indication</TableCell>
-                <TableCell align="left" style={{width: "15%", wordWrap:"break-word"}}>Appointment Time</TableCell>
-                <TableCell align="left" style={{width: "10%", wordWrap:"break-word"}}>Details</TableCell>
-                <TableCell align="left" style={{width: "10%", wordWrap:"break-word"}}>Tests</TableCell>
+                <TableCell align="left" style={{width: "15%", wordWrap:"break-word"}}>申请编号</TableCell>
+                <TableCell align="left" style={{width: "15%", wordWrap:"break-word"}}>姓名</TableCell>
+                <TableCell align="left" style={{width: "30%", wordWrap:"break-word"}}>说明</TableCell>
+                <TableCell align="left" style={{width: "15%", wordWrap:"break-word"}}>预约时间</TableCell>
+                <TableCell align="left" style={{width: "10%", wordWrap:"break-word"}}>详情</TableCell>
+                <TableCell align="left" style={{width: "10%", wordWrap:"break-word"}}>检查</TableCell>
               </TableRow>
             </TableHead>
             <TableBody style={{ color: "white" }}>
@@ -66,8 +66,8 @@ export default function BasicTable() {
                   <TableCell align="left">{row?.patient?.name}</TableCell>
                   <TableCell align="left">{row?.appointment?.description}</TableCell>
                   <TableCell align="left">{extractDateTime(row?.appointment?.date)}</TableCell>
-                  <TableCell align="left"><span className="details" onClick={()=>{handlerDetail(row)}}>detail</span></TableCell>
-                  <TableCell align="left"><span className="details"   onClick={()=>handTestAction(row)}>test</span></TableCell>
+                  <TableCell align="left"><span className="details" onClick={()=>{handlerDetail(row)}}>详情</span></TableCell>
+                  <TableCell align="left"><span className="details"   onClick={()=>handTestAction(row)}>检查</span></TableCell>
                 </TableRow>
               )) : ""}
             </TableBody>

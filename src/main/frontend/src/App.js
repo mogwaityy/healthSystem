@@ -30,6 +30,7 @@ import AllTest from "./components/AllTest";
 import AuthRoute from './components/useAuth';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Cookies from 'js-cookie';
+import MedicalAssistant from './components/MedicalAssistant';
 window.alert = toast;
 emitter.on("ccc",(data)=>{
   console.log("ccc->data",data)
@@ -63,7 +64,7 @@ emitter.on("userLoginOut", () => {
       Cookies.remove(cookieName);
   });
   console.log("role===>",role)
-  alert("Logout success")
+  alert("退出成功")
   window.setTimeout(()=>{
     if(role == "admin"){
       window.location.href='/#/admin-login'
@@ -193,6 +194,7 @@ function App() {
 
         </Switch>
         </AuthRoute>
+        <MedicalAssistant />
       </Router>
   );
 }

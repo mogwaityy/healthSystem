@@ -28,13 +28,13 @@ const StaffRegister = () => {
     e.preventDefault();
     for (const key in SignUpDataStaff) {
       if (formData[key].trim() === '' && SignUpDataStaff[key].required) {
-        alert('Field cannot be empty');
+        alert('字段不能为空');
         return;
       }
     }
 
     if (SignUpDataStaff.email.required && !/\S+@\S+\.\S+/.test(formData.email)) {
-      alert('Invalid email format');
+      alert('邮箱格式无效');
       return;
     }
 
@@ -74,7 +74,7 @@ const StaffRegister = () => {
           margin="normal"
         />
       ))}
-      <button type="submit" className="submit-btn">Register</button>
+      <button type="submit" className="submit-btn">注册</button>
     </form>
     </div>
   );

@@ -65,10 +65,10 @@ const Sidebar = () => {
       <Model
           style={{ overlay: { background: "none" }, content: { backgroundColor:"#eaf0f7",margin: "auto", width: "250px", height: "150px" } }}
           isOpen={visible} onRequestClose={() => setVisible(false)}>
-        <p style={{textAlign:"center",marginTop:"20px"}}>Are you sure to logout?</p>
+        <p style={{textAlign:"center",marginTop:"20px"}}>确认退出登录？</p>
         <div className="model-button">
-        <button onClick={()=>emitter.emit("userLoginOut")}>Confirm</button>
-        <button  onClick={()=>setVisible(false)}>Cancel</button>
+        <button onClick={()=>emitter.emit("userLoginOut")}>确定</button>
+        <button  onClick={()=>setVisible(false)}>取消</button>
         </div>
       </Model>
     </div>

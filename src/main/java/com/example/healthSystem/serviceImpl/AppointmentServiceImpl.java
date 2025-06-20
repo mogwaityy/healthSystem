@@ -59,13 +59,13 @@ public class AppointmentServiceImpl implements IAppointmentService {
                 Patient patient=patientMapper.selectById(patientId);
                 if (patient!=null){
                     //注册未通过或注册被拒绝不能预约
-                    if (patient.getStatus()==0||patient.getStatus()==2)return ApiResponse.error(400,"You can't book a appointment. Please Check your register status.");
+                    if (patient.getStatus()==0||patient.getStatus()==2)return ApiResponse.error(400,"您无法预约，请检查您的注册状态。");
                 }
             }
         }
 
-        if (appointmentMapper.insert(appointment)>0) return ApiResponse.success("appointment success");
-        return ApiResponse.error(400,"appointment failed");
+        if (appointmentMapper.insert(appointment)>0) return ApiResponse.success("预约成功");
+        return ApiResponse.error(400,"预约失败");
     }
 
     @Override
@@ -86,10 +86,15 @@ public class AppointmentServiceImpl implements IAppointmentService {
         //获取病人email
         Patient patient=patientMapper.selectById(doctorSchedule.getPatientId());
         String patientEmail=patient.getEmail();
-        //发送预约成功邮件
-        SimpleMailMessage message= CommonFunction.sendSimpleMessage(patientEmail,"Appointment success",
-                "Your appointment success. Please check your appointment status in myclinic.com");
-        return ApiResponse.success("update success");
+        // 发送预约成功邮件
+        SimpleMailMessage message = CommonFunction.sendSimpleMessage(
+                patientEmail,
+                "预约成功",
+                "您的预约已成功，请登录 myclinic.com 查看状态。"
+        );
+        // 实际发送邮件
+        mailSender.send(message);
+        return ApiResponse.success("更新成功");
     }
 
     @Override
@@ -175,12 +180,12 @@ public class AppointmentServiceImpl implements IAppointmentService {
         Patient patient=patientMapper.selectById(patientId);
         //发送邮件
         if (patient!=null){
-            SimpleMailMessage mailMessage=CommonFunction.sendSimpleMessage(patient.getEmail(),"Your appointment status update",
-                    "Sorry, your appointment failed");
+            SimpleMailMessage mailMessage=CommonFunction.sendSimpleMessage(patient.getEmail(),"预约状态更新",
+                    "抱歉，您的预约未通过");
             mailSender.send(mailMessage);
-            return ApiResponse.success("reject success");
+            return ApiResponse.success("拒绝成功");
         }
-        return ApiResponse.success("reject failed, there is no patient!");
+        return ApiResponse.success("拒绝失败，未找到病人！");
     }
 
     @Override
@@ -189,7 +194,7 @@ public class AppointmentServiceImpl implements IAppointmentService {
         queryWrapper.eq("appointment_id", appointmentId)
                 .eq("patient_id", patinetId);
         appointmentMapper.delete(queryWrapper);
-        return ApiResponse.success("cancel success");
+        return ApiResponse.success("取消成功");
     }
 
     @Override
@@ -206,19 +211,18 @@ public class AppointmentServiceImpl implements IAppointmentService {
         Patient patient=patientMapper.selectById(patientId);
         //发送邮件
         if (patient!=null){
-            SimpleMailMessage mailMessage=CommonFunction.sendSimpleMessage(patient.getEmail(),"Your appointment status update",
-                    "Sorry, your appointment failed. We suggest you choose a new time:"+newTime+
-                            ". If you consent this time, you can reply us to this email.");
+            SimpleMailMessage mailMessage=CommonFunction.sendSimpleMessage(patient.getEmail(),"预约状态更新",
+                    "抱歉，您的预约未通过。我们建议您改期至："+newTime+"。若同意请回复此邮件。");
             mailSender.send(mailMessage);
-            return ApiResponse.success("reject success");
+            return ApiResponse.success("拒绝成功");
         }
-        return ApiResponse.success("alternative failed, there is no patient!");
+        return ApiResponse.success("替代失败，未找到病人！");
     }
 
     @Override
     public ApiResponse<String> addMedicalHistory(MedicalHistory medicalHistory) {
         medicalHistoryMapper.insert(medicalHistory);
-        return ApiResponse.success("add medical history success");
+        return ApiResponse.success("添加病史成功");
     }
 
 

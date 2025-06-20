@@ -15,7 +15,7 @@ export const CheckAppointment = () => {
           <div className="container" style={{background: "#eaf0f7", minHeight:"100vh"}}>
               <div className="mbanner">
                   <img style={{width: "100%"}} src={AppointmentImg2}></img>
-                  <button onClick={goBack}>Back</button>
+                  <button onClick={goBack}>返回</button>
               </div>
               <div style={{margin:"20px 100px"}}>
               <CheckAppointmentTable/>

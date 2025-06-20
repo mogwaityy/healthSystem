@@ -47,11 +47,11 @@ const CreateDoctor = () => {
         <div className="MainDash">
             <Container component="main" maxWidth="sm">
                 <Paper style={{ padding: '50px', marginTop: '50px' }}>
-                    <h1 style={{ textAlign: "center" }}>Sign Up for Doctor</h1>
+                    <h1 style={{ textAlign: "center" }}>新增医生</h1>
                     <form onSubmit={handleSubmit} style={{ marginTop: "30px" }}>
                         <TextField
                             fullWidth
-                            label="Name"
+                            label="姓名"
                             name="name"
                             variant="outlined"
                             value={formData.name}
@@ -59,16 +59,16 @@ const CreateDoctor = () => {
                             margin="normal"
                         />
                         <FormControl fullWidth margin="normal">
-                            <InputLabel id="Surgery-select-label">Select Surgery</InputLabel>
+                            <InputLabel id="Surgery-select-label">选择科室</InputLabel>
                             <Select
                                 labelId="Surgery-select-label"
-                                label="Select a Surgery"
+                                label="选择科室"
                                 value={formData.specialty}
                                 name="specialty"
                                 onChange={handleChange}
                             >
                                 <MenuItem value="">
-                                    <em>None</em>
+                                    <em>无</em>
                                 </MenuItem>
                                 {specialty.length && specialty.map((doctor) => (
                                     <MenuItem key={doctor.name} value={doctor.name}>{doctor.name}</MenuItem>
@@ -77,7 +77,7 @@ const CreateDoctor = () => {
                         </FormControl>
                         <TextField
                             fullWidth
-                            label="Email"
+                            label="邮箱"
                             name="email"
                             type="email"
                             variant="outlined"
@@ -87,7 +87,7 @@ const CreateDoctor = () => {
                         />
                         <TextField
                             fullWidth
-                            label="Introduction"
+                            label="简介"
                             name="introduction"
                             variant="outlined"
                             multiline
@@ -98,7 +98,7 @@ const CreateDoctor = () => {
                         />
                         <Box style={{ marginTop: '10px' }}>
                             <button type="submit" className="submit-btn" style={{height:"45px"}}>
-                                Sign Up
+                                添加
                             </button>
                         </Box>
                     </form>

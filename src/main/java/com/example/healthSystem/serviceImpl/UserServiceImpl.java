@@ -43,7 +43,7 @@ public class UserServiceImpl implements IUserService {
         Patient patient=patientRegisterDTO.getPatient();
         if (StringUtils.hasText(patient.getEmail())&&StringUtils.hasText(patient.getName()) && StringUtils.hasText(patient.getPassword())) {
             if (patientMapper.existsByEmail(patient.getEmail())){
-                return ApiResponse.error(400,"email have already been registered!");
+                return ApiResponse.error(400,"该邮箱已被注册！");
             }
             String id="patient" + CommonFunction.generateId();
             patient.setPatientId(id);
@@ -59,10 +59,11 @@ public class UserServiceImpl implements IUserService {
             medicalHistory.setPatientId(patient.getPatientId());
             medicalHistory.setDescription(patientRegisterDTO.getMedicalHistory());
             medicalHistoryMapper.insert(medicalHistory);
-            return ApiResponse.success("register success");
+            return ApiResponse.success("注册成功");
         }
 
-        return ApiResponse.error(400,"");
+        // 注册信息缺失
+        return ApiResponse.error(400,"注册信息不完整");
     }
 
     @Override
@@ -74,7 +75,7 @@ public class UserServiceImpl implements IUserService {
     public ApiResponse<String> login(User user) {
         // 检查User对象及其关键字段是否为空
         if (user == null || !StringUtils.hasText(user.getEmail()) || !StringUtils.hasText(user.getPassword()) || !StringUtils.hasText(user.getRole())) {
-            return ApiResponse.error(400, "Missing or incorrect user information");
+            return ApiResponse.error(400, "用户信息缺失或不正确");
         }
         //加密密码
         user.setPassword(CommonFunction.encodePassword(user.getPassword()));
@@ -91,7 +92,7 @@ public class UserServiceImpl implements IUserService {
                 userId = patientMapper.findUserByEmailAndPassword(user.getEmail(), user.getPassword());
                 break;
             default:
-                return ApiResponse.error(404, "Role not found");
+                return ApiResponse.error(404, "角色不存在");
         }
 
 
@@ -100,9 +101,9 @@ public class UserServiceImpl implements IUserService {
             StpUtil.login(userId);
             // 返回带有Token的成功响应
             String token = StpUtil.getTokenValue();
-            return ApiResponse.success("Login successful, token: " + token);
+            return ApiResponse.success("登录成功，token: " + token);
         }
-        return ApiResponse.error(404, "Email or password wrong!");
+        return ApiResponse.error(404, "邮箱或密码错误！");
     }
 
     @Override
@@ -113,7 +114,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public ApiResponse<String> logout() {
         StpUtil.logout(); // 用户注销
-        return ApiResponse.success("Logout successful");
+        return ApiResponse.success("注销成功");
     }
 
     //获取病人信息及药物史
@@ -123,7 +124,7 @@ public class UserServiceImpl implements IUserService {
         queryWrapper.eq("patient_id",patientId);
         List<Patient> patients=patientMapper.selectList(queryWrapper);
         PatientInfo patientInfo=new PatientInfo();
-        if (patients.size()==0)return ApiResponse.error(400,"patientId error!");
+        if (patients.size()==0)return ApiResponse.error(400,"病人ID错误！");
         patientInfo.setPatient(patients.get(0));
         QueryWrapper<MedicalHistory> historyQueryWrapper=new QueryWrapper<>();
         historyQueryWrapper.eq("patient_id",patientId);
@@ -140,35 +141,11 @@ public class UserServiceImpl implements IUserService {
         patientMapper.update(null, updateWrapper);
         Patient patient=patientMapper.selectById(patientId);
         if (status==1){
-            SimpleMailMessage message=CommonFunction.sendSimpleMessage(patient.getEmail(),"Registration Successful - Start Booking Your Appointments Now!","" +
-                    "Dear " +patient.getName()+
-                    ",\n" +
-                    "We are delighted to inform you that your registration on our platform has been successfully completed! Welcome to E-Clinic!\n" +
-                    "\n" +
-                    "With your registration complete, you can now start booking appointments with our healthcare professionals at your convenience. Whether you need a routine check-up, consultation, or specialized treatment, our platform offers a seamless booking experience tailored to your needs.\n" +
-                    "\n" +
-                    "Here are some key features and benefits of our platform:\n" +
-                    "\n" +
-                    "Convenient Booking: Easily schedule appointments with your preferred healthcare providers from the comfort of your home or on the go.\n" +
-                    "Wide Range of Specialists: Choose from a diverse pool of healthcare professionals, including doctors, specialists, and therapists, covering various medical fields.\n" +
-                    "Manage Your Health: Access your appointment history, medical records, and personalized health recommendations all in one place.\n" +
-                    "To start booking appointments, simply log in to your account on our website  and navigate to the \"Book Appointment\" section. If you have any questions or need assistance, our customer support team is here to help you.\n" +
-                    "\n" +
-                    "Thank you for choosing E-Clinic for your healthcare needs. We look forward to serving you and helping you stay healthy.\n" +
-                    "\n" +
-                    "Best regards,"+
-                    "\n"+
-                    "E-clinic office");
+            SimpleMailMessage message=CommonFunction.sendSimpleMessage(patient.getEmail(),"注册成功","亲爱的" +patient.getName()+",\n您的注册已通过，欢迎使用E-Clinic！现在即可预约医生。\n\nE-Clinic团队");
             mailSender.send(message);
         }
         if (status==2){
-            SimpleMailMessage message=CommonFunction.sendSimpleMessage(patient.getEmail(),"Registration Unsuccessful","Dear " +patient.getName()+","+
-                    "\n" +
-                    "We regret to inform you that your registration on our platform was unsuccessful due to something."+
-                    "\n"+
-                    "Best regards,"+
-                    "\n"+
-                    "Eclinic-office");
+            SimpleMailMessage message=CommonFunction.sendSimpleMessage(patient.getEmail(),"注册未通过","亲爱的" +patient.getName()+",\n很抱歉，您的注册未通过。如有疑问请联系我们。\n\nE-Clinic团队");
             mailSender.send(message);
         }
         return ApiResponse.success(null);
@@ -190,7 +167,7 @@ public class UserServiceImpl implements IUserService {
         userRole.setRole("doctor");
         userRole.setId(doctorId);
         userRoleMapper.insert(userRole);
-        return ApiResponse.success("add Doctor success");
+        return ApiResponse.success("添加医生成功");
     }
 
     @Override
@@ -205,7 +182,7 @@ public class UserServiceImpl implements IUserService {
             userRole.setId(doctorId);
             userRoleMapper.insert(userRole);
         }
-        return ApiResponse.success("add Doctor success");
+        return ApiResponse.success("添加医生成功");
     }
 
     @Override
@@ -236,7 +213,7 @@ public class UserServiceImpl implements IUserService {
                 name = patient.getName();
                 break;
             default:
-                return ApiResponse.error(404, "Role not found");
+                return ApiResponse.error(404, "角色不存在");
         }
         user.setId(id);
         user.setName(name);

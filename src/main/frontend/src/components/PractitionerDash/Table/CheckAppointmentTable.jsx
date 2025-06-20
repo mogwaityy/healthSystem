@@ -69,14 +69,14 @@ export default function BasicTable() {
         <Table sx={{ minWidth: 1100 }} aria-label="simple table" stickyHeader>
           <TableHead>
             <TableRow>
-              <TableCell>Application No.</TableCell>
-              <TableCell>Date</TableCell>
-            
-              <TableCell>Doctor</TableCell>
-              <TableCell>Symptom</TableCell>
-              <TableCell>Specialty</TableCell>
-          
-              <TableCell>Prescription</TableCell>
+              <TableCell>申请编号</TableCell>
+              <TableCell>日期</TableCell>
+
+              <TableCell>医生</TableCell>
+              <TableCell>症状</TableCell>
+              <TableCell>科室</TableCell>
+
+              <TableCell>处方</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -91,7 +91,7 @@ export default function BasicTable() {
                 <TableCell>{appointment?.doctor?.specialty}</TableCell>
           
                 <TableCell>
-                 <Button onClick={() => gotoPrescription(appointment?.appointment?.appointmentId)}>Show</Button>
+                 <Button onClick={() => gotoPrescription(appointment?.appointment?.appointmentId)}>查看</Button>
                 </TableCell>
               </TableRow>
             )) : ""}
