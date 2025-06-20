@@ -109,32 +109,32 @@ const PrescriptionForm = () => {
                               onClick={goBack}
             />
             <Paper style={{padding: "30px"}}>
-                <Typography className="mhead">Prescription</Typography>
+                <Typography className="mhead">处方</Typography>
                 <div className="minfo" style={{textAlign:"center", marginTop:"20px"}}>
-                    <Typography><strong>Patient Name:</strong> {curRow?.patient?.name}</Typography>
-                    <Typography><strong>Gender:</strong> {mapGender[curRow?.patient?.gender ?? 0]}</Typography>
-                    <Typography><strong>Date of Birth:</strong>{extractDate(curRow?.patient?.birth)}</Typography>
-                    <Typography><strong>Date:</strong> {extractDate(curRow?.appointment?.date)}</Typography>
-                    <Typography><strong>Doctor:</strong>{dockerName}</Typography>
+                    <Typography><strong>患者姓名:</strong> {curRow?.patient?.name}</Typography>
+                    <Typography><strong>性别:</strong> {mapGender[curRow?.patient?.gender ?? 0]}</Typography>
+                    <Typography><strong>出生日期:</strong>{extractDate(curRow?.patient?.birth)}</Typography>
+                    <Typography><strong>日期:</strong> {extractDate(curRow?.appointment?.date)}</Typography>
+                    <Typography><strong>医生:</strong>{dockerName}</Typography>
                 </div>
                 <div className="mmedical">
                     <div className="diagnosis" style={{padding:"0 20px"}}>
                         <FormControl fullWidth margin="normal">
-                            <InputLabel>Diagnose</InputLabel>
+                            <InputLabel>诊断</InputLabel>
                             <Select className="item"
                                     value={diagnosis}
                                     onChange={(e) => setDiagnosis(e.target.value)}
-                                    label="Diagnose"
+                                    label="诊断"
                             >
-                                <MenuItem value="">None</MenuItem>
-                                <MenuItem value="Diabetes">Diabetes</MenuItem>
-                                <MenuItem value="Hypertension">Hypertension</MenuItem>
+                                <MenuItem value="">无</MenuItem>
+                                <MenuItem value="Diabetes">糖尿病</MenuItem>
+                                <MenuItem value="Hypertension">高血压</MenuItem>
                             </Select>
                         </FormControl>
                         <div className="item1" style={{height: "200px"}}>
                             <TextField className="item"
                                        fullWidth
-                                       label="Symptom Description"
+                                       label="症状描述"
                                        value={description}
                                        onChange={(e) => setDescription(e.target.value)}
                                        margin="normal"/>
@@ -150,15 +150,14 @@ const PrescriptionForm = () => {
                                         onChange={handleMedicineChange}
                                         name={key}
                                 >
-                                    <MenuItem value=""><em>None</em></MenuItem>
+                                    <MenuItem value=""><em>无</em></MenuItem>
                                     {(key === 'unit' ? units : key === 'medicine' ? medicine : key === 'frequency' ? frequencies : key === 'quantity' ? quantities : dosages).map(option => (
                                         <MenuItem key={option} value={option}>{option}</MenuItem>
                                     ))}
                                 </Select>
                             </FormControl>
                         ))}
-                        <Button variant="contained" color="primary" onClick={addMedicine} style={{height: '56px'}}>Add
-                            Medicine</Button>
+                        <Button variant="contained" color="primary" onClick={addMedicine} style={{height: '56px'}}>添加药品</Button>
                     </div>
                 </div>
                 <br/>
@@ -171,7 +170,7 @@ const PrescriptionForm = () => {
                                     <TableCell
                                         key={key}>{key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}</TableCell>
                                 ))}
-                                <TableCell>Action</TableCell>
+                                <TableCell>操作</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -192,7 +191,7 @@ const PrescriptionForm = () => {
                 <Button onClick={() => {
                     addMedicineSubmit()
                 }} variant="contained" color="primary"
-                        style={{height: '56px', width: "100%", marginTop: "30px", marginBottom: "20px"}}>submit</Button>
+                        style={{height: '56px', width: "100%", marginTop: "30px", marginBottom: "20px"}}>提交</Button>
 
             </Paper>
 

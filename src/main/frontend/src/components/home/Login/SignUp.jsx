@@ -63,11 +63,11 @@ const SignUpStep1 = () => {
     return (
         <div style={{backgroundColor:"#eaf0f7", display:"flex", height:"100vh"}}>
             <div className="mbanner-btn">
-                <button onClick={goBack} style={{position:"absolute", top:"5%",left:"5%", width:"150px"}}>Back to Home</button>
+                <button onClick={goBack} style={{position:"absolute", top:"5%",left:"5%", width:"150px"}}>返回主页</button>
             </div>
 
             <div className="bg-register">
-                <h1>Sign Up</h1>
+                <h1>注册</h1>
                 <form onSubmit={handleSubmit} className="form-container mform1">
                     {SignUpData1.map((field, index) => (
                         <div className="input-group" key={index}>

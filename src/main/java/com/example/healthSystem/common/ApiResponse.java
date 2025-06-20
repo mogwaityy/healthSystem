@@ -38,7 +38,7 @@ public class ApiResponse<T> {
 
     // 用于快速创建响应对象的静态方法
     public static <T> ApiResponse<T> success(T data) {
-        return new ApiResponse<>(200, "Success", data);
+        return new ApiResponse<>(200, "成功", data);
     }
 
     public static <T> ApiResponse<T> error(int status, String message) {

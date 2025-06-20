@@ -7,9 +7,9 @@ function HeaderComponent({ name, applicationNo, appointmentTime }) {
  
     return (
         <div className="box1">
-            <span>Patient Name: {name}</span>
-            <span>Application No: {applicationNo}</span>
-            <span>Time: {extractDateTime(appointmentTime)}</span>
+            <span>患者姓名: {name}</span>
+            <span>申请编号: {applicationNo}</span>
+            <span>时间: {extractDateTime(appointmentTime)}</span>
         </div>
     );
 }

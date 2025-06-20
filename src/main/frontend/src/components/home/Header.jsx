@@ -37,7 +37,7 @@ const Header = () => {
         cookies.forEach(cookieName => {
             Cookies.remove(cookieName);
         });
-        alert("Logout success")
+        alert("退出成功")
     }
 
    
@@ -75,15 +75,15 @@ const Header = () => {
             </div>
             <div className="nav flex">
                 <ul className={sidebar ? "nav-links-sidebar" : "nav-links"} onClick={() => setSidebar(false)}>
-                    <li><ScrollLink to="home" smooth={true} duration={500}>Home</ScrollLink></li>
-                    <li><ScrollLink to="service" smooth={true} duration={500}>Service</ScrollLink></li>
-                    <li><ScrollLink to="contact" smooth={true} duration={500}>Contact</ScrollLink></li>
+                    <li><ScrollLink to="home" smooth={true} duration={500}>主页</ScrollLink></li>
+                    <li><ScrollLink to="service" smooth={true} duration={500}>服务</ScrollLink></li>
+                    <li><ScrollLink to="contact" smooth={true} duration={500}>联系</ScrollLink></li>
                 </ul>
                 {
                     loginIn ?
                         <><span style={{color: "#a4c0f7", fontSize:"0.8rem", position:"absolute", right:"31%"}}>{UserData.user_name}</span>
-                            <button onClick={() => clearSession()} >Sign Out</button></>
-                        : <button onClick={() => setVisible(true)}>Sign In</button>
+                            <button onClick={() => clearSession()} >退出登录</button></>
+                        : <button onClick={() => setVisible(true)}>登录</button>
                 }
 
                 <div className='navbar-items-icon' onClick={() => setSidebar(!sidebar)}>

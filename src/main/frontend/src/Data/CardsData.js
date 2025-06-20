@@ -1,10 +1,10 @@
 export const cardsData = [
     {
-      title: "New Requests",
+      title: "新申请",
       value: "20"
     },
     {
-      title: "On Processing",
+      title: "处理中",
       value: "21"
     }
   ];

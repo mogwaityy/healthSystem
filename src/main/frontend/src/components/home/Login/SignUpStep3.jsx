@@ -96,10 +96,10 @@ const SignUpStep3 = () => {
     return (
         <div style={{ backgroundColor: "#eaf0f7", display: "flex", height: "100vh" }}>
             <div className="mbanner-btn">
-                <Button onClick={() => history.push('/')} style={{ position: "absolute", top: "5%", left: "5%", width:"150px" }}>Back to Home</Button>
+                <Button onClick={() => history.push('/')} style={{ position: "absolute", top: "5%", left: "5%", width:"150px" }}>返回主页</Button>
             </div>
             <div className="bg-register">
-                <h1>Medical History</h1>
+                <h1>病史</h1>
                 <form onSubmit={handleSubmit} className="form-container mform1">
                     <FormGroup style={{marginLeft: "50px"}}>
                         <Grid container spacing={1}>
@@ -130,7 +130,7 @@ const SignUpStep3 = () => {
                             </Grid>
                             <Grid item>
         <span onClick={handleLabelClick} style={{ cursor: 'pointer', color: 'red' }}>
-            I agree to the Privacy Policy.
+            我同意隐私政策
         </span>
                             </Grid>
                         </Grid>
@@ -138,8 +138,8 @@ const SignUpStep3 = () => {
 
 
                     </FormGroup>
-                    <button type="submit" style={{ marginTop:"20px"}} className='submit-btn'>Submit</button>
-                    <button onClick={goBack} className='submit-btn'> Previous Step</button>
+                    <button type="submit" style={{ marginTop:"20px"}} className='submit-btn'>提交</button>
+                    <button onClick={goBack} className='submit-btn'>上一步</button>
                 </form>
             </div>
 

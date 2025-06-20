@@ -62,7 +62,7 @@ const TestResult = () => {
 
                 <button onClick={() => {
                     goBack()
-                }}>Back
+                }}>返回
                 </button>
             </div>
             <div className="Table" style={{margin:"20px 150px"}}>
@@ -75,10 +75,10 @@ const TestResult = () => {
                     <Table sx={{minWidth: 700}} aria-label="simple table" stickyHeader>
                         <TableHead>
                             <TableRow>
-                                <TableCell>Test Type</TableCell>
-                                <TableCell>Date</TableCell>
-                                <TableCell>Result</TableCell>
-                                <TableCell>Normal Range</TableCell>
+                                <TableCell>检测类型</TableCell>
+                                <TableCell>日期</TableCell>
+                                <TableCell>结果</TableCell>
+                                <TableCell>正常范围</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
