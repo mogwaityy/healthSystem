@@ -15,7 +15,7 @@ const Home = () => {
                 <div className="container flex">
                     <div className="img">
                         <img src={coverImage} alt="" />
-                        <button onClick={goBook}>Book an Appoinment</button>
+                        <button onClick={goBook}>预约看诊</button>
                     </div>
                 </div>
             </section>

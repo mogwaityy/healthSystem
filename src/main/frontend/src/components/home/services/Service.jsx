@@ -18,8 +18,8 @@ const Service = () => {
             <section className='service'>
                 <div className="container">
                     <div className="heading">
-                        <test>CARE YOU CAN BELIVE IN</test>
-                        <h2>OUR SERVICES</h2>
+                        <test>专业可靠的医疗服务</test>
+                        <h2>我们的服务</h2>
                     </div>
 
                     <div className="contain grid">

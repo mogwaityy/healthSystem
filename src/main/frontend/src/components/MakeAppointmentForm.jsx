@@ -83,7 +83,7 @@ function MakeAppointmentForm() {
                 </label>
             </div>
             <div className="form-row">
-                <button type="submit" className="submit-btn">Book Appointment</button>
+                <button type="submit" className="submit-btn">确认预约</button>
             </div>
         </form>
     );

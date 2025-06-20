@@ -46,11 +46,11 @@ const AdminLogin = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!formData.email || !formData.password ) {
-            alert("All fields are required!");
+            alert("所有字段均为必填！");
             return;
         }
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-            alert("Invalid email format!");
+            alert("邮箱格式不正确！");
             return;
         }
 
@@ -85,7 +85,7 @@ const AdminLogin = () => {
     return (
         <div style={{backgroundColor: "#eaf0f7", display: "flex", height: "100vh"}}>
             <div className="bg-register">
-                <h1 style={{textAlign: "center", color: "#1F2B6C", marginBottom: "40px"}}>Sign In</h1>
+                <h1 style={{textAlign: "center", color: "#1F2B6C", marginBottom: "40px"}}>登录</h1>
                 <form onSubmit={handleSubmit}>
                     {LoginData2.map((field, index) => (
                         <FormControl fullWidth key={index} margin="normal" variant="outlined" fullwidth>
@@ -125,7 +125,7 @@ const AdminLogin = () => {
                         cursor: "pointer",
                         marginTop: "20px"
                     }}>
-                        Sign In
+                        登录
                     </Button>
 
                 </form>
