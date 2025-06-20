@@ -14,8 +14,8 @@ function createData(name, gender, birth, mobile, email, medicalHistory) {
   return { name, gender, birth, mobile, email, medicalHistory };
 }
 
-let mapGender = ["Male","Female","Male"]
-let mapStatus = ["","Passed","Rejected"]
+let mapGender = ["男","女","男"]
+let mapStatus = ["","通过","拒绝"]
 // const rows = [
 //   createData("John Doe", "Male", "15 April 1985", "1234567890", "johndoe@example.com", "None"),
 //   createData("Jane Smith", "Female", "23 June 1990", "0987654321", "janesmith@example.com", "Allergy"),
@@ -39,9 +39,9 @@ export default function BasicTable() {
           patientId,
           status:1
         })
-        alert("Please wait for a while")
+        alert("请稍候")
         if(!data?.reponseFailStatus){
-          alert("Success")
+          alert("操作成功")
           fetchData()
         }
   }
@@ -51,9 +51,9 @@ export default function BasicTable() {
       patientId,
       status:2
     })
-    alert("Please wait for a while")
+    alert("请稍候")
     if(!data?.reponseFailStatus){
-      alert("Success")
+      alert("操作成功")
       fetchData()
     }
   }
@@ -74,13 +74,13 @@ export default function BasicTable() {
         <Table sx={{ minWidth: 1200 }} aria-label="simple table" stickyHeader>
           <TableHead>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Gender</TableCell>
-              <TableCell>Birth</TableCell>
-              <TableCell>Mobile</TableCell>
-              <TableCell>Email</TableCell>
-             
-              <TableCell>Operation</TableCell>
+              <TableCell>姓名</TableCell>
+              <TableCell>性别</TableCell>
+              <TableCell>出生日期</TableCell>
+              <TableCell>电话</TableCell>
+              <TableCell>邮箱</TableCell>
+
+              <TableCell>操作</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -95,10 +95,10 @@ export default function BasicTable() {
                 <TableCell>
                   <Button onClick={()=>{
                     reviewRegisterAgree(row.patientId)
-                  }} color="success" variant="contained" style={{ marginRight: 8 }}>Approve</Button>
+                  }} color="success" variant="contained" style={{ marginRight: 8 }}>通过</Button>
                   <Button onClick={()=>{
                     reviewRegisterReject(row.patientId)
-                  }}  color="error" variant="contained">Reject</Button>
+                  }}  color="error" variant="contained">拒绝</Button>
                 </TableCell>
               </TableRow>
             )) : ""}

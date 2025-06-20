@@ -45,11 +45,11 @@ const SignUpStep2 = () => {
         e.preventDefault();
         console.log("Form Data:", formData); // 打印表单数据以进行调试
         if (!formData.password.trim() || !formData.confirmPassword.trim()) {
-            alert("All fields cannot be empty.");
+            alert("所有字段不能为空");
             return;
         }
         if (formData.password.length < 8) {
-            alert("Password must be at least 8 characters long.");
+            alert("密码长度必须至少8位");
             return;
         }
         if (!/[A-Z]/.test(formData.password) || !/[a-z]/.test(formData.password)) {

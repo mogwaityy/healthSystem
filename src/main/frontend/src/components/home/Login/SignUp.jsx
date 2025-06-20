@@ -45,12 +45,12 @@ const SignUpStep1 = () => {
 
         SignUpData1.forEach(field => {
             if (field.required && (!data[field.name] || data[field.name].trim() === '')) {
-                errors.common = 'Field cannot be empty';
+                errors.common = '所有字段不能为空';
             }
         });
 
         if (data.email && !isValidEmail(data.email)) {
-            errors.email = 'Invalid email format';
+            errors.email = '邮箱格式无效';
         }
 
         return errors;
@@ -100,7 +100,7 @@ const SignUpStep1 = () => {
                             )}
                         </div>
                     ))}
-                    <button type="submit" className='submit-btn'> Next Step</button>
+                    <button type="submit" className='submit-btn'>下一步</button>
                 </form>
             </div>
         </div>

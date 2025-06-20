@@ -21,7 +21,7 @@ function MakeAppointment() {
                 <div className="container" style={{background: "#eaf0f7", minHeight:"100vh"}}>
                     <div className="mbanner">
                         <img style={{width: "100%"}} src={AppointmentImg}></img>
-                        <button onClick={goBack}>Back</button>
+                        <button onClick={goBack}>返回</button>
                     </div>
                         <div className="container flex"
                              style={{marginTop: "20px", marginLeft: "10%", marginRight: "10%"}}>
