@@ -14,7 +14,7 @@ export const ContactData = [
     {
         icon: <i className='fa fa-location-dot'></i>,
         method: "地址",
-        content1:"广东省深圳市福田区益田路5033号",
+        content1:"中国深圳市福田区益田路5033号",
         content2:"平安金融中心"
     },
     {
