@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 import './MedicalAssistant.css';
 
 const MedicalAssistant = () => {
@@ -18,21 +18,12 @@ const MedicalAssistant = () => {
         { role: 'system', content: 'You are a helpful medical assistant.' },
         ...newMessages,
       ];
-      const res = await axios.post(
-        'https://api.deepseek.com/chat/completions',
-        {
-          model: 'deepseek-chat',
-          messages: apiMessages,
-          stream: false,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${process.env.REACT_APP_DEEPSEEK_API_KEY}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      const reply = res.data.choices?.[0]?.message?.content || '无法获取回复';
+      const res = await api.post('/assistant/chat', {
+        model: 'deepseek-chat',
+        messages: apiMessages,
+        stream: false,
+      });
+      const reply = res || '无法获取回复';
       setMessages([...newMessages, { role: 'assistant', content: reply }]);
     } catch (err) {
       setMessages([...newMessages, { role: 'assistant', content: '请求失败' }]);
