@@ -1,0 +1,58 @@
+.medical-assistant-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+.assistant-toggle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #1976d2;
+  color: #fff;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+}
+.assistant-panel {
+  width: 300px;
+  height: 400px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+}
+.assistant-messages {
+  flex: 1;
+  padding: 8px;
+  overflow-y: auto;
+}
+.msg {
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+.msg.user {
+  text-align: right;
+}
+.assistant-input {
+  display: flex;
+  border-top: 1px solid #ddd;
+}
+.assistant-input input {
+  flex: 1;
+  padding: 6px;
+  border: none;
+  outline: none;
+}
+.assistant-input button {
+  padding: 6px 12px;
+  border: none;
+  background: #1976d2;
+  color: #fff;
+  cursor: pointer;
+}

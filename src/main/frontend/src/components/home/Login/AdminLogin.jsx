@@ -29,12 +29,13 @@ const AdminLogin = () => {
     };
 
     function parseDynamicLoginResponse(responseString) {
-        const regex = /(.+), token: ([a-f0-9-]+)/i;
+        // 兼容中文逗号和冒号，提取token
+        const regex = /token[:：]\s*([a-f0-9-]+)/i;
         const match = responseString.match(regex);
 
         if (match) {
-            const successMessage = match[1].trim(); // 匹配登录成功的未知信息并去除前后空白
-            const token = match[2]; // 第二个括号内的内容即为token
+            const token = match[1];
+            const successMessage = responseString.split(/token[:：]/)[0].trim();
             history.push('./admin/dash')
             return { successMessage, token };
         } else {

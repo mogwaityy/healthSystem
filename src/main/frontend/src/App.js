@@ -30,6 +30,7 @@ import AllTest from "./components/AllTest";
 import AuthRoute from './components/useAuth';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Cookies from 'js-cookie';
+import MedicalAssistant from './components/MedicalAssistant';
 window.alert = toast;
 emitter.on("ccc",(data)=>{
   console.log("ccc->data",data)
@@ -193,6 +194,7 @@ function App() {
 
         </Switch>
         </AuthRoute>
+        <MedicalAssistant />
       </Router>
   );
 }
