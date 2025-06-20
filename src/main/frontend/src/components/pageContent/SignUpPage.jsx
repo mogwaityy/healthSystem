@@ -16,7 +16,7 @@ const SignUpPage = () => {
 
     return (
         <div className="signup-page">
-            <h1>Sign Up</h1>
+            <h1>注册</h1>
             {currentStep === 1 && <SignUpStep1 onNext={handleNextStep} />}
             {currentStep === 2 && <SignUpStep2 onNext={handleNextStep} />}
             {currentStep === 3 && <SignUpStep3 onNext={handleNextStep} />}

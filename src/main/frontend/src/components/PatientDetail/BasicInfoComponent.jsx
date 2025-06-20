@@ -7,15 +7,15 @@ function BasicInfoComponent({ patientInfo }) {
     const {extractDate} = useExtractDate()
     return (
         <div className="basic-info box2">
-            <h3>Basic Information</h3>
+            <h3>基本信息</h3>
             <div className="info-row">
-                <p><strong>Date of Birth:</strong> {extractDate(patientInfo.dob)}</p>
-               
-                <p><strong>Gender:</strong> {patientInfo.gender}</p>
+                <p><strong>出生日期:</strong> {extractDate(patientInfo.dob)}</p>
+
+                <p><strong>性别:</strong> {patientInfo.gender}</p>
             </div>
             <div className="info-row">
-                <p><strong>Mobile Number:</strong> {patientInfo.mobile}</p>
-                <p><strong>Email Address:</strong> {patientInfo.email}</p>
+                <p><strong>联系电话:</strong> {patientInfo.mobile}</p>
+                <p><strong>邮箱地址:</strong> {patientInfo.email}</p>
              
             </div>
         </div>

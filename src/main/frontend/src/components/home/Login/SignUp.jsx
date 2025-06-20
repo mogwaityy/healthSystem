@@ -45,12 +45,12 @@ const SignUpStep1 = () => {
 
         SignUpData1.forEach(field => {
             if (field.required && (!data[field.name] || data[field.name].trim() === '')) {
-                errors.common = 'Field cannot be empty';
+                errors.common = '所有字段不能为空';
             }
         });
 
         if (data.email && !isValidEmail(data.email)) {
-            errors.email = 'Invalid email format';
+            errors.email = '邮箱格式无效';
         }
 
         return errors;
@@ -63,11 +63,11 @@ const SignUpStep1 = () => {
     return (
         <div style={{backgroundColor:"#eaf0f7", display:"flex", height:"100vh"}}>
             <div className="mbanner-btn">
-                <button onClick={goBack} style={{position:"absolute", top:"5%",left:"5%", width:"150px"}}>Back to Home</button>
+                <button onClick={goBack} style={{position:"absolute", top:"5%",left:"5%", width:"150px"}}>返回主页</button>
             </div>
 
             <div className="bg-register">
-                <h1>Sign Up</h1>
+                <h1>注册</h1>
                 <form onSubmit={handleSubmit} className="form-container mform1">
                     {SignUpData1.map((field, index) => (
                         <div className="input-group" key={index}>
@@ -100,7 +100,7 @@ const SignUpStep1 = () => {
                             )}
                         </div>
                     ))}
-                    <button type="submit" className='submit-btn'> Next Step</button>
+                    <button type="submit" className='submit-btn'>下一步</button>
                 </form>
             </div>
         </div>

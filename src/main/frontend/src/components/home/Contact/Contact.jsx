@@ -7,8 +7,8 @@ const Contact = () => {
             <section className='contact'>
                 <div className="container">
                     <div className="heading">
-                        <test>GET IN TOUCH</test>
-                        <h2>CONTACTS</h2>
+                        <test>保持联系</test>
+                        <h2>联系方式</h2>
                     </div>
 
 
@@ -27,9 +27,9 @@ const Contact = () => {
                     </div>
 
                     <div className="footer-map" style={{margin: "0 180px"}}>
-                        <h3 style={{textAlign:"center", fontSize:"1.8rem"}}>Pharmacy Map</h3>
+                        <h3 style={{textAlign:"center", fontSize:"1.8rem"}}>药店地图</h3>
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2514.3497096557294!2d-1.3992183875135678!3d50.93574535218484!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487473f58304cebf%3A0x50cabc792a027365!2sUniversity%20of%20Southampton%20Highfield%20Campus!5e0!3m2!1szh-CN!2suk!4v1715172476008!5m2!1szh-CN!2suk"
+                            src="https://maps.google.com/maps?q=%E5%B9%B3%E5%AE%89%E9%87%91%E8%9E%8D%E4%B8%AD%E5%BF%83%20%E6%B7%B1%E5%9C%B3&z=15&output=embed"
                             width="600"
                             height="450"
                             style={{border: 0}}

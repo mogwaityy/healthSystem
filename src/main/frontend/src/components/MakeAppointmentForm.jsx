@@ -14,7 +14,7 @@ function MakeAppointmentForm() {
         specialty: ''
     });
 
-    const specialties = ["Cardiology", "Dermatology", "Neurology", "Pediatrics", "General Practice"];
+    const specialties = ["心脏科", "皮肤科", "神经科", "儿科", "全科"];
 
     useEffect(() => {
         if (location.state && location.state.appointment) {
@@ -52,7 +52,7 @@ function MakeAppointmentForm() {
         let result = await bookAppointmentApi(data);
         console.log('result===>', result);
         if (!result?.responseFailStatus) {
-            alert('Appointment booked successfully');
+            alert('预约提交成功');
         }
     };
 
@@ -64,13 +64,13 @@ function MakeAppointmentForm() {
         <form onSubmit={handleSubmit} className="form-container mform">
             <div className="form-row">
                 <label className="form-label">
-                    <span>Date:</span>
+                    <span>日期:</span>
                     <input type="date" name="date" value={appointment.date} onChange={handleChange} required min={minDate} max={maxDate} className="form-input"/>
                 </label>
             </div>
             <div className="form-row">
                 <label className="form-label">
-                    <span>Time:</span>
+                    <span>时间:</span>
                     <input type="time" name="time" value={appointment.time} onChange={handleChange} required min="08:00" max="18:00" step="3600" className="form-input"/>
                 </label>
             </div>
@@ -78,12 +78,12 @@ function MakeAppointmentForm() {
             <div className="form-row">
                 <label className="form-label">
                     <textarea name="description" value={appointment.description} onChange={handleChange}
-                              placeholder="Describe the reason for the appointment..." required
+                              placeholder="请描述预约原因..." required
                               className="form-textarea"/>
                 </label>
             </div>
             <div className="form-row">
-                <button type="submit" className="submit-btn">Book Appointment</button>
+                <button type="submit" className="submit-btn">确认预约</button>
             </div>
         </form>
     );

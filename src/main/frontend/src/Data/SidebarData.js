@@ -7,27 +7,27 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 export const SidebarData = [
     {
         icon: HomeIcon,
-        heading: "Appointments",
+        heading: "预约管理",
         link: "/admin/dash"
     },
     {
         icon:CalendarMonthIcon,
-        heading: "Doctor Schedule",
+        heading: "医生排班",
         link: "/admin/schedule"
     },
     {
         icon: DescriptionIcon,
-        heading:"Register Request",
+        heading:"注册申请",
         link: "/admin/register-request"
     },
     {
         icon: AddBoxIcon,
-        heading:"New Doctor",
+        heading:"新增医生",
         link: "/admin/create-doctor"
     },
     {
         icon:LogoutIcon,
-        heading: "Log Out",
+        heading: "退出登录",
         key:"logout",
         link: "/"
     }
@@ -36,17 +36,17 @@ export const SidebarData = [
 export const SidebarData2 = [
     {
         icon: HomeIcon,
-        heading: "Appointments",
+        heading: "预约管理",
         link: "/doctor/dash"
     },
     {
         icon:CalendarMonthIcon,
-        heading: "Schedule",
+        heading: "排班信息",
         link: "/doctor/schedule"
     },
     {
         icon:LogoutIcon,
-        heading: "Log Out",
+        heading: "退出登录",
         key:"logout",
         link: "/"
     }
