@@ -15,7 +15,7 @@ const MedicalAssistant = () => {
     setInput('');
     try {
       const apiMessages = [
-        { role: 'system', content: 'You are a helpful medical assistant.' },
+        { role: 'system', content: 'You are a helpful assistant.' },
         ...newMessages,
       ];
       const res = await api.post('/assistant/chat', {
