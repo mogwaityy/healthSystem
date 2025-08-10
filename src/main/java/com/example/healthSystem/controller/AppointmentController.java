@@ -118,7 +118,8 @@ public class AppointmentController {
     @ResponseBody
     @RequestMapping("/getDoctorSchedule")
     public ApiResponse<List<DoctorSchedule>> getDoctorSchedule(@RequestBody String doctorId) {
-        return appointmentService.getDoctorSchedule(doctorId);
+        ApiResponse<List<DoctorSchedule>> doctorSchedule = appointmentService.getDoctorSchedule(doctorId);
+        return doctorSchedule;
     }
 
     //医生获取他自己的时间表

@@ -30,18 +30,18 @@ export default function AuthRoute({ children }) {
   //|| (!token &&  currentPath != "/admin-login")
   if((!token &&  currentPath != "/")  ){
     console.log("未登录用户")
-    window.alertTsg("Please sign in first.");
+    window.alertTsg("请先登录");
     history.replace("/"); // 使
   }
 
   
   if ((pcStatus == 0 ) && role == "patient") {
-    window.alertTsg("Sorry, your account haven't been authorised");
+    window.alertTsg("对不起，您的账户还未被授权");
     history.replace("/"); // 使
     return
   }
   if ((pcStatus == 2) && role == "patient") {
-    window.alertTsg("Sorry, your account was rejected ");
+    window.alertTsg("对不起，您的账户有异常，已被拒绝授权");
     history.replace("/"); // 使
     return
   }

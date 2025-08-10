@@ -48,17 +48,17 @@ function PrescriptionDetails() {
     <Paper style={{ padding: "20px", height:"700px"}}>
       <Typography variant="h4" style={{ marginBottom: "20px", textAlign:"center", color:"#1F2B6C", padding:"20px"}}>Prescription Details</Typography>
       <div style={{display:"flex", marginLeft:"40px"}}>
-      <Typography style={{marginRight:"50px"}}><strong>Doctor:</strong> {prescription.doctor}</Typography>
-      <Typography style={{marginRight:"50px"}}><strong>Diagnosis:</strong> {prescription.diagnosis}</Typography>
+      <Typography style={{marginRight:"50px"}}><strong>医生:</strong> {prescription.doctor}</Typography>
+      <Typography style={{marginRight:"50px"}}><strong>症状:</strong> {prescription.diagnosis}</Typography>
       </div>
-      <Typography style={{marginLeft:"40px", marginTop:"20px", marginBottom:"40px"}}><strong>Description:</strong> {prescription.description}</Typography>
+      <Typography style={{marginLeft:"40px", marginTop:"20px", marginBottom:"40px"}}><strong>详细描述:</strong> {prescription.description}</Typography>
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Medicine</TableCell>
-            <TableCell>Quantity</TableCell>
-            <TableCell>Unit</TableCell>
-            <TableCell>Dosage</TableCell>
+            <TableCell>药品名称</TableCell>
+            <TableCell>数量</TableCell>
+            <TableCell>单位</TableCell>
+            <TableCell>剂量</TableCell>
 
           </TableRow>
         </TableHead>

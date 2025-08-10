@@ -362,10 +362,10 @@ footer .icon label{
   height: auto; /* 保持图片的原始宽高比 */
 }
 
-media  screen and (max-width: 768px) {
+@media  screen and (max-width: 768px) {
 
 footer .grid1{
-  grid-template-columns:(2, 1fr);
+  grid-template-columns:repeat(2, 1fr);
 }
 
 .contact .contain .box {

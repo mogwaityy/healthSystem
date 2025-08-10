@@ -8,7 +8,7 @@ import com.example.healthSystem.common.CommonFunction;
 import com.example.healthSystem.entity.*;
 import com.example.healthSystem.mapper.*;
 import com.example.healthSystem.service.IAppointmentService;
-import com.example.healthSystem.service.IOptionalService;
+import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -35,7 +35,7 @@ public class AppointmentServiceImpl implements IAppointmentService {
     @Autowired
     DoctorMapper doctorMapper;
 
-    @Autowired
+    @Resource
     JavaMailSender mailSender;
 
     @Autowired
@@ -61,6 +61,9 @@ public class AppointmentServiceImpl implements IAppointmentService {
                     //注册未通过或注册被拒绝不能预约
                     if (patient.getStatus()==0||patient.getStatus()==2)return ApiResponse.error(400,"您无法预约，请检查您的注册状态。");
                 }
+                if (appointment.getDate() != null) {
+                    appointment.setDate(appointment.getDate().plusHours(15));
+                }
             }
         }
 
@@ -70,6 +73,10 @@ public class AppointmentServiceImpl implements IAppointmentService {
 
     @Override
     public ApiResponse<String> updateDoctorSchedule(DoctorSchedule doctorSchedule) {
+        if (doctorSchedule != null) {
+            doctorSchedule.setStartTime(doctorSchedule.getStartTime().plusHours(15));
+            doctorSchedule.setEndTime(doctorSchedule.getEndTime().plusHours(15));
+        }
         //更改时间表
         if (doctorSchedule.getScheduleId()==null){
             doctorScheduleMapper.insert(doctorSchedule);
@@ -79,7 +86,7 @@ public class AppointmentServiceImpl implements IAppointmentService {
         Appointment appointment=new Appointment();
         appointment.setAppointmentId(doctorSchedule.getAppointmentId());
         appointment.setDoctorId(doctorSchedule.getDoctorId());
-        appointment.setDate(doctorSchedule.getStartTime());
+        appointment.setDate(doctorSchedule.getStartTime().minusHours(15));
         //0-未分配医生待审核，1-已分配医生
         appointment.setStatus(1);
         appointmentMapper.updateById(appointment);
@@ -200,7 +207,7 @@ public class AppointmentServiceImpl implements IAppointmentService {
     @Override
     public ApiResponse<String> alternativeAppointment(AlternativeAppointmentDTO alternativeAppointmentDTO) {
         Long appointmentId=alternativeAppointmentDTO.getAppointmentId();
-        LocalDateTime newTime=alternativeAppointmentDTO.getNewTime();
+        LocalDateTime newTime=alternativeAppointmentDTO.getNewTime().plusHours(15);
         UpdateWrapper<Appointment> updateWrapper=new UpdateWrapper<>();
         updateWrapper.eq("appointment_id",appointmentId);
         updateWrapper.set("status",4);
