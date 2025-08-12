@@ -7,7 +7,7 @@ export const AdminDash = () => {
   return (
       <div className='MainDash'>
           <div className="top-bar" style={{marginBottom:"30px"}}>
-              <h1>All Register Requests</h1>
+              <h1>注册请求</h1>
           </div>
           <UserInfoTable/>
 

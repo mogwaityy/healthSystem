@@ -2,7 +2,7 @@ import React from 'react'
 
 const Operation = () => {
   return (
-    <div>Operation</div>
+    <div>操作</div>
   )
 }
 

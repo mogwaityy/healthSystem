@@ -141,14 +141,14 @@ function DoctorTimetable() {
 
     return (
         <div className="MainDash">
-            <h1>Schedule for All Doctors</h1>
+            <h1>医生排班表</h1>
 
             <div style={{marginTop:"40px", marginLeft:"25px"}} >
             <FormControl size="small" style={{minWidth:"200px", backgroundColor:"white",marginRight:"20px"}}>
                 <InputLabel id="doctor-select-label">Select  Surgery</InputLabel>
                 <Select
                     labelId="Surgery-select-label"
-                    label="Select a Surgery"
+                    label="科室"
                     onChange={(e)=>{
                         handleChange(e)
                     }}
@@ -166,7 +166,7 @@ function DoctorTimetable() {
                 <InputLabel id="doctor-select-label">Select a Doctor</InputLabel>
                 <Select
                     labelId="doctor-select-label"
-                    label="Select a Doctor"
+                    label="医生"
                     onChange={handleDoctorChange}
                 >
                     <MenuItem value="">

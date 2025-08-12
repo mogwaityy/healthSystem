@@ -6,7 +6,7 @@ const MainDash = () => {
   return (
     <div className="MainDash">
         <div className="top-bar">
-            <h1>Appointment Requests</h1>
+            <h1>预约请求</h1>
         </div>
       <Table />
     </div>
