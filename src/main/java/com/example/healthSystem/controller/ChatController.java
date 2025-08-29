@@ -38,7 +38,7 @@ public class ChatController {
                 }
             }
         } catch (Exception e) {
-            // ignore
+            e.printStackTrace();
         }
         return ApiResponse.error(500, "请求失败");
     }
